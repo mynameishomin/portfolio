@@ -1,6 +1,6 @@
 export const notionApiKey =
     "secret_cmuZifHPNQRnF7Jb6w4rjI9iwtDnxSMh4LemqzatItb";
-export const baseUrl = "http://localhost:3000";
+export const baseUrl = "https://portfolio-two-ashy-54.vercel.app";
 export const ghostUrl = "https://mynameishomin.com";
 export const ghostApiKey = "c816dde08851bb1887f22f14a8";
 
