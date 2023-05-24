@@ -3,28 +3,28 @@ import GradientText from "./gradientText";
 
 export default function Profile() {
     return (
-        <div className="hidden flex-col items-center justify-center leading-tight lg:pb-8 lg:flex">
+        <div className="flex flex-col items-center justify-center leading-tight lg:pb-8 text-point">
             <Image
-                className="w-24 mb-2 rounded-full"
+                className="w-40 mb-6 rounded-full"
                 src="/images/profile-photo.jpeg"
-                alt=""
-                width={96}
-                height={96}
+                alt="정호민 프로필 사진"
+                width={152}
+                height={152}
             />
-            <GradientText>
-                <span>Wellcome</span>
-            </GradientText>
-            <GradientText>
-                <strong>My name is homin</strong>
-            </GradientText>
-            <div className="flex mt-6 space-x-4 text-gray-600">
+
+            <div className="flex items-end space-x-4 mb-2 font-han">
+                <span className="text-lg">웹퍼블리셔</span>
+                <span className="text-2xl">정호민</span>
+            </div>
+
+            <div className="flex space-x-4">
                 <a
                     href="https://mynameishomin.com/"
                     target="_blank"
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:scale-125 hover:text-white transition duration-300"
+                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"
@@ -38,7 +38,7 @@ export default function Profile() {
               rel="noreferrer"
             >
               <svg
-                className="w-5 hover:scale-125 hover:text-white transition duration-300"
+                className="w-5 hover:scale-125 hover:text-black transition duration-300"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 448 512"
                 fill="currentColor"
@@ -52,7 +52,7 @@ export default function Profile() {
               rel="noreferrer"
             >
               <svg
-                className="w-5 hover:scale-125 hover:text-white transition duration-300"
+                className="w-5 hover:scale-125 hover:text-black transition duration-300"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -66,7 +66,7 @@ export default function Profile() {
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:scale-125 hover:text-white transition duration-300"
+                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 496 512"
                         fill="currentColor"
@@ -76,7 +76,7 @@ export default function Profile() {
                 </a>
                 <a href="mailto:mynameishomin@gmail.com">
                     <svg
-                        className="w-5 hover:scale-125 hover:text-white transition duration-300"
+                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"
