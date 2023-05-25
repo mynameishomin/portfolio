@@ -25,24 +25,26 @@ export default function BlogPosts() {
     }, []);
 
     return (
-        <div className="flex flex-col grow h-full overflow-hidden">
-            <h2 className="mb-2 text-xl text-gray-400">블로그 포스트</h2>
+        <div className="font-han flex flex-col grow h-full text-sub">
+            <h2 className="font-han text-base">RECENTLY ON MY BLOG</h2>
             {posts.length ? (
-                <ul className="grow h-full space-y-6 pt-4 border-t-2 border-gray-500 overflow-auto">
+                <ul className="grow h-full space-y-4 pt-4 overflow-auto">
                     {posts.map((post: any) => {
                         return (
-                            <li
-                                key={post.id}
-                                className="text-gray-400 hover:text-white transition duration-300"
-                            >
+                            <li key={post.id}>
                                 <Link href={post.url} target="_blank">
-                                    <h3 className="mb-2 text-lg truncate">
+                                    <h3 className="text-sm font-semibold truncate hover:text-black">
                                         {post.title}
                                     </h3>
-                                    <p className="max-h-14 text-ellipsis overflow-hidden text-sm">
-                                        {post.excerpt}
-                                    </p>
                                 </Link>
+                                <time
+                                    className="block text-xs font-medium text-right"
+                                    dateTime={post.created_at.split("T")[0]}
+                                >
+                                    {post.created_at
+                                        .split("T")[0]
+                                        .replaceAll("-", ".")}
+                                </time>
                             </li>
                         );
                     })}

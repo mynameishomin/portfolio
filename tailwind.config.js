@@ -12,9 +12,10 @@ module.exports = {
             },
             colors: {
                 main: "#ebff82",
-                point: "#ff9682",
+                point: "#82acff",
+                sub: "#ff9682",
             },
         },
     },
-    plugins: [],
+    plugins: [require("tailwind-scrollbar-hide"), require("tailwindcss-3d")],
 };

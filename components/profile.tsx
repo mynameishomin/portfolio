@@ -3,7 +3,7 @@ import GradientText from "./gradientText";
 
 export default function Profile() {
     return (
-        <div className="flex flex-col items-center justify-center leading-tight lg:pb-8 text-point">
+        <div className="flex flex-col items-center justify-center mb-12 leading-tight text-sub">
             <Image
                 className="w-40 mb-6 rounded-full"
                 src="/images/profile-photo.jpeg"
@@ -24,7 +24,7 @@ export default function Profile() {
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
+                        className="w-5 hover:text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"
@@ -32,41 +32,13 @@ export default function Profile() {
                         <path d="M192 32c0 17.7 14.3 32 32 32c123.7 0 224 100.3 224 224c0 17.7 14.3 32 32 32s32-14.3 32-32C512 128.9 383.1 0 224 0c-17.7 0-32 14.3-32 32zm0 96c0 17.7 14.3 32 32 32c70.7 0 128 57.3 128 128c0 17.7 14.3 32 32 32s32-14.3 32-32c0-106-86-192-192-192c-17.7 0-32 14.3-32 32zM96 144c0-26.5-21.5-48-48-48S0 117.5 0 144V368c0 79.5 64.5 144 144 144s144-64.5 144-144s-64.5-144-144-144H128v96h16c26.5 0 48 21.5 48 48s-21.5 48-48 48s-48-21.5-48-48V144z" />
                     </svg>
                 </a>
-                {/* <a
-              href="https://www.instagram.com/mynameishomin/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg
-                className="w-5 hover:scale-125 hover:text-black transition duration-300"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                fill="currentColor"
-              >
-                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
-              </svg>
-            </a> */}
-                {/* <a
-              href="https://twitter.com/mynameishomin/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg
-                className="w-5 hover:scale-125 hover:text-black transition duration-300"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-              >
-                <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"></path>
-              </svg>
-            </a> */}
                 <a
                     href="https://github.com/mynameishomin/"
                     target="_blank"
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
+                        className="w-5 hover:text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 496 512"
                         fill="currentColor"
@@ -76,7 +48,7 @@ export default function Profile() {
                 </a>
                 <a href="mailto:mynameishomin@gmail.com">
                     <svg
-                        className="w-5 hover:scale-125 hover:text-black transition duration-300"
+                        className="w-5 hover:text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"
