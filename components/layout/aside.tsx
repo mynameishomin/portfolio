@@ -4,7 +4,7 @@ import BlogPosts from "../blogPosts";
 
 export default function Aside() {
     return (
-        <div className="relative flex flex-col w-1/4 max-w-xs shrink-0 px-6 py-8 bg-main overflow-scroll scrollbar-hide">
+        <div className="relative flex flex-col w-1/4 max-w-xs shrink-0 px-6 py-8 text-white bg-main overflow-scroll scrollbar-hide">
             <Profile />
             <Gnb />
             <BlogPosts />

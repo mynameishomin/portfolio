@@ -4,6 +4,7 @@ const notionSlice = createSlice({
     name: "notion",
     initialState: {
         notion: [] as any,
+        hasNotion: false,
     },
     reducers: {
         addNotion: (state, action) => {

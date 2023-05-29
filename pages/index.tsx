@@ -5,41 +5,140 @@ import BudgetList from "@/components/budgetList";
 import ReadingList from "@/components/readingList";
 import ProjectList from "@/components/projectList";
 import GuestBook from "@/components/layout/guestBook";
+import { notionStore } from "@/utils/store/notion";
+import { useEffect, useState } from "react";
 
-export default function Home({ notionData }: { notionData: any }) {
+export default function Home() {
+    const [notionData, setNotionData] = useState<any>([]);
+    (async () => {
+        const notionState = notionStore.getState();
+        notionState.notion.length
+            ? setNotionData(notionState.notion)
+            : setNotionData(await notionInit());
+    })();
+    console.log(notionData);
     return (
-        <div className="pt-20 pl-10 font-han text-sub">
-            <div className="mb-32">
-                <p className="text-4xl">
+        <div className="pt-20 px-10 font-han text-point">
+            <div className="flex flex-col">
+                <p className="mb-32 text-4xl">
                     할까? 말까?
                     <br />
                     고민 전에 일단 하고보는
-                    <br /> 행동력<span className="text-point"> MAX</span>{" "}
-                    웹퍼블리셔
+                    <br /> 행동력<span className="text-main"> MAX</span>
                     <br />
                     <br />
                     절벽 끝에서 무섭다고 울기보다
                     <br />
-                    차라리 뛰어내리는 <span className="text-point">상남자</span>
+                    차라리 뛰어내리는 <span className="text-main">상남자</span>
                     <br />
                     <br />
-                    저는<span className="text-point"> 정호민</span> 입니다.
+                    <span className="text-main">1년차</span> 웹퍼블리셔
+                    <br />
+                    <br />
+                    저는<span className="text-main"> 정호민</span> 입니다.
                 </p>
+                <ul className="flex space-x-6">
+                    <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
+                        <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
+                        <div className="relative ">
+                            <span className="relative block mb-2 text-5xl">
+                                <span className="relative">
+                                    {notionData.project
+                                        ? notionData.project.results.filter(
+                                              (project: any) => {
+                                                  return (
+                                                      project.properties.Type
+                                                          .select.name ===
+                                                      "퍼블리싱"
+                                                  );
+                                              }
+                                          ).length
+                                        : "-"}
+                                </span>
+                            </span>
+                            <div className="group-hover:text-white transition-all duration-300">
+                                <h3 className="mb-1 text-xl">
+                                    퍼블리싱 프로젝트
+                                </h3>
+                                <p className="font-sans font-semibold text-base">
+                                    반응형 웹, 크로스 브라우징, 웹접근성을
+                                    준수한 퍼블리싱을 수행합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
+                        <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
+                        <div className="relative ">
+                            <span className="relative block mb-2 text-5xl">
+                                <span className="relative">
+                                    {notionData.project
+                                        ? notionData.project.results.filter(
+                                              (project: any) => {
+                                                  return (
+                                                      project.properties.Type
+                                                          .select.name ===
+                                                      "프론트엔드"
+                                                  );
+                                              }
+                                          ).length
+                                        : "-"}
+                                </span>
+                            </span>
+                            <div className="group-hover:text-white transition-all duration-300">
+                                <h3 className="mb-1 text-xl">
+                                    프론트엔드 프로젝트
+                                </h3>
+                                <p className="font-sans font-semibold text-base">
+                                    프론트엔드 프로젝트를 수행합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
+                        <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
+                        <div className="relative ">
+                            <span className="relative block mb-2 text-5xl">
+                                <span className="relative">
+                                    {" "}
+                                    {notionData.project
+                                        ? notionData.project.results.filter(
+                                              (project: any) => {
+                                                  return (
+                                                      project.properties.Type
+                                                          .select.name ===
+                                                      "토이"
+                                                  );
+                                              }
+                                          ).length
+                                        : "-"}
+                                </span>
+                            </span>
+                            <div className="group-hover:text-white transition-all duration-300">
+                                <h3 className="mb-1 text-xl">토이 프로젝트</h3>
+                                <p className="font-sans font-semibold text-base">
+                                    토이 프로젝트를 진행합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div className="inline-flex flex-col space-y-4 text-5xl text-sub whitespace-nowrap">
+
+            {/* <div className="inline-flex flex-col space-y-4 text-5xl whitespace-nowrap">
                 <Link
                     className="group relative origin-top-left"
                     href={"/about"}
                 >
                     <span className="text-black">저를 알려드릴게요</span>
                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden group-hover:w-0 transition-all">
-                        <span className="absolute inset-0">
-                            저를 알려드릴게요
-                        </span>
                         <span className="absolute top-2 left-2 text-point">
                             저를 알려드릴게요
                         </span>
-                        <span className="absolute top-1 left-1 text-main">
+                        <span className="absolute inset-0 text-main">
+                            저를 알려드릴게요
+                        </span>
+                        <span className="absolute top-1 left-1 text-sub">
                             저를 알려드릴게요
                         </span>
                     </div>
@@ -78,7 +177,7 @@ export default function Home({ notionData }: { notionData: any }) {
                         </span>
                     </div>
                 </Link>
-            </div>
+            </div> */}
         </div>
         // <div className="relative flex flex-col w-full space-y-4">
         //     <div className="flex">
@@ -118,13 +217,4 @@ export default function Home({ notionData }: { notionData: any }) {
         //     </div>
         // </div>
     );
-}
-
-export async function getServerSideProps() {
-    const notionData = await notionInit();
-    return {
-        props: {
-            notionData,
-        },
-    };
 }

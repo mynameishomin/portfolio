@@ -11,9 +11,9 @@ module.exports = {
                 han: ["Black Han Sans"],
             },
             colors: {
-                main: "#ebff82",
-                point: "#82acff",
-                sub: "#ff9682",
+                main: "#6E07F3",
+                point: "#141c3a",
+                sub: "#f9ff21",
             },
         },
     },

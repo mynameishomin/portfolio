@@ -17,7 +17,6 @@ export default function BlogPosts() {
             .browse({ limit: 10 })
             .then((posts) => {
                 setPosts(posts);
-                console.log(posts);
             })
             .catch((err) => {
                 console.error(err);
@@ -25,20 +24,21 @@ export default function BlogPosts() {
     }, []);
 
     return (
-        <div className="font-han flex flex-col grow h-full text-sub">
-            <h2 className="font-han text-base">RECENTLY ON MY BLOG</h2>
+        <div className="flex flex-col grow h-full">
+            <h2 className="mb-2 font-han text-base">블로그 최신 글</h2>
             {posts.length ? (
-                <ul className="grow h-full space-y-4 pt-4 overflow-auto">
+                <ul className="grow h-full space-y-3">
                     {posts.map((post: any) => {
                         return (
                             <li key={post.id}>
-                                <Link href={post.url} target="_blank">
-                                    <h3 className="text-sm font-semibold truncate hover:text-black">
+                                <h3 className="text-sm font-semibold truncate hover:text-black">
+                                    <Link href={post.url} target="_blank">
                                         {post.title}
-                                    </h3>
-                                </Link>
+                                    </Link>
+                                </h3>
+
                                 <time
-                                    className="block text-xs font-medium text-right"
+                                    className="block text-xs font-medium"
                                     dateTime={post.created_at.split("T")[0]}
                                 >
                                     {post.created_at

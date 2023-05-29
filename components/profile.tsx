@@ -3,7 +3,7 @@ import GradientText from "./gradientText";
 
 export default function Profile() {
     return (
-        <div className="flex flex-col items-center justify-center mb-12 leading-tight text-sub">
+        <div className="flex flex-col items-center justify-center mb-12 leading-tight">
             <Image
                 className="w-40 mb-6 rounded-full"
                 src="/images/profile-photo.jpeg"
@@ -24,7 +24,7 @@ export default function Profile() {
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:text-black"
+                        className="w-5 hover:text-point"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"
@@ -38,7 +38,7 @@ export default function Profile() {
                     rel="noreferrer"
                 >
                     <svg
-                        className="w-5 hover:text-black"
+                        className="w-5 hover:text-point"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 496 512"
                         fill="currentColor"
@@ -48,7 +48,7 @@ export default function Profile() {
                 </a>
                 <a href="mailto:mynameishomin@gmail.com">
                     <svg
-                        className="w-5 hover:text-black"
+                        className="w-5 hover:text-point"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         fill="currentColor"

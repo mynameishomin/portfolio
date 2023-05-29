@@ -5,11 +5,14 @@ import Main from "./main";
 
 export default function Layout({ children }: { children: React.ReactElement }) {
     return (
-        <div className="flex flex-col h-screen overflow-hidden">
+        <div className="flex flex-col h-screen overflow-hidden break-keep">
             {/* <Header /> */}
             <div className="flex mb-0 grow h-0">
                 <Aside />
-                <Main>{children}</Main>
+                <div className="flex flex-col grow overflow-scroll scrollbar-hide">
+                    <Main>{children}</Main>
+                    <Footer />
+                </div>
             </div>
             {/* <Footer /> */}
         </div>
