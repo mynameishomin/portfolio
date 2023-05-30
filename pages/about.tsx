@@ -22,7 +22,7 @@ export default function Page04() {
                         <h3 className="shrink-0 w-24 mr-2 border-r-2 border-point">
                             이름
                         </h3>
-                        <span>정호민</span>
+                        <span>정호asdasd민</span>
                     </li>
                     <li className="flex">
                         <h3 className="shrink-0 w-24 mr-2 border-r-2 border-point">
