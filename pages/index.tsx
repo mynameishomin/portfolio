@@ -10,13 +10,12 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
     const [notionData, setNotionData] = useState<any>([]);
-    (async () => {
-        const notionState = notionStore.getState();
-        notionState.notion.length
-            ? setNotionData(notionState.notion)
-            : setNotionData(await notionInit());
-    })();
-    console.log(notionData);
+    useEffect(() => {
+        (async () => {
+            setNotionData(await notionInit());
+            console.log(notionData);
+        })();
+    }, []);
     return (
         <div className="pt-20 px-10 font-han text-point">
             <div className="flex flex-col">

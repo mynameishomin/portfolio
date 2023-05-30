@@ -9,7 +9,8 @@ import {
 import { notionStore, addNotion } from "./store/notion";
 
 export const notionInit = async () => {
-    if (!Object.keys(notionStore.getState().notion).length) {
+    if (!notionStore.getState().hasNotion) {
+        console.log("데이터 새로 로드");
         const guestBook = await (
             await fetch(`${baseUrl}/api/getNotion/${guestBookId}`)
         ).json();

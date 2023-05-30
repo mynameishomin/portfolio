@@ -9,6 +9,7 @@ const notionSlice = createSlice({
     reducers: {
         addNotion: (state, action) => {
             state.notion = action.payload;
+            state.hasNotion = true;
         },
     },
 });
