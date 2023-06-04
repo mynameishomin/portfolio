@@ -50,7 +50,7 @@ export default function BlogPosts() {
                     })}
                 </ul>
             ) : (
-                <span>아직 안 불러옴</span>
+                <span>최신 글 불러오는 중...</span>
             )}
         </div>
     );
