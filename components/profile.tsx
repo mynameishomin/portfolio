@@ -3,7 +3,7 @@ import GradientText from "./gradientText";
 
 export default function Profile() {
     return (
-        <div className="flex flex-col items-center justify-center mb-12 leading-tight">
+        <div className="flex flex-col items-center justify-center mb-12 leading-tight max-lg:mb-0">
             <Image
                 className="w-40 mb-6 rounded-full"
                 src="/images/profile-photo.jpeg"

@@ -1,4 +1,4 @@
-import { notionApiKey } from "../../../utils/variable";
+import { notionApiKey, readingId } from "../../../utils/variable";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Client } from "@notionhq/client";
 import { budgetId } from "../../../utils/variable";
@@ -11,20 +11,19 @@ export default async function handler(
 ) {
     if (req.method === "GET") {
         try {
-            if (req.query.id === budgetId) {
+            if (req.query.id === budgetId || req.query.id === readingId) {
                 const date = new Date();
 
-                console.log(`${date.getFullYear()}-${date.getMonth()}-00`);
                 const notionData = await notion.databases.query({
                     database_id: req.query.id as string,
                     filter: {
                         property: "Date",
                         date: {
                             on_or_after: `${date.getFullYear()}-${
-                                date.getMonth() < 10
-                                    ? "0" + date.getMonth()
-                                    : null
-                            }-00`,
+                                date.getMonth() + 1 < 10
+                                    ? "0" + (date.getMonth() + 1)
+                                    : date.getMonth() + 1
+                            }-01`,
                         },
                     },
                 });

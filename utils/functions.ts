@@ -10,7 +10,6 @@ import { notionStore, addNotion } from "./store/notion";
 
 export const notionInit = async () => {
     if (!notionStore.getState().hasNotion) {
-        console.log("데이터 새로 로드");
         const guestBook = await (
             await fetch(`${baseUrl}/api/getNotion/${guestBookId}`)
         ).json();
@@ -36,7 +35,20 @@ export const notionInit = async () => {
         };
         notionStore.dispatch(addNotion(notionData));
     } else {
-        console.log("기존 데이터 가져옴");
     }
     return notionStore.getState().notion;
+};
+
+export const getNowDateString = (date: Date) => {
+    const nowYear = date.getFullYear();
+    const nowMonth = date.getMonth() + 1;
+    const nowDate = date.getDate();
+
+    return `${nowYear}.${nowMonth < 10 ? "0" + nowMonth : nowMonth}.${
+        nowDate < 10 ? "0" + nowDate : nowDate
+    }`;
+};
+
+export const numberWithComma = (number: Number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

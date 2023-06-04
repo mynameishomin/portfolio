@@ -1,16 +1,79 @@
 import Image from "next/image";
-import GradientText from "@/components/gradientText";
-import { notionInit } from "@/utils/functions";
+import { useEffect, useState } from "react";
+import {
+    getNowDateString,
+    notionInit,
+    numberWithComma,
+} from "@/utils/functions";
 
 export default function Page04() {
+    const [realInfo, setrealInfo] = useState<any>([]);
+    const nowDate = new Date();
+    useEffect(() => {
+        (async () => {
+            const notionData = await notionInit();
+
+            interface IexpensesData {
+                [index: string]: string;
+            }
+            const expensesData: IexpensesData = {};
+            const totalExpenses = notionData.budget.results.reduce(
+                (acc: Number, cur: any) => {
+                    const amount = cur.properties.Amount.number;
+                    let category = cur.properties.Category.select.name;
+
+                    if (expensesData[category]) {
+                        expensesData[category] += amount;
+                    } else {
+                        expensesData[category] = amount;
+                    }
+                    return (acc += amount);
+                },
+                0
+            );
+            const maxCategory = Object.keys(expensesData).reduce(
+                (acc: any, cur: string) => {
+                    if (acc.amount < expensesData[cur]) {
+                        return { name: cur, amount: expensesData[cur] };
+                    } else {
+                        return acc;
+                    }
+                },
+                { name: "", amount: 0 }
+            );
+
+            const bestReading = notionData.reading.results.reduce(
+                (acc: any, cur: any) => {
+                    if (cur.properties.Score.number > acc.score) {
+                        return {
+                            name: cur.properties.Name.title[0].plain_text,
+                            author: cur.properties.Author.rich_text[0]
+                                .plain_text,
+                            score: cur.properties.Score.number,
+                        };
+                    } else {
+                        return acc;
+                    }
+                },
+                { name: "", author: "", score: 0 }
+            );
+
+            setrealInfo({
+                totalExpenses,
+                maxCategory,
+                bestReading,
+                readingList: notionData.reading.results,
+            });
+        })();
+    }, []);
     return (
         <div className="grow font-han">
             <h2 className="text-point w-full mb-8 text-4xl">ABOUT</h2>
-            <div className="flex mb-10 pb-8 border-b-2 border-point border-dashed">
+            <div className="flex mb-10 pb-8 border-b-2 border-point border-dashed max-lg:flex-col">
                 <div className="mr-12">
                     <h3 className="mb-4 text-3xl">기본 정보</h3>
                     <Image
-                        className="w-60 rounded-full"
+                        className="w-60 rounded-full max-lg:w-40 max-lg:mb-8"
                         src="/images/profile-photo-2.jpeg"
                         alt=""
                         width={400}
@@ -22,7 +85,7 @@ export default function Page04() {
                         <h3 className="shrink-0 w-24 mr-2 border-r-2 border-point">
                             이름
                         </h3>
-                        <span>정호asdasd민</span>
+                        <span>정호민</span>
                     </li>
                     <li className="flex">
                         <h3 className="shrink-0 w-24 mr-2 border-r-2 border-point">
@@ -68,21 +131,45 @@ export default function Page04() {
             </div>
             <div className="mb-10 pb-8 border-b-2 border-point border-dashed">
                 <h3 className="mb-4 text-3xl">
-                    5월 실시간 정보
-                    <span className="text-base">[2023.05.27 기준]</span>
+                    {nowDate.getMonth() + 1}월 실시간 정보
+                    <span className="text-base max-lg:block">
+                        [{getNowDateString(nowDate)} 기준]
+                    </span>
                 </h3>
-                <ul className="flex space-x-6">
+                <ul className="flex space-x-6 max-lg:flex-col max-lg:space-x-0 max-lg:space-y-4">
                     <li className="group relative w-full p-4 border-2 border-point text-center rounded-xl overflow-hidden">
                         <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
                         <div className="relative ">
                             <span className="relative block mb-2 text-5xl">
-                                <span className="relative">659,200원</span>
+                                <span className="relative">
+                                    {realInfo.totalExpenses
+                                        ? numberWithComma(
+                                              realInfo.totalExpenses
+                                          )
+                                        : "-"}
+                                    원
+                                </span>
                             </span>
                             <div className="group-hover:text-white transition-all duration-300">
                                 <h3 className="mb-1 text-xl">총 지출</h3>
                                 <p className="font-sans font-semibold text-base">
-                                    5월 총 지출은 659,200원이며 가장 많은 지출
-                                    항목은 주거비 230,500원입니다.
+                                    {nowDate.getMonth() + 1}월 총 지출은
+                                    <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
+                                        {realInfo.totalExpenses
+                                            ? numberWithComma(
+                                                  realInfo.totalExpenses
+                                              )
+                                            : "-"}
+                                        원
+                                    </strong>
+                                    이며 가장 많은 지출 항목은
+                                    <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
+                                        {realInfo.maxCategory
+                                            ? `${realInfo.maxCategory.name}, ${realInfo.maxCategory.amount}`
+                                            : "-"}
+                                        원
+                                    </strong>
+                                    입니다.
                                 </p>
                             </div>
                         </div>
@@ -91,13 +178,30 @@ export default function Page04() {
                         <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
                         <div className="relative ">
                             <span className="relative block mb-2 text-5xl">
-                                <span className="relative">4권</span>
+                                <span className="relative">
+                                    {realInfo.readingList
+                                        ? realInfo.readingList.length
+                                        : "-"}
+                                    권
+                                </span>
                             </span>
                             <div className="group-hover:text-white transition-all duration-300">
                                 <h3 className="mb-1 text-xl">총 독서</h3>
                                 <p className="font-sans font-semibold text-base">
-                                    5월 총 독서량은 4권이며 가장 인상 깊었던
-                                    도서는 세이노의 가르침-세이노입니다.
+                                    5월 총 독서량은
+                                    <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
+                                        {realInfo.readingList
+                                            ? realInfo.readingList.length
+                                            : "-"}
+                                        권
+                                    </strong>
+                                    이며 가장 인상 깊었던 도서는
+                                    <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
+                                        {realInfo.bestReading
+                                            ? `${realInfo.bestReading.name} - ${realInfo.bestReading.author}`
+                                            : "-"}
+                                    </strong>
+                                    입니다.
                                 </p>
                             </div>
                         </div>
