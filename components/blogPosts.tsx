@@ -24,7 +24,7 @@ export default function BlogPosts() {
     }, []);
 
     return (
-        <div className="flex flex-col grow h-full">
+        <div className="flex flex-col grow h-full max-lg:hidden">
             <h2 className="mb-2 font-han text-base">블로그 최신 글</h2>
             {posts.length ? (
                 <ul className="grow h-full space-y-3">

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { PageTitle1 } from "@/components/pageTitle";
+import { useEffect } from "react";
+import { notionInit } from "@/utils/functions";
 
 export default function Contact() {
+    useEffect(() => {
+        notionInit();
+    }, []);
     return (
         <div className="grow">
             <PageTitle1>Contact</PageTitle1>
