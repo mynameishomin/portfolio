@@ -188,7 +188,7 @@ export default function Page04() {
                             <div className="group-hover:text-white transition-all duration-300">
                                 <h3 className="mb-1 text-xl">총 독서</h3>
                                 <p className="font-sans font-semibold text-base">
-                                    5월 총 독서량은
+                                    {nowDate.getMonth() + 1}월 총 독서량은
                                     <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
                                         {realInfo.readingList
                                             ? realInfo.readingList.length
