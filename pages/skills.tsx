@@ -2,9 +2,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Key } from "react";
-import GradientText from "@/components/gradientText";
 import { notionInit } from "@/utils/functions";
 import { PageTitle1, PageTitle2 } from "@/components/pageTitle";
+import { notionStore } from "@/utils/store/notion";
 
 export default function Skills({ skills }: { skills: Object[] }) {
     const router = useRouter();
@@ -25,14 +25,31 @@ export default function Skills({ skills }: { skills: Object[] }) {
 
     useEffect(() => {
         (async () => {
-            const response = await (await notionInit()).skills.results;
-            const language = response.filter((skill: any) => {
+            const notionData = notionStore.getState().notion;
+            const skillData = notionData.skills.results;
+            const language = skillData.filter((skill: any) => {
                 return skill.properties.Type.select.name === "Language";
             });
-            const tool = response.filter((skill: any) => {
+            const frameWork = skillData.filter((skill: any) => {
+                return (
+                    skill.properties.Type.select.name === "Framework/Library"
+                );
+            });
+            const database = skillData.filter((skill: any) => {
+                return (
+                    skill.properties.Type.select.name === "Framework/Library"
+                );
+            });
+            const markUp = skillData.filter((skill: any) => {
+                return skill.properties.Type.select.name === "MarkUp";
+            });
+            const tool = skillData.filter((skill: any) => {
                 return skill.properties.Type.select.name === "Tool";
             });
-            setSkillData({ language, tool });
+            const etc = skillData.filter((skill: any) => {
+                return skill.properties.Type.select.name === "ETC";
+            });
+            setSkillData({ language, frameWork, markUp, database, tool, etc });
         })();
     }, []);
 

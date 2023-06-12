@@ -1,17 +1,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import {
-    getNowDateString,
-    notionInit,
-    numberWithComma,
-} from "@/utils/functions";
+import { getNowDateString, numberWithComma } from "@/utils/functions";
+import { notionStore } from "@/utils/store/notion";
 
 export default function Page04() {
     const [realInfo, setrealInfo] = useState<any>([]);
     const nowDate = new Date();
     useEffect(() => {
         (async () => {
-            const notionData = await notionInit();
+            const notionData = notionStore.getState().notion;
 
             interface IexpensesData {
                 [index: string]: string;
@@ -165,7 +162,11 @@ export default function Page04() {
                                     이며 가장 많은 지출 항목은
                                     <strong className="inline-block py-0.5 px-2 m-0.5 rounded bg-point text-white">
                                         {realInfo.maxCategory
-                                            ? `${realInfo.maxCategory.name}, ${realInfo.maxCategory.amount}`
+                                            ? `${
+                                                  realInfo.maxCategory.name
+                                              } - ${numberWithComma(
+                                                  realInfo.maxCategory.amount
+                                              )}`
                                             : "-"}
                                         원
                                     </strong>

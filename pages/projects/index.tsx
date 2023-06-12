@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, Key } from "react";
-import { notionInit } from "@/utils/functions";
+import { notionStore } from "@/utils/store/notion";
 import { Skill } from "../skills";
 
 export default function Project() {
@@ -15,7 +15,7 @@ export default function Project() {
 
     useEffect(() => {
         (async () => {
-            const notionData = await notionInit();
+            const notionData = notionStore.getState().notion;
             const sortProject = [...notionData.project.results].sort(
                 (a: any, b: any) => {
                     return (

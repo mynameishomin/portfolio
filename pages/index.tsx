@@ -1,14 +1,9 @@
-import { notionInit } from "@/utils/functions";
+import { notionStore } from "@/utils/store/notion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-    const [notionData, setNotionData] = useState<any>([]);
-    useEffect(() => {
-        (async () => {
-            setNotionData(await notionInit());
-        })();
-    }, []);
+    const notionData = notionStore.getState().notion;
+
     return (
         <div className="pt-20 px-10 font-han text-point max-lg:p-0">
             <div className="flex flex-col">

@@ -36,7 +36,7 @@ export const notionInit = async () => {
         notionStore.dispatch(addNotion(notionData));
     } else {
     }
-    return notionStore.getState().notion;
+    return notionStore.getState();
 };
 
 export const getNowDateString = (date: Date) => {
