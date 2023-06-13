@@ -10,29 +10,12 @@ import { notionStore, addNotion } from "./store/notion";
 
 export const notionInit = async () => {
     if (!notionStore.getState().hasNotion) {
-        const guestBook = await (
-            await fetch(`${baseUrl}/api/getNotion/${guestBookId}`)
-        ).json();
-        const budget = await (
-            await fetch(`${baseUrl}/api/getNotion/${budgetId}`)
-        ).json();
-        const reading = await (
-            await fetch(`${baseUrl}/api/getNotion/${readingId}`)
-        ).json();
-        const project = await (
-            await fetch(`${baseUrl}/api/getNotion/${projectId}`)
-        ).json();
-        const skills = await (
-            await fetch(`${baseUrl}/api/getNotion/${skillId}`)
+        const notionData = await (
+            await fetch(`${baseUrl}/api/getNotion/`)
         ).json();
 
-        const notionData = {
-            guestBook,
-            budget,
-            reading,
-            project,
-            skills,
-        };
+        console.log(notionData);
+
         notionStore.dispatch(addNotion(notionData));
     } else {
     }

@@ -36,9 +36,7 @@ export default function Skills({ skills }: { skills: Object[] }) {
                 );
             });
             const database = skillData.filter((skill: any) => {
-                return (
-                    skill.properties.Type.select.name === "Framework/Library"
-                );
+                return skill.properties.Type.select.name === "Database";
             });
             const markUp = skillData.filter((skill: any) => {
                 return skill.properties.Type.select.name === "MarkUp";

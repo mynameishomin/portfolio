@@ -5,6 +5,34 @@ import { budgetId } from "../../../utils/variable";
 
 const notion = new Client({ auth: notionApiKey });
 
+// const sandNotionRequest = (dataBaseId: string) => {
+//     return new Promise((resolve, reject) => {
+//         if (dataBaseId === budgetId || dataBaseId === readingId) {
+//             const date = new Date();
+
+//             const notionData = notion.databases.query({
+//                 database_id: dataBaseId as string,
+//                 filter: {
+//                     property: "Date",
+//                     date: {
+//                         on_or_after: `${date.getFullYear()}-${
+//                             date.getMonth() + 1 < 10
+//                                 ? "0" + (date.getMonth() + 1)
+//                                 : date.getMonth() + 1
+//                         }-01`,
+//                     },
+//                 },
+//             });
+//             res.status(200).json(notionData);
+//         } else {
+//             const notionData = await notion.databases.query({
+//                 database_id: dataBaseId as string,
+//             });
+//             res.status(200).json(notionData);
+//         }
+//     });
+// };
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -29,9 +57,10 @@ export default async function handler(
                 });
                 res.status(200).json(notionData);
             } else {
-                const notionData = await notion.databases.query({
+                const notionData = notion.databases.query({
                     database_id: req.query.id as string,
                 });
+                console.log(notionData);
                 res.status(200).json(notionData);
             }
         } catch (error) {

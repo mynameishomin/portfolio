@@ -1,47 +1,43 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { writeFile, readFile, readFileSync } from "fs";
+import { Client } from "@notionhq/client";
+import { notionApiKey } from "@/utils/variable";
 import {
     baseUrl,
-    guestBookId,
     budgetId,
     readingId,
     projectId,
     skillId,
 } from "@/utils/variable";
 
-export const notionDataUpdate = async () => {
-    const guestBook = await (
-        await fetch(`${baseUrl}/api/getNotion/${guestBookId}`)
-    ).json();
-    const budget = await (
-        await fetch(`${baseUrl}/api/getNotion/${budgetId}`)
-    ).json();
-    const reading = await (
-        await fetch(`${baseUrl}/api/getNotion/${readingId}`)
-    ).json();
-    const project = await (
-        await fetch(`${baseUrl}/api/getNotion/${projectId}`)
-    ).json();
-    const skills = await (
-        await fetch(`${baseUrl}/api/getNotion/${skillId}`)
-    ).json();
+const notion = new Client({ auth: notionApiKey });
 
-    const notionData: any = {
-        guestBook,
-        budget,
-        reading,
-        project,
-        skills,
-    };
-    writeFile("./public/notionData.json", JSON.stringify(notionData), () => {
-        console.log("저장 완료");
-    });
-};
+const databaseIds = [budgetId, readingId, projectId, skillId];
+const promises = databaseIds.map((id) => {
+    if (id === budgetId || id === readingId) {
+        const date = new Date();
+        const notionData = notion.databases.query({
+            database_id: id as string,
+            filter: {
+                property: "Date",
+                date: {
+                    on_or_after: `${date.getFullYear()}-${
+                        date.getMonth() + 1 < 10
+                            ? "0" + (date.getMonth() + 1)
+                            : date.getMonth() + 1
+                    }-01`,
+                },
+            },
+        });
 
-export const getNotionData = () => {
-    const notionData: any = readFileSync("./public/notionData.json");
-    return JSON.parse(notionData);
-};
+        return notionData;
+    } else {
+        const notionData = notion.databases.query({
+            database_id: id as string,
+        });
+
+        return notionData;
+    }
+});
 
 export default async function handler(
     req: NextApiRequest,
@@ -49,12 +45,17 @@ export default async function handler(
 ) {
     if (req.method === "GET") {
         try {
-            if (req.query.update) {
-                notionDataUpdate();
-            } else {
-                res.status(200).send(getNotionData());
+            const response = await Promise.all(promises);
+            interface INotionData {
+                [key: string]: any;
             }
-            res.end();
+            const notionData: INotionData = {};
+            const tableNames = ["budget", "reading", "project", "skills"];
+            tableNames.forEach((id: string, index) => {
+                notionData[id] = response[index];
+            });
+            console.log(notionData);
+            res.status(200).json(notionData);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Internal server error" });
