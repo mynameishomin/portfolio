@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { NotionRenderer } from "react-notion";
 import "react-notion/src/styles.css";
-import { PageTitle1 } from "@/components/pageTitle";
 import { useEffect } from "react";
 import { notionInit } from "@/utils/functions";
 
@@ -11,14 +10,12 @@ export default function ProjectDetail({
     notionBlockMap: any;
 }) {
     const router = useRouter();
-    const projectName = router.query.name as string;
 
     useEffect(() => {
         notionInit();
     }, []);
     return (
         <>
-            <PageTitle1>{projectName}</PageTitle1>
             <NotionRenderer blockMap={notionBlockMap} fullPage={true} />
         </>
     );

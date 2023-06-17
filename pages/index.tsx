@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <div className="pt-20 px-10 font-han text-point max-lg:p-0">
             <div className="flex flex-col">
-                <p className="mb-32 text-4xl">
+                <p className="mb-32 text-4xl max-lg:mb-16">
                     할까? 말까?
                     <br />
                     고민 전에 일단 하고보는
@@ -27,7 +27,7 @@ export default function Home() {
                 <ul className="flex space-x-6 max-lg:flex-col max-lg:space-x-0 max-lg:space-y-4">
                     <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
                         <Link href={"/projects"}>
-                            <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
+                            <span className="absolute bottom-0 inset-x-0 h-2 translate-y-full -rotate-12 bg-main scale-125 origin-top-right group-hover:bottom-full group-hover:translate-y-0 transition-all duration-300"></span>
                             <div className="relative">
                                 <span className="relative block mb-2 text-5xl">
                                     <span className="relative">
@@ -45,7 +45,7 @@ export default function Home() {
                                             : "-"}
                                     </span>
                                 </span>
-                                <div className="group-hover:text-white transition-all duration-300">
+                                <div>
                                     <h3 className="mb-1 text-xl">
                                         퍼블리싱 프로젝트
                                     </h3>
@@ -59,8 +59,8 @@ export default function Home() {
                     </li>
                     <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
                         <Link href={"/projects"}>
-                            <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
-                            <div className="relative ">
+                            <span className="absolute bottom-0 inset-x-0 h-2 translate-y-full -rotate-12 bg-main scale-125 origin-top-right group-hover:bottom-full group-hover:translate-y-0 transition-all duration-300"></span>
+                            <div className="relative">
                                 <span className="relative block mb-2 text-5xl">
                                     <span className="relative">
                                         {notionData.project
@@ -77,7 +77,7 @@ export default function Home() {
                                             : "-"}
                                     </span>
                                 </span>
-                                <div className="group-hover:text-white transition-all duration-300">
+                                <div>
                                     <h3 className="mb-1 text-xl">
                                         프론트엔드 프로젝트
                                     </h3>
@@ -90,8 +90,8 @@ export default function Home() {
                     </li>
                     <li className="group relative w-full p-4 pt-2 border-2 border-point text-center rounded-xl overflow-hidden">
                         <Link href={"/projects"}>
-                            <span className="absolute inset-0 translate-y-full -rotate-6 bg-main scale-125 origin-top-right group-hover:translate-y-0 transition-all duration-300"></span>
-                            <div className="relative ">
+                            <span className="absolute bottom-0 inset-x-0 h-2 translate-y-full -rotate-12 bg-main scale-125 origin-top-right group-hover:bottom-full group-hover:translate-y-0 transition-all duration-300"></span>
+                            <div className="relative">
                                 <span className="relative block mb-2 text-5xl">
                                     <span className="relative">
                                         {notionData.project
@@ -107,7 +107,7 @@ export default function Home() {
                                             : "-"}
                                     </span>
                                 </span>
-                                <div className="group-hover:text-white transition-all duration-300">
+                                <div>
                                     <h3 className="mb-1 text-xl">
                                         토이 프로젝트
                                     </h3>

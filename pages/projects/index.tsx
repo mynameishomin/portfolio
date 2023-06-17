@@ -93,7 +93,7 @@ export default function Project() {
                                                         .title[0].plain_text
                                                 }
                                             </h4>
-                                            <p className="mb-6 font-sans font-medium">
+                                            <p className="mb-6 font-sans font-medium line-clamp-3">
                                                 {
                                                     project.properties.Summary
                                                         .rich_text[0].plain_text
@@ -150,11 +150,6 @@ export default function Project() {
                                                 className="pt-2 pb-1 px-3 bg-point text-white rounded"
                                                 href={{
                                                     pathname: `/projects/${project.id}`,
-                                                    query: {
-                                                        name: project.properties
-                                                            .Name.title[0]
-                                                            .plain_text,
-                                                    },
                                                 }}
                                             >
                                                 자세히보기
@@ -168,11 +163,6 @@ export default function Project() {
                                                 className="relative"
                                                 href={{
                                                     pathname: `/projects/${project.id}`,
-                                                    query: {
-                                                        name: project.properties
-                                                            .Name.title[0]
-                                                            .plain_text,
-                                                    },
                                                 }}
                                             >
                                                 <Image

@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap");
+
+/* notion page css 수정 */
+.notion-page-header {
+    display: none !important;
+}
+
+.notion-page-offset {
+    margin-top: 0 !important;
+}
+
+.notion-full-width {
+    padding: 0 !important;
+}
+
+.notion-title {
+    display: none !important;
+}
