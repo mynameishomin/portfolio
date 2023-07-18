@@ -15,11 +15,10 @@ export default function Home() {
     const [x, setX] = useState<number>(0);
 
     return (
-        <motion.div
-            className="flex justify-center w-full h-[600px] overflow-hidden"
-            transition={{ duration: 1 }}
+        <div
+            className="relative flex w-screen h-screen overflow-hidden"
             onMouseMove={(e) => {
-                const point = e.screenX / 2 - 300;
+                const point = e.pageX / 2 - 300;
                 setWidth_02((prev: number) => {
                     return 300 - point;
                 });
@@ -38,22 +37,19 @@ export default function Home() {
                 setX(0);
             }}
         >
+            <div className="w-1/2 bg-cover bg-no-repeat bg-[url('/images/painting_bg.jpg')]">
+                <strong className="absolute top-[40%] left-[20%] -translate-y-1/2 -translate-x-1/2 text-7xl rotate-[150deg] font-han font-medium underline text-sub">Creative ME!</strong>
+            </div>
+            <div className="w-1/2 bg-cover bg-no-repeat bg-[url('/images/code_bg.jpg')]">
+
+            </div>
+            
             <motion.div
-                className="relative w-[600px] h-[600px]"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px]"
                 initial={{ x: 0 }}
                 animate={{ x }}
                 transition={{ type: "tween", ease: "backOut", duration: 1.6 }}
             >
-                <motion.div
-                    initial={{ width: 300 }}
-                    animate={{ width: width_01 }}
-                    transition={{
-                        type: "tween",
-                        ease: "backOut",
-                        duration: 1.6,
-                    }}
-                    className="absolute right-0 w-[300px] h-full bg-right bg-[length:600px_600px] bg-no-repeat bg-[url('/images/profile_01.png')]"
-                ></motion.div>
                 <motion.div
                     initial={{ width: 300 }}
                     animate={{ width: width_02 }}
@@ -63,9 +59,31 @@ export default function Home() {
                         duration: 1.6,
                     }}
                     className="absolute left-0 w-[300px] h-full bg-left bg-[length:600px_600px] bg-no-repeat bg-[url('/images/profile_02.png')]"
-                ></motion.div>
+                >
+                    <Link className="absolute right-0 h-screen w-screen" href={"/"}>
+                        <motion.div className="absolute inset-0">
+                            <h2 className="rotate-[153deg] absolute text-6xl font-han hidden">Creative</h2>
+                        </motion.div>
+                    </Link>
+                </motion.div>
+                <motion.div
+                    initial={{ width: 300 }}
+                    animate={{ width: width_01 }}
+                    transition={{
+                        type: "tween",
+                        ease: "backOut",
+                        duration: 1.6,
+                    }}
+                    className="absolute right-0 w-[300px] h-full bg-right bg-[length:600px_600px] bg-no-repeat bg-[url('/images/profile_01.png')]"
+                >
+                    <Link className="absolute left-0 h-screen w-screen" href={"/"}>
+                        <motion.div className="absolute inset-0">
+                            <h2 className="absolute text-6xl font-han hidden">Professional</h2>
+                        </motion.div>
+                    </Link>
+                </motion.div>
             </motion.div>
-        </motion.div>
+        </div>
         // <div className="pt-20 px-10 font-han text-point max-lg:p-0">
         //     <div className="flex flex-col">
         //         <p className="opacity-0 mb-32 text-4xl max-lg:mb-16">
