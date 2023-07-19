@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/getNotion": "pages/api/getNotion.js",
-  "/": "pages/index.js",
-  "/professional": "pages/professional.js"
+  "/professional": "pages/professional.js",
+  "/api/getNotion": "pages/api/getNotion.js"
 }
