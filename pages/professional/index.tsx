@@ -10,7 +10,7 @@ export default () => {
             <>
                 <Visual>
                     <>
-                        <div className="flex mb-8 border-b-2 border-b-gray-200">
+                        <div className="flex mb-8 border-b-2 border-b-gray-200 font-mt">
                             <motion.div
                                 className="w-1/2"
                                 initial={{ x: -500, opacity: 0 }}
@@ -20,22 +20,18 @@ export default () => {
                                     ease: "easeInOut",
                                 }}
                             >
-                                <h2 className="mb-6 pt-16 text-5xl font-semibold text-gray-800">
+                                <h2 className="mb-6 pt-16 text-5xl font-extrabold text-gray-800">
                                     PROFESSINOAL
                                 </h2>
-                                <strong className="block mb-6 text-2xl text-gray-400 font-medium">
-                                    정호민의 프로페셔널한 면, <br />
-                                    일과 학습에 대해서는 진지한 자세로 임합니다.
+                                <strong className="block mb-6 text-2xl text-gray-400">
+                                    This is the professional part <br />
+                                    We are serious about work and learning.
                                 </strong>
-                                <p className="text-base text-gray-500 ">
-                                    2022년부터 퍼블리셔로 성실하게 근무하고
-                                    있으며
-                                    <br />
-                                    한국방송통신대학교에 재학중입니다.
-                                    <br />
-                                    자격증 취득 및 지속적인 학습을 통해
-                                    <br />더 나은 "사람"이 되기 위해 노력하고
-                                    있습니다.
+                                <p className="text-base text-gray-500">
+                                    Since 2022, I have been working diligently as a publisher.
+                                    I am currently attending Korea National Open University.
+                                    Through certification acquisition and continuous learning
+                                    I'm trying to be a better "person".
                                 </p>
                             </motion.div>
                             <motion.div
@@ -56,7 +52,7 @@ export default () => {
                             </motion.div>
                         </div>
                         <div className="flex items-center justify-center h-32 rounded-xl animate-pulse bg-gray-200">
-                            이미지 스와이퍼 자리
+                            Instagram peed swiper area
                         </div>
                     </>
                 </Visual>
@@ -65,8 +61,9 @@ export default () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.9 }}
+                        className="flex justify-center items-center bg-gray-200 h-96 rounded-xl animate-pulse"
                     >
-                        hello
+                        Contents Area
                     </motion.div>
                 </Container>
             </>

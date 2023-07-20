@@ -7,8 +7,9 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Noto Sans KR", "Black Han Sans", "Arial", "sans-serif"],
-                han: ["Black Han Sans"],
+                myeongjo: ["Nanum Myeongjo", "serif"],
+                dokdo: ["Dokdo", "cursive"],
+                mt: ["Perpetua Titling MT", "serif"],
             },
             colors: {
                 main: "#6E07F3",
