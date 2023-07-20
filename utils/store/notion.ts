@@ -3,13 +3,11 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 const notionSlice = createSlice({
     name: "notion",
     initialState: {
-        notion: [] as any,
-        hasNotion: false,
+        notion: {} as any,
     },
     reducers: {
         addNotion: (state, action) => {
-            state.notion = action.payload;
-            state.hasNotion = true;
+            state.notion[action.payload.id] = action.payload.data;
         },
     },
 });

@@ -9,7 +9,7 @@ export default () => {
         <ProfessionalLayout>
             <>
                 <Visual>
-                    <>
+                    <div className="py-12">
                         <div className="flex mb-8 border-b-2 border-b-gray-200 font-mt">
                             <motion.div
                                 className="w-1/2"
@@ -28,10 +28,11 @@ export default () => {
                                     We are serious about work and learning.
                                 </strong>
                                 <p className="text-base text-gray-500">
-                                    Since 2022, I have been working diligently as a publisher.
-                                    I am currently attending Korea National Open University.
-                                    Through certification acquisition and continuous learning
-                                    I'm trying to be a better "person".
+                                    Since 2022, I have been working diligently
+                                    as a publisher. I am currently attending
+                                    Korea National Open University. Through
+                                    certification acquisition and continuous
+                                    learning I'm trying to be a better "person".
                                 </p>
                             </motion.div>
                             <motion.div
@@ -54,7 +55,7 @@ export default () => {
                         <div className="flex items-center justify-center h-32 rounded-xl animate-pulse bg-gray-200">
                             Instagram peed swiper area
                         </div>
-                    </>
+                    </div>
                 </Visual>
                 <Container>
                     <motion.div

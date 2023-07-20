@@ -39,16 +39,22 @@ export default async function handler(
 ) {
     if (req.method === "GET") {
         try {
-            const response = await Promise.all(promises);
-            interface INotionData {
-                [key: string]: any;
-            }
-            const notionData: INotionData = {};
-            const tableNames = ["budget", "reading", "project", "skills"];
-            tableNames.forEach((id: string, index) => {
-                notionData[id] = response[index];
+            const notionData = await notion.databases.query({
+                database_id: req.query.id as string,
             });
+            console.log(notionData);
             res.status(200).json(notionData);
+
+            // const response = await Promise.all(promises);
+            // interface INotionData {
+            //     [key: string]: any;
+            // }
+            // const notionData: INotionData = {};
+            // const tableNames = ["budget", "reading", "project", "skills"];
+            // tableNames.forEach((id: string, index) => {
+            //     notionData[id] = response[index];
+            // });
+            // res.status(200).json(notionData);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: "Internal server error" });

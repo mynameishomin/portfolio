@@ -6,6 +6,8 @@ export default ({
     className?: String;
 }) => {
     return (
-        <div className={`max-w-6xl mx-auto px-5 ${className}`}>{children}</div>
+        <div className={`max-w-6xl mx-auto px-5 ${className ? className : ""}`}>
+            {children}
+        </div>
     );
 };
