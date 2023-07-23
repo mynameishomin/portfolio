@@ -2,8 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/professional": "pages/professional.js",
-  "/professional/portfolio": "pages/professional/portfolio.js",
+  "/creative": "pages/creative.js",
+  "/professional/contact": "pages/professional/contact.js",
+  "/": "pages/index.js",
   "/professional/skill": "pages/professional/skill.js",
-  "/professional/contact": "pages/professional/contact.js"
+  "/professional/portfolio": "pages/professional/portfolio.js"
 }

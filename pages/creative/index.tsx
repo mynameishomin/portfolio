@@ -1,4 +1,4 @@
-import CreativeLayout from "@/components/layout/creativeLayout";
+import CreativeLayout from "@/components/layout/creative/layout";
 export default () => {
     return (
         <CreativeLayout>

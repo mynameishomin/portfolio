@@ -7,19 +7,14 @@ const BackGround = () => {
     return (
         <>
             <div className="relative w-1/2 bg-cover bg-no-repeat bg-[url('/images/creative_bg.jpg')]">
-                <h2 className="absolute top-[40%] left-[30%] -translate-y-1/2 -translate-x-1/2 -rotate-6 text-7xl font-han font-medium">
+                <h2 className="absolute top-[40%] left-[30%] -translate-y-1/2 -translate-x-1/2 -rotate-6 text-7xl font-mt font-semibold">
                     <span className="text-sub">Creative</span>
-                    <span className="absolute -top-6 left-full -translate-x-20 rotate-12 text-main">
-                        ME!
-                    </span>
                 </h2>
             </div>
 
             <div className="relative w-1/2 bg-cover bg-no-repeat">
-                <h2 className="absolute top-[40%] right-[50%] -translate-y-1/2 translate-x-1/2 text-6xl font-han underlin text-point">
+                <h2 className="absolute top-[40%] right-[50%] -translate-y-1/2 translate-x-1/2 text-6xl font-mt font-semibold underlin text-point">
                     Professional
-                    <br />
-                    ME.
                 </h2>
             </div>
         </>
