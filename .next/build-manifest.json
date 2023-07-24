@@ -34,21 +34,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/creative.js"
-    ],
-    "/professional/contact": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/professional/contact.js"
-    ],
-    "/professional/portfolio": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/professional/portfolio.js"
-    ],
-    "/professional/skill": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/professional/skill.js"
     ]
   },
   "ampFirstPages": []
