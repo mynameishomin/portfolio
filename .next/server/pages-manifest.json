@@ -3,5 +3,10 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/creative": "pages/creative.js",
-  "/": "pages/index.js"
+  "/professional/portfolio": "pages/professional/portfolio.js",
+  "/professional/contact": "pages/professional/contact.js",
+  "/professional": "pages/professional.js",
+  "/api/getNotion": "pages/api/getNotion.js",
+  "/": "pages/index.js",
+  "/professional/skill": "pages/professional/skill.js"
 }
