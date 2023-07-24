@@ -11,7 +11,9 @@ const Gnb = () => {
                 <li
                     key="1"
                     className={`${
-                        router.pathname === "/professional" ? "text-point" : ""
+                        router.pathname === "/professional"
+                            ? "text-[#E8FFE8]"
+                            : ""
                     } hover:underline`}
                 >
                     <Link href="/professional">ABOUT</Link>
@@ -20,7 +22,7 @@ const Gnb = () => {
                     key="2"
                     className={`${
                         router.pathname === "/professional/portfolio"
-                            ? "text-point"
+                            ? "text-[#E8FFE8]"
                             : ""
                     } hover:underline`}
                 >
@@ -30,7 +32,7 @@ const Gnb = () => {
                     key="3"
                     className={`${
                         router.pathname === "/professional/skill"
-                            ? "text-point"
+                            ? "text-[#E8FFE8]"
                             : ""
                     } hover:underline`}
                 >
@@ -40,7 +42,7 @@ const Gnb = () => {
                     key="4"
                     className={`${
                         router.pathname === "/professional/contact"
-                            ? "text-point"
+                            ? "text-[#E8FFE8]"
                             : ""
                     } hover:underline`}
                 >
@@ -62,7 +64,7 @@ export default () => {
                 exit={{ y: -100 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
             >
-                <header className="h-20 bg-indigo-600 font-mt font-extrabold">
+                <header className="h-20 bg-[#00E1FF] font-black">
                     <Container className="flex items-center h-full">
                         <>
                             <h1 className="text-2xl text-white">
