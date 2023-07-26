@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect, Component } from "react";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
@@ -11,97 +11,113 @@ import Section from "@/components/section";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const BudgetChart = ({data}: {data: Object[]}) => {
+const BudgetChart = ({ data }: { data: Object[] }) => {
     const monthData = {} as any;
     const monthlyData = {} as any;
     data.forEach((item: any) => {
         const month = new Date(item.properties.Date.date.start).getMonth() + 1;
-        monthlyData[month] ? monthlyData[month].push(item) : monthlyData[month] = [item];
+        monthlyData[month]
+            ? monthlyData[month].push(item)
+            : (monthlyData[month] = [item]);
     });
+    const nowMonthData = monthlyData[Object.keys(monthlyData)[0]];
 
-    monthlyData[Object.keys(monthlyData)[0]].forEach((item: any) => {
+    nowMonthData.forEach((item: any) => {
         const category = item.properties.Category.select.name;
-        monthData[category] = monthData[category] ? monthData[category] + item.properties.Amount.number : item.properties.Amount.number;
+        monthData[category] = monthData[category]
+            ? monthData[category] + item.properties.Amount.number
+            : item.properties.Amount.number;
     });
-    
 
-    console.log(monthData)
+    const totalAmout = numberWithComma(
+        nowMonthData.reduce(
+            (acc: any, cur: any) => acc + cur.properties.Amount.number,
+            0
+        )
+    );
+
+    let topCategory = { name: "", amount: 0 };
+    Object.keys(monthData).forEach((key) => {
+        if (topCategory === null || monthData[key] > topCategory.amount) {
+            topCategory = {
+                name: key,
+                amount: monthData[key],
+            };
+        }
+    });
+
+    let topItem = { name: "", amount: 0 };
+    nowMonthData.forEach((item: any) => {
+        if (
+            topItem === null ||
+            item.properties.Amount.number > topItem.amount
+        ) {
+            topItem = {
+                name: item.properties.Expense.title[0].plain_text,
+                amount: item.properties.Amount.number,
+            };
+        }
+    });
 
     const state = {
         options: {
-          chart: {
-            id: "budgetChart"
-          },
-          labels: Object.keys(monthData),
-          tooltip: {
-            y: {
-                formatter: (value: Number) => numberWithComma(value) + "원",
+            chart: {
+                id: "budgetChart",
             },
-          },
-          legend: {
-            show: false
-          },
-          plotOptions: {
-            pie: {
-              startAngle: 0,
-              endAngle: 360,
-              expandOnClick: true,
-              offsetX: 0,
-              offsetY: 0,
-              customScale: 1,
-              dataLabels: {
-                  offset: 0,
-                  minAngleToShowLabel: 10
-              }, 
-              donut: {
-                size: '65%',
-                background: 'transparent',
-                labels: {
-                  show: true,
-                  name: {
-                    show: true,
-                    fontSize: '22px',
-                    fontWeight: 600,
-                  },
-                  value: {
-                    show: true,
-                    fontSize: '16px',
-                    fontWeight: 400,
-                    color: "#666",
-                    formatter: function (val: Number) {
-                      return numberWithComma(val) + "원"
-                    }
-                  },
-                  total: {
-                    show: true,
-                    showAlways: false,
-                    label: '총 지출',
-                    fontSize: '22px',
-                    fontWeight: 600,
-                    color: '#999',
-                    formatter: function (w) {
-                      return numberWithComma(w.globals.seriesTotals.reduce((a: number, b: number) => {
-                        return a + b
-                      }, 0)) + "원"
-                    }
-                  }
-                }
-              },      
-            }
-          }
+            labels: Object.keys(monthData),
+            tooltip: {
+                y: {
+                    formatter: (value: Number) => numberWithComma(value) + "원",
+                },
+            },
+            legend: {
+                show: false,
+            },
         },
         series: Object.values(monthData),
-      };
+    };
 
-    return <div>
-        <Chart
-            options={state.options}
-            series={state.series}
-            type="donut"
-            width="500"
-        />
-        </div>
-}
+    return (
+        <>
+            <Chart
+                options={state.options as any}
+                series={state.series as any}
+                type="pie"
+                width={250}
+                height={250}
+            />
+            <ul className="flex flex-col justify-end grow m-2 p-2 text-right">
+                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
+                    <h3 className="mb-1">총 지출</h3>
+                    <div className="flex text-gray-500">
+                        <span className="w-2/3">
+                            * {new Date().getMonth() + 1}월 :
+                        </span>
+                        <span className="w-1/3">{totalAmout}원</span>
+                    </div>
+                </li>
+                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
+                    <h3 className="mb-1">가장 큰 지출 분야</h3>
+                    <div className="flex text-gray-500">
+                        <span className="w-2/3">* {topCategory.name} :</span>
+                        <span className="w-1/3">
+                            {numberWithComma(topCategory.amount)}원
+                        </span>
+                    </div>
+                </li>
+                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
+                    <h3 className="mb-1">가장 큰 지출 항목</h3>
+                    <div className="flex text-gray-500">
+                        <span className="w-2/3">* {topItem.name} :</span>
+                        <span className="w-1/3">
+                            {numberWithComma(topItem.amount)}원
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </>
+    );
+};
 
 export default () => {
     const [portfolioList, setPortfolioList] = useState<any>([]);
@@ -185,30 +201,48 @@ export default () => {
                     <Section title="저는 최근에 이런 작업을 했어요">
                         <ul className="grid grid-cols-3 gap-4">
                             {portfolioList.length
-                                ? 
-                                portfolioList.map((portfolio: any) => {
-                                    return (
-                                        <li key={portfolio.id}>
-                                            <PortfolioCard
-                                                portfolioData={portfolio}
-                                            />
-                                        </li>
-                                    );
-                                })
-                                : 
-                                  [1, 2, 3].map((item) => {
-                                    return (
-                                        <li key={item}>
-                                            <PortfolioCard />
-                                        </li>
-                                    );
-                                })}
+                                ? portfolioList.map((portfolio: any) => {
+                                      return (
+                                          <li key={portfolio.id}>
+                                              <PortfolioCard
+                                                  portfolioData={portfolio}
+                                              />
+                                          </li>
+                                      );
+                                  })
+                                : [1, 2, 3].map((item) => {
+                                      return (
+                                          <li key={item}>
+                                              <PortfolioCard />
+                                          </li>
+                                      );
+                                  })}
                         </ul>
                     </Section>
-                    <Section title={`저는 ${new Date().getMonth() + 1}월 이런 곳에 소비했어요`}>
+                    <Section
+                        title={`저는 ${
+                            new Date().getMonth() + 1
+                        }월, 이런 곳에 소비했어요`}
+                    >
                         <>
-                            {budgetList.length ? <BudgetChart data={budgetList} /> : null}
+                            {budgetList.length ? (
+                                <div className="flex space-x-4">
+                                    <div className="flex w-1/2 border border-gray-100 shadow-md">
+                                        <BudgetChart data={budgetList} />
+                                    </div>
+                                    <div className="flex w-1/2 border border-gray-100 shadow-md">
+                                        월별 사용 금액 차트
+                                    </div>
+                                </div>
+                            ) : null}
                         </>
+                    </Section>
+                    <Section
+                        title={`저는 ${
+                            new Date().getMonth() + 1
+                        }월, 이런 책을 읽었어요`}
+                    >
+                        <></>
                     </Section>
                 </div>
             </>
