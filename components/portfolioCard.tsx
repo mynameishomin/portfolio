@@ -2,7 +2,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default ({ portfolioData }: { portfolioData?: any }) => {
-    console.log(portfolioData);
     return (
         <motion.div
             initial={{ opacity: 0 }}
