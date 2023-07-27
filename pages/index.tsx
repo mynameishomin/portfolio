@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
 import { getNotionData, numberWithComma } from "@/utils/functions";
-import { projectId, budgetId } from "@/utils/variable";
+import { projectId, budgetId, readingId } from "@/utils/variable";
 import PortfolioCard from "@/components/portfolioCard";
 import Section from "@/components/section";
+import BookCard from "@/components/bookCard";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -15,11 +16,24 @@ const BudgetChart = ({ data }: { data: Object[] }) => {
     const monthData = {} as any;
     const monthlyData = {} as any;
     data.forEach((item: any) => {
-        const month = new Date(item.properties.Date.date.start).getMonth() + 1;
-        monthlyData[month]
-            ? monthlyData[month].push(item)
-            : (monthlyData[month] = [item]);
+        const year = new Date(item.properties.Date.date.start).getFullYear();
+        let month = new Date(item.properties.Date.date.start).getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        monthlyData[year + "-" + month]
+            ? monthlyData[year + "-" + month].push(item)
+            : (monthlyData[year + "-" + month] = [item]);
     });
+    
+    const monthLebel = Object.keys(monthlyData);
+    const monthSeries = Object.values(monthlyData).map((item: any) => {
+        return item.reduce(
+            (acc: any, cur: any) => acc + cur.properties.Amount.number,
+            0
+        );
+    });
+
     const nowMonthData = monthlyData[Object.keys(monthlyData)[0]];
 
     nowMonthData.forEach((item: any) => {
@@ -59,7 +73,7 @@ const BudgetChart = ({ data }: { data: Object[] }) => {
         }
     });
 
-    const state = {
+    const monthState = {
         options: {
             chart: {
                 id: "budgetChart",
@@ -77,51 +91,109 @@ const BudgetChart = ({ data }: { data: Object[] }) => {
         series: Object.values(monthData),
     };
 
+    const monthlyState = {
+        options: {
+            chart: {
+                id: "budgetChart",
+            },
+            labels: monthLebel,
+            tooltip: {
+                y: {
+                    formatter: (value: Number) => numberWithComma(value) + "원",
+                },
+            },
+            legend: {
+                show: false,
+            },
+        },
+        series: [{
+            data: monthSeries.map((item: any, index: number) => {
+                return {
+                    x: monthLebel[index],
+                    y: item,
+                }
+            }).reverse()
+        }], 
+    };
+
     return (
         <>
-            <Chart
-                options={state.options as any}
-                series={state.series as any}
-                type="pie"
-                width={250}
-                height={250}
-            />
-            <ul className="flex flex-col justify-end grow m-2 p-2 text-right">
-                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
-                    <h3 className="mb-1">총 지출</h3>
-                    <div className="flex text-gray-500">
-                        <span className="w-2/3">
-                            * {new Date().getMonth() + 1}월 :
-                        </span>
-                        <span className="w-1/3">{totalAmout}원</span>
-                    </div>
-                </li>
-                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
-                    <h3 className="mb-1">가장 큰 지출 분야</h3>
-                    <div className="flex text-gray-500">
-                        <span className="w-2/3">* {topCategory.name} :</span>
-                        <span className="w-1/3">
-                            {numberWithComma(topCategory.amount)}원
-                        </span>
-                    </div>
-                </li>
-                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
-                    <h3 className="mb-1">가장 큰 지출 항목</h3>
-                    <div className="flex text-gray-500">
-                        <span className="w-2/3">* {topItem.name} :</span>
-                        <span className="w-1/3">
-                            {numberWithComma(topItem.amount)}원
-                        </span>
-                    </div>
-                </li>
-            </ul>
+        <div className="flex space-x-4">
+            <div className="flex w-1/2 border border-gray-100 shadow-md">
+                <Chart
+                    className="flex flex-col justify-center"
+                    options={monthState.options as any}
+                    series={monthState.series as any}
+                    type="pie"
+                    width={250}
+                    height={250}
+                />
+                <ul className="flex flex-col justify-end grow m-2 p-2 text-right">
+                    <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
+                        <h3 className="mb-1">가장 큰 지출 분야</h3>
+                        <div className="flex text-gray-500">
+                            <span className="w-2/3">* {topCategory.name} :</span>
+                            <span className="w-1/3">
+                                {numberWithComma(topCategory.amount)}원
+                            </span>
+                        </div>
+                    </li>
+                    <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
+                        <h3 className="mb-1">가장 큰 지출 항목</h3>
+                        <div className="flex text-gray-500">
+                            <span className="w-2/3">* {topItem.name} :</span>
+                            <span className="w-1/3">
+                                {numberWithComma(topItem.amount)}원
+                            </span>
+                        </div>
+                    </li>
+                    <li className="pb-0.5 text-lg border-b border-gray-400 border-dashed">
+                        <div className="flex justify-between text-gray-500 border-b border-gray-400 border-dashed">
+                            <h3 className="mb-1">총 합계</h3>
+                            <span className="w-1/3">{totalAmout}원</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div className="flex flex-col w-1/2 border border-gray-100 shadow-md">
+                <h3>월별 지출 추이</h3>
+                <Chart 
+                    options={monthlyState.options as any}
+                    series={monthlyState.series as any}
+                    type="line"
+                    width="100%"
+                    height={250}
+                    className="w-full"
+                />
+            </div>
+        </div>
+
         </>
     );
+};
+
+const BookSection = ({data}: {data: any}) => {
+    const topScoreBook = data.reduce((acc: any, cur: any) => {
+        return acc.properties.Score.number > cur.properties.Score.number ? acc : cur;
+    });
+    const bookList = data.filter((item: any) => item.id !== topScoreBook.id);
+    
+    console.log(bookList)
+    return <div className="flex">
+        <ul className="grid grid-cols-4 gap-4">
+            {bookList.slice(0,4).map((book: any) => {
+                return <li key={book.id}>
+                    <BookCard bookData={book} />
+                </li>
+            })}
+        </ul>
+    </div>
 };
 
 export default () => {
     const [portfolioList, setPortfolioList] = useState<any>([]);
     const [budgetList, setBudgetList] = useState<any>({});
+    const [bookList, setBookList] = useState<any>({});
     const [creativeWidth, setCreativeWidth] = useState<number>(300);
     const [proWidth, setProWidth] = useState<number>(300);
     const [x, setX] = useState<number>(0);
@@ -134,6 +206,10 @@ export default () => {
 
         getNotionData(budgetId).then((data) => {
             setBudgetList(data);
+        });
+
+        getNotionData(readingId).then((data) => {
+            setBookList(data);
         });
     }, []);
 
@@ -226,14 +302,7 @@ export default () => {
                     >
                         <>
                             {budgetList.length ? (
-                                <div className="flex space-x-4">
-                                    <div className="flex w-1/2 border border-gray-100 shadow-md">
-                                        <BudgetChart data={budgetList} />
-                                    </div>
-                                    <div className="flex w-1/2 border border-gray-100 shadow-md">
-                                        월별 사용 금액 차트
-                                    </div>
-                                </div>
+                                <BudgetChart data={budgetList} />
                             ) : null}
                         </>
                     </Section>
@@ -242,7 +311,14 @@ export default () => {
                             new Date().getMonth() + 1
                         }월, 이런 책을 읽었어요`}
                     >
-                        <></>
+                        <>
+                            {bookList.length ? (
+                                <>
+                                    <BookSection data={bookList} />
+                                </>
+                            )
+                            : null}
+                        </>
                     </Section>
                 </div>
             </>
