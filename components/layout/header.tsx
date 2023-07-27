@@ -9,14 +9,6 @@ const Gnb = () => {
         <nav className="ml-auto">
             <ul className="flex space-x-4 text-white text-lg font-semibold">
                 <li
-                    key="1"
-                    className={`${
-                        router.pathname === "/about" ? "text-[#E8FFE8]" : ""
-                    } hover:underline`}
-                >
-                    <Link href="/about">ABOUT</Link>
-                </li>
-                <li
                     key="2"
                     className={`${
                         router.pathname === "/portfolio" ? "text-[#E8FFE8]" : ""
