@@ -1,26 +1,5 @@
-import {
-    baseUrl,
-    guestBookId,
-    budgetId,
-    readingId,
-    projectId,
-    skillId,
-} from "./variable";
+import { baseUrl } from "./variable";
 import { notionStore, addNotion } from "./store/notion";
-
-// export const notionInit = async () => {
-//     if (!notionStore.getState().hasNotion) {
-//         const notionData = await (
-//             await fetch(`${baseUrl}/api/getNotion/`)
-//         ).json();
-
-//         console.log(notionData);
-
-//         notionStore.dispatch(addNotion(notionData));
-//     } else {
-//     }
-//     return notionStore.getState();
-// };
 
 export const getNotionData = async (id: string, filter?: object) => {
     const notionState = notionStore.getState();
@@ -49,4 +28,8 @@ export const getNowDateString = (date: Date) => {
 
 export const numberWithComma = (number: Number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const formatToKRW = (number: number) => {
+    return numberWithComma(number) + "원";
 };

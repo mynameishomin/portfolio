@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
-import { getNotionData, numberWithComma } from "@/utils/functions";
+import { getNotionData, formatToKRW } from "@/utils/functions";
 import { projectId, budgetId, readingId } from "@/utils/variable";
 import PortfolioCard from "@/components/portfolioCard";
 import Section from "@/components/section";
@@ -51,12 +50,14 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
         : null;
 
     const totalAmout = nowMonthData
-        ? numberWithComma(
-              nowMonthData.reduce(
-                  (acc: any, cur: any) => acc + cur.properties.Amount.number,
-                  0
-              )
+        ? nowMonthData.reduce(
+              (acc: any, cur: any) => acc + cur.properties.Amount.number,
+              0
           )
+        : null;
+
+    const engelCoefficient = totalAmout
+        ? Math.round((monthData["음식"] / totalAmout) * 100)
         : null;
 
     let topCategory = { name: "", amount: 0 };
@@ -94,7 +95,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
             labels: Object.keys(monthData),
             tooltip: {
                 y: {
-                    formatter: (value: Number) => numberWithComma(value) + "원",
+                    formatter: (value: number) => formatToKRW(value),
                 },
             },
             legend: {
@@ -108,22 +109,32 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
         options: {
             chart: {
                 id: "budgetChart",
+                toolbar: {
+                    show: false,
+                },
             },
             labels: monthLebel,
             tooltip: {
                 y: {
-                    formatter: (value: Number) => numberWithComma(value) + "원",
+                    formatter: (value: number) => formatToKRW(value),
                 },
             },
             legend: {
                 show: false,
             },
+            yaxis: {
+                labels: {
+                    formatter: (value: number) => formatToKRW(value),
+                },
+            },
         },
         series: [
             {
+                name: "총 지출",
                 data: monthSeries
                     .map((item: any, index: number) => {
                         return {
+                            label: "ssss",
                             x: monthLebel[index],
                             y: item,
                         };
@@ -140,60 +151,76 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
             <>
                 {data.length ? (
                     <div className="flex space-x-4">
-                        <div className="flex w-1/2 border border-gray-100 shadow-md">
-                            <Chart
-                                className="flex flex-col justify-center"
-                                options={monthState.options as any}
-                                series={monthState.series as any}
-                                type="pie"
-                                width={250}
-                                height={250}
-                            />
-                            <ul className="flex flex-col justify-end grow m-2 p-2 text-right">
-                                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
-                                    <h3 className="mb-1">가장 큰 지출 분야</h3>
-                                    <div className="flex text-gray-500">
-                                        <span className="w-2/3">
-                                            * {topCategory.name} :
-                                        </span>
-                                        <span className="w-1/3">
-                                            {numberWithComma(
-                                                topCategory.amount
-                                            )}
-                                            원
-                                        </span>
-                                    </div>
-                                </li>
-                                <li className="mb-2 pb-2 border-b border-gray-400 border-dashed">
-                                    <h3 className="mb-1">가장 큰 지출 항목</h3>
-                                    <div className="flex text-gray-500">
-                                        <span className="w-2/3">
-                                            * {topItem.name} :
-                                        </span>
-                                        <span className="w-1/3">
-                                            {numberWithComma(topItem.amount)}원
-                                        </span>
-                                    </div>
-                                </li>
-                                <li className="pb-0.5 text-lg border-b border-gray-400 border-dashed">
-                                    <div className="flex justify-between text-gray-500 border-b border-gray-400 border-dashed">
-                                        <h3 className="mb-1">총 합계</h3>
-                                        <span className="w-1/3">
-                                            {totalAmout}원
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                         <div className="flex flex-col w-1/2 border border-gray-100 shadow-md">
-                            <h3>월별 지출 추이</h3>
+                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
+                                월별 지출 추이
+                            </h3>
+                            <div className="flex mt-auto">
+                                <Chart
+                                    className="flex flex-col justify-center"
+                                    options={monthState.options as any}
+                                    series={monthState.series as any}
+                                    type="pie"
+                                    width={200}
+                                    height={200}
+                                />
+                                <ul className="flex flex-col justify-end grow m-2 p-2 text-right text-gray-500 text-sm">
+                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                        <h3>가장 큰 지출 분야</h3>
+                                        <div className="flex ">
+                                            <span className="w-2/3">
+                                                * {topCategory.name} :
+                                            </span>
+                                            <span className="w-1/3">
+                                                {formatToKRW(
+                                                    topCategory.amount
+                                                )}
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                        <h3 className="mb-1">
+                                            가장 큰 지출 항목
+                                        </h3>
+                                        <div className="flex ">
+                                            <span className="w-2/3">
+                                                * {topItem.name} :
+                                            </span>
+                                            <span className="w-1/3">
+                                                {formatToKRW(topItem.amount)}
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                        <div className="flex justify-between">
+                                            <h3 className="mb-1">엥겔지수</h3>
+                                            <span className="w-1/3">
+                                                {engelCoefficient}%
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li className="pb-0.5 text-sm border-b border-gray-400 border-dashed">
+                                        <div className="flex justify-between  border-b border-gray-400 border-dashed">
+                                            <h3 className="mb-1">총 지출</h3>
+                                            <span className="w-1/3">
+                                                {formatToKRW(totalAmout)}
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-end w-1/2 border border-gray-100 shadow-md">
+                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm  text-right">
+                                월별 지출 추이
+                            </h3>
                             <Chart
                                 options={monthlyState.options as any}
                                 series={monthlyState.series as any}
                                 type="line"
                                 width="100%"
-                                height={250}
-                                className="w-full"
+                                height={200}
+                                className="flex flex-col justify-end w-full "
                             />
                         </div>
                     </div>
@@ -272,13 +299,14 @@ const MainVisual = () => {
     return (
         <Visual>
             <div
-                className="relative flex h-[600px] overflow-hidden"
+                className="relative flex h-[438px] overflow-hidden"
                 onMouseMove={(e) => {
                     const centerX = window.innerWidth / 2;
                     const point = (centerX - e.pageX) / 2;
                     setProWidth(() => photoWidth + point);
                     setCreativeWidth(() => photoWidth - point);
                     setX(() => point / 20);
+                    console.log();
                 }}
                 onMouseLeave={() => {
                     setCreativeWidth(photoWidth);
@@ -286,6 +314,37 @@ const MainVisual = () => {
                     setX(0);
                 }}
             >
+                <motion.div
+                    animate={{
+                        opacity: (proWidth - 0) / (600 - 0),
+                    }}
+                    className="relative flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28"
+                >
+                    <motion.div
+                        animate={{ x: -(proWidth / 20) }}
+                        transition={{ type: "just" }}
+                        className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
+                    ></motion.div>
+                    <h3 className="text-4xl font-black text-gray-900">
+                        호기심 청년
+                    </h3>
+                </motion.div>
+                <motion.div
+                    animate={{
+                        opacity: (creativeWidth - 0) / (600 - 0),
+                    }}
+                    className="relative flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28"
+                >
+                    <motion.div
+                        animate={{ x: -(proWidth / 20) }}
+                        transition={{ type: "just" }}
+                        className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
+                    ></motion.div>
+                    <h3 className="text-4xl font-black text-gray-900">
+                        &lt;웹퍼블리셔 /&gt;
+                    </h3>
+                </motion.div>
+
                 <motion.div
                     className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-full"
                     initial={{ x: 0 }}
@@ -302,7 +361,7 @@ const MainVisual = () => {
                         transition={{
                             duration: 0.6,
                         }}
-                        className="absolute left-0 w-[300px] h-full bg-left-bottom bg-[length:600px_600px] bg-no-repeat bg-[url('/images/profile_02.png')]"
+                        className="absolute left-0 w-[300px] h-full bg-left-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_02.webp')]"
                     ></motion.div>
 
                     <motion.div
@@ -311,9 +370,10 @@ const MainVisual = () => {
                         transition={{
                             duration: 0.6,
                         }}
-                        className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_600px] bg-no-repeat bg-[url('/images/profile_01.png')]"
+                        className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_01.webp')]"
                     ></motion.div>
                 </motion.div>
+
                 <Link
                     href="about-01"
                     className="absolute left-0 w-1/2 h-full"
@@ -337,7 +397,7 @@ const Main = () => {
     return (
         <div>
             <MainVisual />
-            <div className="space-y-32">
+            <div className="space-y-24">
                 <PortfolioSection />
                 {/* TODO: BudgetList state까지 통합 필요 */}
                 <BudgetSection data={budgetList} />
