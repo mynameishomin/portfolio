@@ -146,14 +146,16 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
 
     return (
         <Section
-            title={`저는 ${new Date().getMonth() + 1}월, 이런 곳에 소비했어요`}
+            title={`💳 저는 ${
+                new Date().getMonth() + 1
+            }월, 이런 곳에 소비했어요`}
         >
             <>
                 {data.length ? (
                     <div className="flex space-x-4">
                         <div className="flex flex-col w-1/2 border border-gray-100 shadow-md">
                             <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
-                                월별 지출 추이
+                                월별 지출 통계
                             </h3>
                             <div className="flex mt-auto">
                                 <Chart
@@ -211,7 +213,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                             </div>
                         </div>
                         <div className="flex flex-col justify-end w-1/2 border border-gray-100 shadow-md">
-                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm  text-right">
+                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
                                 월별 지출 추이
                             </h3>
                             <Chart
@@ -240,7 +242,7 @@ const BookSection = () => {
     }, []);
     return (
         <Section
-            title={`저는 ${new Date().getMonth() + 1}월, 이런 책을 읽었어요`}
+            title={`📕 저는 ${new Date().getMonth() + 1}월, 이런 책을 읽었어요`}
         >
             <>
                 {bookList.length ? (
@@ -269,7 +271,7 @@ const PortfolioSection = () => {
         });
     }, []);
     return (
-        <Section title="저는 최근에 이런 작업을 했어요">
+        <Section title="🧑🏻‍💻 저는 최근에 이런 작업을 했어요">
             <ul className="grid grid-cols-3 gap-4">
                 {portfolioList.length
                     ? portfolioList.map((portfolio: any) => {
@@ -325,8 +327,8 @@ const MainVisual = () => {
                         transition={{ type: "just" }}
                         className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
                     ></motion.div>
-                    <h3 className="text-4xl font-black text-gray-900">
-                        호기심 청년
+                    <h3 className="text-6xl font-black text-gray-900">
+                        임시 텍스트
                     </h3>
                 </motion.div>
                 <motion.div
@@ -340,8 +342,8 @@ const MainVisual = () => {
                         transition={{ type: "just" }}
                         className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
                     ></motion.div>
-                    <h3 className="text-4xl font-black text-gray-900">
-                        &lt;웹퍼블리셔 /&gt;
+                    <h3 className="text-6xl font-black text-gray-900">
+                        임시 텍스트
                     </h3>
                 </motion.div>
 

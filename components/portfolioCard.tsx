@@ -25,11 +25,11 @@ export default ({ portfolioData }: { portfolioData?: any }) => {
                         />
                     </div>
                     <div className="p-2 pb-0 font-normal">
-                        <h3 className="h-6 mb-1 text-gray-900">
+                        <h3 className="inline-block mb-1 pb-0.5 px-2 text-gray-200 rounded bg-gray-900">
                             {portfolioData.properties.Name.title[0].plain_text}
                         </h3>
-                        <span className="h-5 text-gray-500">
-                            {portfolioData.properties.Type.select.name}
+                        <span className="block text-gray-500">
+                            [{portfolioData.properties.Type.select.name}]
                         </span>
                     </div>
                 </div>
@@ -45,8 +45,8 @@ export const Dummy = () => {
         <div className="p-2 rounded shadow-md border border-gray-100">
             <div className="h-40 rounded animate-pulse bg-gray-200"></div>
             <div className="p-2 pb-0 font-mt">
-                <div className="h-6 mb-1 bg-gray-200 rounded animate-pulse"></div>
-                <div className="h-5 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-5 mb-0.5 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
             </div>
         </div>
     );
