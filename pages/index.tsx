@@ -328,7 +328,7 @@ const MainVisual = () => {
                         className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
                     ></motion.div>
                     <h3 className="text-6xl font-black text-gray-900">
-                        임시 텍스트
+                        자유롭게
                     </h3>
                 </motion.div>
                 <motion.div
@@ -343,7 +343,7 @@ const MainVisual = () => {
                         className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
                     ></motion.div>
                     <h3 className="text-6xl font-black text-gray-900">
-                        임시 텍스트
+                        진지하게
                     </h3>
                 </motion.div>
 
@@ -399,12 +399,17 @@ const Main = () => {
     return (
         <div>
             <MainVisual />
-            <div className="space-y-24">
+            <motion.div
+                className="space-y-24"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+            >
                 <PortfolioSection />
                 {/* TODO: BudgetList state까지 통합 필요 */}
                 <BudgetSection data={budgetList} />
                 <BookSection />
-            </div>
+            </motion.div>
         </div>
     );
 };

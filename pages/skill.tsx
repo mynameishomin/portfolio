@@ -135,7 +135,7 @@ export default () => {
                 <Visual>
                     <div className="flex mb-8 pt-12 font-mt">
                         <motion.div
-                            className="w-1/2"
+                            className="w-1/2 flex flex-col justify-center"
                             initial={{ x: -500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -143,20 +143,15 @@ export default () => {
                                 ease: "easeInOut",
                             }}
                         >
-                            <h2 className="mb-6 pt-16 text-5xl font-extrabold text-gray-800">
-                                SKILL
-                            </h2>
-                            <strong className="block mb-6 text-2xl text-gray-400">
-                                I can use these skills now <br />
-                                and will use many more in the future.
+                            <strong className="block mb-6 text-4xl text-gray-900">
+                                Skill
                             </strong>
-                            <p className="text-base text-gray-500">
-                                I will learn more in the future,
+                            <p className="text-base text-gray-600">
+                                제가 익힌 기술들을 소개합니다.
                                 <br />
-                                and I am ready to learn whatever it is if you
-                                direct it.
-                                <br />
-                                I'm not afraid to learn
+                                업무에 필요한 기술, 재미있어서 익힌 기술, 앞으로
+                                배우고 싶은 기술 등을 정리해놓았습니다. <br />더
+                                많은 걸 배우고 쌓아나가겠습니다.
                             </p>
                         </motion.div>
                         <motion.div
@@ -169,9 +164,9 @@ export default () => {
                             }}
                         >
                             <Image
-                                src="/images/profile_01.png"
+                                src="/images/skill.png"
                                 alt="프로필 사진"
-                                width="400"
+                                width="300"
                                 height="400"
                             />
                         </motion.div>

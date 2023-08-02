@@ -170,7 +170,7 @@ export default () => {
                 <Visual>
                     <div className="flex mb-8 pt-12 font-mt">
                         <motion.div
-                            className="w-1/2"
+                            className="w-1/2 flex flex-col justify-center"
                             initial={{ x: -500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -178,22 +178,18 @@ export default () => {
                                 ease: "easeInOut",
                             }}
                         >
-                            <h2 className="mb-6 pt-16 text-5xl font-extrabold text-gray-800">
-                                PORTFOLIO
-                            </h2>
-                            <strong className="block mb-6 text-2xl text-gray-400">
-                                This is my proud portfolio. <br />
-                                Work with me if you like this
+                            <strong className="block mb-6 text-4xl text-gray-900">
+                                Portfolio
                             </strong>
-                            <p className="text-base text-gray-500">
-                                Most of my portfolio is web publishing, but I
-                                can also do front-end development and planning.
-                                And if you would like to entrust me with other
-                                tasks, welcome. I can do anything.
+                            <p className="text-base text-gray-600">
+                                제가 그동안 작업한 프로젝트들을 소개합니다.
+                                <br />
+                                회사에서 진행한 프로젝트, 개인적으로 진행한
+                                프로젝트 등을 기록해놓았습니다.
                             </p>
                         </motion.div>
                         <motion.div
-                            className="flex justify-center w-1/2"
+                            className="flex w-1/2"
                             initial={{ x: 500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -202,10 +198,11 @@ export default () => {
                             }}
                         >
                             <Image
-                                src="/images/profile_01.png"
-                                alt="프로필 사진"
-                                width="400"
-                                height="400"
+                                className="mx-auto mt-10"
+                                src="/images/portfolio.png"
+                                alt="웹사이트 이미지"
+                                width="350"
+                                height="200"
                             />
                         </motion.div>
                     </div>

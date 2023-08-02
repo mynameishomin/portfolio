@@ -2,5 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/about-01": "pages/about-01.js"
+  "/contact": "pages/contact.js",
+  "/api/getNotion": "pages/api/getNotion.js",
+  "/portfolio": "pages/portfolio.js",
+  "/": "pages/index.js"
 }
