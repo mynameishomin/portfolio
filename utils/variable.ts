@@ -5,7 +5,7 @@ export const baseUrl = "http://localhost:3000";
 export const ghostUrl = "https://mynameishomin.com";
 export const ghostApiKey = "c816dde08851bb1887f22f14a8";
 
-export const guestBookId = "0173c6cdbe77488784fed915abf7c39a";
+export const messageId = "0173c6cdbe77488784fed915abf7c39a";
 export const budgetId = "a97362f8a349423489497e37c20a41bc";
 export const readingId = "5b82356cea1643ba81c9ec2d6945f7dc";
 export const projectId = "b69dbfc122e645e3b78c4ff90076a97b";

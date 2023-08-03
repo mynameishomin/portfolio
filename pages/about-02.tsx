@@ -119,7 +119,7 @@ export default () => {
                                 </h3>
                                 <p className="break-keep">
                                     업무를 수행하면서 필요한 기술은 계속 생기기
-                                    마련입니다.
+                                    마련입니다. 만약
                                 </p>
                             </div>
                         </section>

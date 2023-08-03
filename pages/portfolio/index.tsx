@@ -8,6 +8,7 @@ import Container from "@/components/layout/container";
 import { useState, useEffect, Key } from "react";
 import { getNotionData } from "@/utils/functions";
 import { projectId } from "@/utils/variable";
+import PortfolioCard from "@/components/portfolioCard";
 
 const DummyCard = () => {
     return (
@@ -129,29 +130,8 @@ const ProjectList = ({
                               }}
                               key={project.id}
                               onClick={() => setSelectedProject(project)}
-                              className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
                           >
-                              <div className="p-2 rounded shadow-md border border-gray-100">
-                                  {/* 임시 이미지 */}
-                                  <div className="relative rounded overflow-hidden">
-                                      <div className="absolute inset-0 animate-pulse bg-gray-200"></div>
-                                      <Image
-                                          className="relative z-10 w-full object-cover"
-                                          src={src}
-                                          alt={name}
-                                          width="160"
-                                          height="90"
-                                      ></Image>
-                                  </div>
-                                  <div className="p-2 pb-0 font-mt">
-                                      <h3 className="mb-1 text-gray-900 font-extrabold">
-                                          {name}
-                                      </h3>
-                                      <span className="text-gray-500">
-                                          {type}
-                                      </span>
-                                  </div>
-                              </div>
+                              <PortfolioCard portfolioData={project} />
                           </motion.li>
                       );
                   })}

@@ -1,12 +1,34 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
 import Container from "@/components/layout/container";
 import LineTitle from "@/components/lineTitle";
 
 const ContactForm = () => {
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userComment, setUserComment] = useState("");
+
+    const saveState = (modifier: any) => {
+        return (event: any) => {
+            modifier(event.target.value);
+        };
+    };
+
+    const sendMessage = async () => {
+        fetch("/api/sendMessage", {
+            method: "POST",
+            headers: {},
+            body: JSON.stringify({
+                name: userName,
+                email: userEmail,
+                comment: userComment,
+            }),
+        });
+    };
+
     return (
         <Container>
             <motion.div
@@ -15,7 +37,7 @@ const ContactForm = () => {
                 transition={{ duration: 0.6, delay: 0.9 }}
             >
                 <LineTitle>✉️ 메시지를 작성해주세요</LineTitle>
-                <form className="flex flex-col">
+                <div className="flex flex-col">
                     <div className="flex space-x-6 mb-6">
                         <div className="flex flex-col space-y-6 w-1/2">
                             <label className="flex flex-col">
@@ -23,8 +45,10 @@ const ContactForm = () => {
                                     이름
                                 </span>
                                 <input
+                                    name="name"
                                     className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
                                     type="text"
+                                    onChange={saveState(setUserName)}
                                 />
                             </label>
                             <label className="flex flex-col">
@@ -32,8 +56,10 @@ const ContactForm = () => {
                                     이메일
                                 </span>
                                 <input
+                                    name="email"
                                     className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
                                     type="text"
+                                    onChange={saveState(setUserEmail)}
                                 />
                             </label>
                         </div>
@@ -41,15 +67,23 @@ const ContactForm = () => {
                             <span className="block mb-2 text-xl font-mt font-extrabold">
                                 메시지
                             </span>
-                            <textarea className="grow p-4 border-2 border-gray-200 rounded text-lg" />
+                            <textarea
+                                name="comment"
+                                className="grow p-4 border-2 border-gray-200 rounded text-lg"
+                                onChange={saveState(setUserComment)}
+                            />
                         </label>
                     </div>
                     <div className="flex justify-end">
-                        <button className="py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400">
+                        <button
+                            type="button"
+                            className="py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400"
+                            onClick={sendMessage}
+                        >
                             메시지 전송
                         </button>
                     </div>
-                </form>
+                </div>
             </motion.div>
         </Container>
     );
