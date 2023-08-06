@@ -118,33 +118,28 @@ export default () => {
                                     🚚 필요한 기술은 찾아서 습득
                                 </h3>
                                 <p className="break-keep">
-                                    업무를 수행하면서 필요한 기술은 계속 생기기
-                                    마련입니다. 만약
-                                </p>
-                            </div>
-                        </section>
-
-                        <section className="flex space-x-32">
-                            <div className="grow">
-                                <h3 className="mb-6 text-3xl font-black text-gray-900">
-                                    임시텍스트
-                                </h3>
-                                <p className="break-keep">
-                                    임시 텍스트
+                                    업무를 수행하다보면 특정 기술을 습득한다면
+                                    생산성이 더욱 높아질 것으로 예상되는 일이
+                                    생기기 마련입니다. 이러한 경우에는 누군가
+                                    지시하지 않아도 스스로 기술을 습득하여
+                                    업무에 적용하고자 합니다.
                                     <br />
+                                    <br />
+                                    1년간 출하/생산관리 업무를 맡아 수행할 당시
+                                    지게차 운전을 할줄 모르기에 제품을
+                                    이동시키는 업무를 다른 사람에게 요청해야
+                                    했습니다. 때문에 요청하는 시간 및 대기하는
+                                    시간이 많아 생산성이 떨어졌습니다. 이때 제가
+                                    직접 지게차 운전을 배운다면 생산성이 더욱
+                                    높아질 것이라고 판단하였고 상사의 허락 하에
+                                    직접 지게차 운전을 배워 업무에 적용하였고.
+                                    생산성을 크게 향상시켰습니다.
+                                    <br />
+                                    <br />
+                                    이처럼 생산성이 높아질 것으로 예상되는 범위
+                                    내에서 기술을 습득하고 역할을 확장하는 것을
+                                    좋아합니다.
                                 </p>
-                            </div>
-                            <div className="relative w-80 shrink-0">
-                                <Image
-                                    className="block rounded-xl w-full shadow-xl"
-                                    src="/images/about-01_03.jpeg"
-                                    width="500"
-                                    height="500"
-                                    alt="지게차 운전중인 저의 모습"
-                                />
-                                <span className="absolute bottom-2 right-2  pb-0.5 px-2 text-gray-900 bg-gray-200 rounded font-black text-sm">
-                                    임시 텍스트
-                                </span>
                             </div>
                         </section>
                     </motion.div>

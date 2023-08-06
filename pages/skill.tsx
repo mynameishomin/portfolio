@@ -24,7 +24,7 @@ const SkillList = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
             >
-                <ul className="flex flex-wrap gap-4">
+                <ul className="grid grid-cols-8 gap-8">
                     {loading ? (
                         <li className="rounded shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                             <button className="block">

@@ -143,23 +143,37 @@ export default () => {
                         <section className="flex space-x-32">
                             <div className="grow">
                                 <h3 className="mb-6 text-3xl font-black text-gray-900">
-                                    임시텍스트
+                                    🤪 실패를 즐긴다.
                                 </h3>
                                 <p className="break-keep">
-                                    임시 텍스트
+                                    실패란 무섭고 부끄럽다고 생각하는 사람들이
+                                    있습니다. 그래서 도전하지 않거나 몰래
+                                    도전하고 실패하는 모습을 숨기곤 합니다.
+                                    하지만 저는 도전과 실패를 모두 공개하고 그
+                                    과정을 즐깁니다.
                                     <br />
+                                    <br />
+                                    최근에 클라이밍을 시작하였는데, 잘 하는
+                                    사람들 사이에서 못하는 모습, 실패하는 모습을
+                                    부끄러워하지 않고 모두 공개하고 그들에게
+                                    도움을 받아 배우고 성장하며 실패를
+                                    극복해나가는 과정을 즐기고 있습니다.
+                                    <br />
+                                    <br />
+                                    이러한 태도는 어떤 도전을 하던지 더욱 빠른
+                                    속도로 성장할 수 있게 만들어주었습니다.
                                 </p>
                             </div>
                             <div className="relative w-80 shrink-0">
                                 <Image
                                     className="block rounded-xl w-full shadow-xl"
-                                    src="/images/about-01_03.jpeg"
+                                    src="/images/about-01_03.gif"
                                     width="500"
                                     height="500"
-                                    alt="지게차 운전중인 저의 모습"
+                                    alt="실내 클라이밍중인 저의 모습"
                                 />
                                 <span className="absolute bottom-2 right-2  pb-0.5 px-2 text-gray-900 bg-gray-200 rounded font-black text-sm">
-                                    임시 텍스트
+                                    실내 클라이밍중
                                 </span>
                             </div>
                         </section>

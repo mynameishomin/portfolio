@@ -21,12 +21,11 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
               ).getFullYear();
               let month =
                   new Date(item.properties.Date.date.start).getMonth() + 1;
-              if (month < 10) {
-                  month = "0" + month;
-              }
-              monthlyData[year + "-" + month]
-                  ? monthlyData[year + "-" + month].push(item)
-                  : (monthlyData[year + "-" + month] = [item]);
+              const monthFormat = month < 10 ? "0" + month : String(month);
+
+              monthlyData[year + "-" + monthFormat]
+                  ? monthlyData[year + "-" + monthFormat].push(item)
+                  : (monthlyData[year + "-" + monthFormat] = [item]);
           })
         : null;
 
@@ -277,7 +276,11 @@ const PortfolioSection = () => {
                     ? portfolioList.map((portfolio: any) => {
                           return (
                               <li key={portfolio.id}>
-                                  <PortfolioCard portfolioData={portfolio} />
+                                  <Link href={`/portfolio/?id=${portfolio.id}`}>
+                                      <PortfolioCard
+                                          portfolioData={portfolio}
+                                      />
+                                  </Link>
                               </li>
                           );
                       })

@@ -9,26 +9,7 @@ import { useState, useEffect, Key } from "react";
 import { getNotionData } from "@/utils/functions";
 import { projectId } from "@/utils/variable";
 import PortfolioCard from "@/components/portfolioCard";
-
-const DummyCard = () => {
-    return (
-        <motion.li
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, delay: 0 }}
-            className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
-        >
-            <div className="p-2 rounded shadow-md border border-gray-100">
-                <div className="h-40 rounded animate-pulse bg-gray-200"></div>
-                <div className="p-2 pb-0 font-mt">
-                    <div className="h-6 mb-1 bg-gray-200 rounded animate-pulse"></div>
-                    <div className="h-5 bg-gray-200 rounded animate-pulse"></div>
-                </div>
-            </div>
-        </motion.li>
-    );
-};
+import { useRouter } from "next/router";
 
 const ProjectDetail = ({
     selectedProject,
@@ -39,7 +20,7 @@ const ProjectDetail = ({
 }) => {
     const [loading, setLoading] = useState(true);
     const [notionBlock, setNotionBlock] = useState({});
-
+    const router = useRouter();
     useEffect(() => {
         fetch(
             `https://notion-api.splitbee.io/v1/page/${selectedProject.id}`
@@ -68,10 +49,15 @@ const ProjectDetail = ({
                     <NotionRenderer blockMap={notionBlock} fullPage={true} />
                     <div className="mt-10">
                         <button
-                            className="flex items-center mx-auto px-4 py-0.5 bg-indigo-600 text-white text-base rounded font-mt hover:bg-indigo-500 active:bg-indigo-700"
-                            onClick={() => setSelectedProject({})}
+                            className="flex items-center mx-auto px-4 py-0.5 bg-gray-900 text-white text-base rounded font-mt hover:bg-gray-500 active:bg-gray-700"
+                            onClick={() => {
+                                setSelectedProject({});
+                                window.history.pushState("", "", "/portfolio");
+                                router.push("/portfolio");
+                                router.query.id = "";
+                            }}
                         >
-                            LIST
+                            목록으로 돌아가기
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 height="1em"
@@ -102,24 +88,31 @@ const ProjectList = ({
     loading: any;
     setLoading: any;
 }) => {
+    const router = useRouter();
     useEffect(() => {
         getNotionData(projectId).then((data) => {
             setProjectList(data);
             setLoading(false);
+            if (router.query.id) {
+                console.log(router.query.id);
+                const selectedProject = data.find(
+                    (project: any) => project.id === router.query.id
+                );
+                setSelectedProject(selectedProject);
+            }
         });
     }, []);
     return (
         <ul className="grid grid-cols-3 gap-4">
             {loading
                 ? [1, 2, 3].map((index) => {
-                      return <DummyCard key={index} />;
+                      return (
+                          <li key={index}>
+                              <PortfolioCard />
+                          </li>
+                      );
                   })
                 : projectList.map((project: any) => {
-                      const src = project.properties.Image.files[0].file.url;
-                      const name =
-                          project.properties.Name.title[0].text.content;
-                      const type = project.properties.Type.select.name;
-
                       return (
                           <motion.li
                               initial={{ opacity: 0 }}
@@ -129,9 +122,13 @@ const ProjectList = ({
                                   delay: 0,
                               }}
                               key={project.id}
-                              onClick={() => setSelectedProject(project)}
                           >
-                              <PortfolioCard portfolioData={project} />
+                              <button
+                                  className="block w-full h-full text-left"
+                                  onClick={() => setSelectedProject(project)}
+                              >
+                                  <PortfolioCard portfolioData={project} />
+                              </button>
                           </motion.li>
                       );
                   })}
