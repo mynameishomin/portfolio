@@ -3,6 +3,14 @@ import Image from "next/image";
 import GhostContentAPI from "@tryghost/content-api";
 import { ghostApiKey, ghostUrl } from "@/utils/variable";
 import { useEffect, useState } from "react";
+import Card from "./Card";
+
+interface BlogPostsProps {
+    id: string;
+    title: string;
+    feature_image: string;
+    created_at: string;
+}
 
 const api = new GhostContentAPI({
     url: ghostUrl,
@@ -15,10 +23,9 @@ export default function BlogPosts() {
 
     useEffect(() => {
         api.posts
-            .browse({ limit: 20 })
+            .browse({ limit: 21 })
             .then((posts) => {
                 setPosts(posts);
-                console.log(posts);
             })
             .catch((err) => {
                 console.error(err);
@@ -26,42 +33,30 @@ export default function BlogPosts() {
     }, []);
 
     return (
-        <div className="flex flex-col grow h-full mx-auto max-w-2xl">
-            {posts.length ? (
-                <ul className="grow h-full space-y-20">
-                    {posts.map((post: any) => {
-                        return (
-                            <li key={post.id}>
-                                <h3 className="text-sm font-semibold truncate hover:text-black">
-                                    <Link href={post.url} target="_blank">
-                                        <Image
-                                            className="shadow-lg rounded mb-4"
-                                            src={post.feature_image}
-                                            alt={post.title}
-                                            width={680}
-                                            height={380}
-                                        />
-                                        <h3 className="mb-1 text-2xl font-normal text-gray-900">
-                                            {post.title}
-                                        </h3>
-                                    </Link>
-                                </h3>
-
-                                <time
-                                    className="block text-base font-normal text-gray-600"
-                                    dateTime={post.created_at.split("T")[0]}
-                                >
-                                    {post.created_at
-                                        .split("T")[0]
-                                        .replaceAll("-", ".")}
-                                </time>
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : (
-                <span>최신 글 불러오는 중...</span>
-            )}
+        <div className="flex flex-col grow h-full">
+            <ul className="grow grid grid-cols-3 gap-8">
+                {posts.length
+                    ? posts.map((post: BlogPostsProps) => {
+                          return (
+                              <li key={post.id}>
+                                  <Card
+                                      title={post.title}
+                                      src={post.feature_image}
+                                      subText={post.created_at
+                                          .split("T")[0]
+                                          .replaceAll("-", ".")}
+                                  />
+                              </li>
+                          );
+                      })
+                    : [1, 2, 3].map((item) => {
+                          return (
+                              <li key={item}>
+                                  <Card />
+                              </li>
+                          );
+                      })}
+            </ul>
         </div>
     );
 }

@@ -8,8 +8,10 @@ import Container from "@/components/layout/container";
 import { useState, useEffect, Key } from "react";
 import { getNotionData } from "@/utils/functions";
 import { projectId } from "@/utils/variable";
-import PortfolioCard from "@/components/portfolioCard";
+import Card from "@/components/Card";
 import { useRouter } from "next/router";
+import { NotionPortfolioProps } from "@/types/notion";
+import { getPortfolioData } from "@/function/notion";
 
 const ProjectDetail = ({
     selectedProject,
@@ -108,28 +110,21 @@ const ProjectList = ({
                 ? [1, 2, 3].map((index) => {
                       return (
                           <li key={index}>
-                              <PortfolioCard />
+                              <Card />
                           </li>
                       );
                   })
-                : projectList.map((project: any) => {
+                : projectList.map((project: NotionPortfolioProps) => {
+                      const { title, type, src } = getPortfolioData(project);
                       return (
-                          <motion.li
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{
-                                  duration: 0.6,
-                                  delay: 0,
-                              }}
+                          <li
                               key={project.id}
+                              onClick={() => setSelectedProject(project)}
+                              className="cursor-pointer"
+                              tabIndex={0}
                           >
-                              <button
-                                  className="block w-full h-full text-left"
-                                  onClick={() => setSelectedProject(project)}
-                              >
-                                  <PortfolioCard portfolioData={project} />
-                              </button>
-                          </motion.li>
+                              <Card title={title} subText={type} src={src} />
+                          </li>
                       );
                   })}
         </ul>

@@ -6,9 +6,10 @@ import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
 import { getNotionData, formatToKRW } from "@/utils/functions";
 import { projectId, budgetId, readingId } from "@/utils/variable";
-import PortfolioCard from "@/components/portfolioCard";
+import Card from "@/components/Card";
 import Section from "@/components/section";
-import BookCard from "@/components/bookCard";
+import { getPortfolioData, getBookoData } from "@/function/notion";
+import { NotionBookProps } from "@/types/notion";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const BudgetSection = ({ data }: { data: Object[] }) => {
@@ -247,13 +248,21 @@ const BookSection = () => {
                 {bookList.length ? (
                     <div className="flex">
                         <ul className="grid grid-cols-4 gap-4">
-                            {bookList.slice(0, 4).map((book: any) => {
-                                return (
-                                    <li key={book.id}>
-                                        <BookCard bookData={book} />
-                                    </li>
-                                );
-                            })}
+                            {bookList
+                                .slice(0, 4)
+                                .map((book: NotionBookProps) => {
+                                    const { title, src, author } =
+                                        getBookoData(book);
+                                    return (
+                                        <li key={book.id}>
+                                            <Card
+                                                title={title}
+                                                src={src}
+                                                subText={author}
+                                            />
+                                        </li>
+                                    );
+                                })}
                         </ul>
                     </div>
                 ) : null}
@@ -274,11 +283,15 @@ const PortfolioSection = () => {
             <ul className="grid grid-cols-3 gap-4">
                 {portfolioList.length
                     ? portfolioList.map((portfolio: any) => {
+                          const { title, type, src } =
+                              getPortfolioData(portfolio);
                           return (
                               <li key={portfolio.id}>
                                   <Link href={`/portfolio/?id=${portfolio.id}`}>
-                                      <PortfolioCard
-                                          portfolioData={portfolio}
+                                      <Card
+                                          title={title}
+                                          subText={type}
+                                          src={src}
                                       />
                                   </Link>
                               </li>
@@ -287,7 +300,7 @@ const PortfolioSection = () => {
                     : [1, 2, 3].map((item) => {
                           return (
                               <li key={item}>
-                                  <PortfolioCard />
+                                  <Card />
                               </li>
                           );
                       })}
