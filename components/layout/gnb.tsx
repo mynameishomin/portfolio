@@ -39,6 +39,14 @@ export default function Gnb() {
             <li>
                 <Link
                     className="flex items-center h-10 hover:text-black max-lg:justify-end"
+                    href="/blog"
+                >
+                    <span className=" text-base font-medium">BLOG</span>
+                </Link>
+            </li>
+            <li>
+                <Link
+                    className="flex items-center h-10 hover:text-black max-lg:justify-end"
                     href="/contact"
                 >
                     <span className=" text-base font-medium">CONTACT</span>

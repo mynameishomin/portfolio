@@ -27,6 +27,14 @@ const Gnb = () => {
                 <li
                     key="4"
                     className={`${
+                        router.pathname === "/blog" ? "text-[#E8FFE8]" : ""
+                    } hover:underline`}
+                >
+                    <Link href="/blog">BLOG</Link>
+                </li>
+                <li
+                    key="5"
+                    className={`${
                         router.pathname === "/contact" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
