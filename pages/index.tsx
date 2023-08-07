@@ -10,6 +10,7 @@ import Card from "@/components/Card";
 import Section from "@/components/section";
 import { getPortfolioData, getBookoData } from "@/function/notion";
 import { NotionBookProps } from "@/types/notion";
+import { PortfolioUl } from "./portfolio";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const BudgetSection = ({ data }: { data: Object[] }) => {
@@ -280,7 +281,7 @@ const PortfolioSection = () => {
     }, []);
     return (
         <Section title="🧑🏻‍💻 저는 최근에 이런 작업을 했어요">
-            <ul className="grid grid-cols-3 gap-4">
+            <PortfolioUl>
                 {portfolioList.length
                     ? portfolioList.map((portfolio: any) => {
                           const { title, type, src } =
@@ -304,7 +305,7 @@ const PortfolioSection = () => {
                               </li>
                           );
                       })}
-            </ul>
+            </PortfolioUl>
         </Section>
     );
 };
