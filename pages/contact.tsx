@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Layout from "@/components/layout/layout";
 import Visual from "@/components/layout/visual";
 import Container from "@/components/layout/container";
 import LineTitle from "@/components/lineTitle";
+import Alert from "@/components/Alert";
 
 const ContactForm = () => {
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userComment, setUserComment] = useState("");
+    const [alert, setAlert] = useState("");
 
     const saveState = (modifier: any) => {
         return (event: any) => {
@@ -18,74 +20,98 @@ const ContactForm = () => {
     };
 
     const sendMessage = async () => {
-        fetch("/api/sendMessage", {
-            method: "POST",
-            headers: {},
-            body: JSON.stringify({
-                name: userName,
-                email: userEmail,
-                comment: userComment,
-            }),
-        });
+        let message = "";
+        if (userName === "") {
+            message = "이름을 입력해주세요";
+        } else if (userEmail === "") {
+            message = "이메일을 입력해주세요";
+        } else if (userComment === "") {
+            message = "메시지를 입력해주세요";
+        } else {
+            message = "메시지가 전송되었습니다";
+            fetch("/api/sendMessage", {
+                method: "POST",
+                headers: {},
+                body: JSON.stringify({
+                    name: userName,
+                    email: userEmail,
+                    comment: userComment,
+                }),
+            });
+            setUserName("");
+            setUserEmail("");
+            setUserComment("");
+        }
+
+        setAlert(message);
+        setTimeout(() => {
+            setAlert("");
+        }, 2000);
     };
 
     return (
-        <Container>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
-            >
-                <LineTitle>✉️ 메시지를 작성해주세요</LineTitle>
-                <div className="flex flex-col">
-                    <div className="flex space-x-6 mb-6">
-                        <div className="flex flex-col space-y-6 w-1/2">
-                            <label className="flex flex-col">
+        <AnimatePresence>
+            <Container>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.9 }}
+                >
+                    <LineTitle>✉️ 메시지를 작성해주세요</LineTitle>
+                    <div className="flex flex-col">
+                        <div className="flex space-x-6 mb-6">
+                            <div className="flex flex-col space-y-6 w-1/2">
+                                <label className="flex flex-col">
+                                    <span className="block mb-2 text-xl font-mt font-extrabold">
+                                        이름
+                                    </span>
+                                    <input
+                                        name="name"
+                                        className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
+                                        type="text"
+                                        value={userName}
+                                        onChange={saveState(setUserName)}
+                                    />
+                                </label>
+                                <label className="flex flex-col">
+                                    <span className="block mb-2 text-xl font-mt font-extrabold">
+                                        이메일
+                                    </span>
+                                    <input
+                                        name="email"
+                                        className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
+                                        type="email"
+                                        value={userEmail}
+                                        onChange={saveState(setUserEmail)}
+                                    />
+                                </label>
+                            </div>
+                            <label className="flex flex-col w-1/2">
                                 <span className="block mb-2 text-xl font-mt font-extrabold">
-                                    이름
+                                    메시지
                                 </span>
-                                <input
-                                    name="name"
-                                    className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
-                                    type="text"
-                                    onChange={saveState(setUserName)}
-                                />
-                            </label>
-                            <label className="flex flex-col">
-                                <span className="block mb-2 text-xl font-mt font-extrabold">
-                                    이메일
-                                </span>
-                                <input
-                                    name="email"
-                                    className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
-                                    type="text"
-                                    onChange={saveState(setUserEmail)}
+                                <textarea
+                                    name="comment"
+                                    className="grow p-4 border-2 border-gray-200 rounded text-lg"
+                                    value={userComment}
+                                    onChange={saveState(setUserComment)}
                                 />
                             </label>
                         </div>
-                        <label className="flex flex-col w-1/2">
-                            <span className="block mb-2 text-xl font-mt font-extrabold">
-                                메시지
-                            </span>
-                            <textarea
-                                name="comment"
-                                className="grow p-4 border-2 border-gray-200 rounded text-lg"
-                                onChange={saveState(setUserComment)}
-                            />
-                        </label>
+                        <div className="flex justify-end">
+                            <button
+                                type="button"
+                                className="py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400"
+                                onClick={sendMessage}
+                            >
+                                메시지 전송
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex justify-end">
-                        <button
-                            type="button"
-                            className="py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400"
-                            onClick={sendMessage}
-                        >
-                            메시지 전송
-                        </button>
-                    </div>
-                </div>
-            </motion.div>
-        </Container>
+                    {alert ? <Alert text={alert} /> : null}
+                </motion.div>
+            </Container>
+        </AnimatePresence>
     );
 };
 
@@ -125,7 +151,7 @@ export default () => {
                             }}
                         >
                             <Image
-                                src="/images/profile_01.png"
+                                src="/images/profile.png"
                                 alt="프로필 사진"
                                 width="400"
                                 height="400"
