@@ -10,8 +10,18 @@ interface GnbProps {
 }
 
 const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
-    console.log(isOpen);
     const router = useRouter();
+
+    const menuVariants = {
+        open: {
+            y: 0,
+            opacity: 1,
+        },
+        closed: {
+            y: -20,
+            opacity: 0,
+        },
+    };
 
     return (
         <motion.nav
@@ -19,43 +29,62 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
             animate={isOpen ? "open" : "closed"}
             className="flex items-center ml-auto"
         >
-            <ul className="flex space-x-4 text-white text-lg font-semibold">
-                <li
+            <motion.ul
+                variants={{
+                    open: {
+                        y: 0,
+                        transition: {
+                            type: "keyframes",
+                            delayChildren: 0.1,
+                            staggerChildren: 0.05,
+                        },
+                    },
+                    closed: {
+                        y: "-100%",
+                    },
+                }}
+                className="absolute inset-x-0 top-full flex flex-col items-center pb-6 pt-10 -mt-8 space-y-4 text-white text-lg font-semibold bg-gray-900 lg:space-x-4"
+            >
+                <motion.li
+                    variants={menuVariants}
                     key="2"
                     className={`${
                         router.pathname === "/portfolio" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/portfolio">PORTFOLIO</Link>
-                </li>
-                <li
+                    <Link href="/portfolio">🖥️ PORTFOLIO</Link>
+                </motion.li>
+                <motion.li
+                    variants={menuVariants}
                     key="3"
                     className={`${
                         router.pathname === "/skill" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/skill">SKILL</Link>
-                </li>
-                <li
+                    <Link href="/skill">🛠️ SKILL</Link>
+                </motion.li>
+                <motion.li
+                    variants={menuVariants}
                     key="4"
                     className={`${
                         router.pathname === "/blog" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/blog">BLOG</Link>
-                </li>
-                <li
+                    <Link href="/blog">📝 BLOG</Link>
+                </motion.li>
+                <motion.li
+                    variants={menuVariants}
                     key="5"
                     className={`${
                         router.pathname === "/contact" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/contact">CONTACT</Link>
-                </li>
-            </ul>
+                    <Link href="/contact">✉️ CONTACT</Link>
+                </motion.li>
+            </motion.ul>
             <motion.button
                 type="button"
-                className="p-4 text-white lg:hidden"
+                className="-mr-4 p-4 text-white lg:hidden z-10"
                 title="메뉴 열기"
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}
@@ -75,6 +104,7 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                     <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
                 </svg>
             </motion.button>
+            <div className="absolute inset-0 bg-gray-900"></div>
         </motion.nav>
     );
 };
@@ -91,10 +121,10 @@ export default () => {
                 exit={{ y: -100 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
             >
-                <header className="h-20 bg-gray-900 font-black">
-                    <Container className="flex items-center h-full">
+                <header className="relative h-16 bg-gray-900 font-black z-50 lg:h-20">
+                    <Container className="fixed inset-x-0 flex items-center h-16 lg:h-16">
                         <>
-                            <h1 className="text-2xl text-white">
+                            <h1 className="relative text-xl text-white z-50 lg:text-2xl">
                                 <Link href="/">MY NAME IS HOMIN</Link>
                             </h1>
                             <Gnb isOpen={isOpen} setIsOpen={setIsOpen} />
