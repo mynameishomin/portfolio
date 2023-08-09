@@ -13,8 +13,20 @@ import { useRouter } from "next/router";
 import { NotionPortfolioProps } from "@/types/notion";
 import { getPortfolioData } from "@/function/notion";
 
-export const PortfolioUl = ({ children }: { children: React.ReactElement }) => {
-    return <ul className="grid grid-cols-3 gap-4">{children}</ul>;
+export const PortfolioUl = ({
+    children,
+    className,
+}: {
+    children: React.ReactElement;
+    className?: string;
+}) => {
+    return (
+        <ul
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ${className}`}
+        >
+            {children}
+        </ul>
+    );
 };
 
 const ProjectDetail = ({

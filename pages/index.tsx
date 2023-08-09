@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
@@ -153,8 +154,8 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
         >
             <>
                 {data.length ? (
-                    <div className="flex space-x-4">
-                        <div className="flex flex-col w-1/2 border border-gray-100 shadow-md">
+                    <div className="flex flex-col space-y-4 md:flex-row md:space-y-4 md:space-x-4">
+                        <div className="flex flex-col md:w-1/2 border border-gray-100 shadow-md">
                             <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
                                 월별 지출 통계
                             </h3>
@@ -169,12 +170,14 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                 />
                                 <ul className="flex flex-col justify-end grow m-2 p-2 text-right text-gray-500 text-sm">
                                     <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
-                                        <h3>가장 큰 지출 분야</h3>
+                                        <h3 className="font-black mb-1">
+                                            가장 큰 지출 분야
+                                        </h3>
                                         <div className="flex ">
-                                            <span className="w-2/3">
+                                            <span className="w-1/2">
                                                 * {topCategory.name} :
                                             </span>
-                                            <span className="w-1/3">
+                                            <span className="w-1/2 text-right whitespace-nowrap">
                                                 {formatToKRW(
                                                     topCategory.amount
                                                 )}
@@ -182,14 +185,14 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                         </div>
                                     </li>
                                     <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
-                                        <h3 className="mb-1">
+                                        <h3 className="font-black mb-1">
                                             가장 큰 지출 항목
                                         </h3>
                                         <div className="flex ">
-                                            <span className="w-2/3">
+                                            <span className="w-1/2">
                                                 * {topItem.name} :
                                             </span>
-                                            <span className="w-1/3">
+                                            <span className="w-1/2 text-right whitespace-nowrap">
                                                 {formatToKRW(topItem.amount)}
                                             </span>
                                         </div>
@@ -213,7 +216,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-end w-1/2 border border-gray-100 shadow-md">
+                        <div className="flex flex-col justify-end md:w-1/2 border border-gray-100 shadow-md">
                             <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
                                 월별 지출 추이
                             </h3>
@@ -247,25 +250,20 @@ const BookSection = () => {
         >
             <>
                 {bookList.length ? (
-                    <div className="flex">
-                        <ul className="grid grid-cols-4 gap-4">
-                            {bookList
-                                .slice(0, 4)
-                                .map((book: NotionBookProps) => {
-                                    const { title, src, author } =
-                                        getBookoData(book);
-                                    return (
-                                        <li key={book.id}>
-                                            <Card
-                                                title={title}
-                                                src={src}
-                                                subText={author}
-                                            />
-                                        </li>
-                                    );
-                                })}
-                        </ul>
-                    </div>
+                    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                        {bookList.slice(0, 4).map((book: NotionBookProps) => {
+                            const { title, src, author } = getBookoData(book);
+                            return (
+                                <li key={book.id}>
+                                    <Card
+                                        title={title}
+                                        src={src}
+                                        subText={author}
+                                    />
+                                </li>
+                            );
+                        })}
+                    </ul>
                 ) : null}
             </>
         </Section>
@@ -283,11 +281,14 @@ const PortfolioSection = () => {
         <Section title="🧑🏻‍💻 저는 최근에 이런 작업을 했어요">
             <PortfolioUl>
                 {portfolioList.length
-                    ? portfolioList.map((portfolio: any) => {
+                    ? portfolioList.slice(0, 3).map((portfolio: any) => {
                           const { title, type, src } =
                               getPortfolioData(portfolio);
                           return (
-                              <li key={portfolio.id}>
+                              <li
+                                  className="sm:last:hidden lg:last:block"
+                                  key={portfolio.id}
+                              >
                                   <Link href={`/portfolio/?id=${portfolio.id}`}>
                                       <Card
                                           title={title}
@@ -317,91 +318,93 @@ const MainVisual = () => {
     const [x, setX] = useState<number>(0);
     return (
         <Visual>
-            <div
-                className="relative flex h-[438px] overflow-hidden"
-                onMouseMove={(e) => {
-                    const centerX = window.innerWidth / 2;
-                    const point = (centerX - e.pageX) / 2;
-                    setProWidth(() => photoWidth + point);
-                    setCreativeWidth(() => photoWidth - point);
-                    setX(() => point / 20);
-                    console.log();
-                }}
-                onMouseLeave={() => {
-                    setCreativeWidth(photoWidth);
-                    setProWidth(photoWidth);
-                    setX(0);
-                }}
-            >
-                <motion.div
-                    animate={{
-                        opacity: (proWidth - 0) / (600 - 0),
+            <>
+                <div
+                    className="relative flex h-[438px] overflow-hidden"
+                    onMouseMove={(e) => {
+                        const centerX = window.innerWidth / 2;
+                        const point = (centerX - e.pageX) / 2;
+                        setProWidth(() => photoWidth + point);
+                        setCreativeWidth(() => photoWidth - point);
+                        setX(() => point / 20);
+                        console.log();
                     }}
-                    className="relative flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28"
-                >
-                    <motion.div
-                        animate={{ x: -(proWidth / 20) }}
-                        transition={{ type: "just" }}
-                        className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
-                    ></motion.div>
-                    <h3 className="text-6xl font-black text-gray-900">
-                        자유롭게
-                    </h3>
-                </motion.div>
-                <motion.div
-                    animate={{
-                        opacity: (creativeWidth - 0) / (600 - 0),
-                    }}
-                    className="relative flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28"
-                >
-                    <motion.div
-                        animate={{ x: -(proWidth / 20) }}
-                        transition={{ type: "just" }}
-                        className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
-                    ></motion.div>
-                    <h3 className="text-6xl font-black text-gray-900">
-                        진지하게
-                    </h3>
-                </motion.div>
-
-                <motion.div
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-full"
-                    initial={{ x: 0 }}
-                    animate={{ x }}
-                    transition={{
-                        type: "tween",
-                        ease: "backOut",
-                        duration: 1.6,
+                    onMouseLeave={() => {
+                        setCreativeWidth(photoWidth);
+                        setProWidth(photoWidth);
+                        setX(0);
                     }}
                 >
                     <motion.div
-                        initial={{ x: -600 }}
-                        animate={{ x: 0, width: proWidth }}
-                        transition={{
-                            duration: 0.6,
+                        animate={{
+                            opacity: (proWidth - 0) / (600 - 0),
                         }}
-                        className="absolute left-0 w-[300px] h-full bg-left-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_02.webp')]"
-                    ></motion.div>
+                        className="relative flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28"
+                    >
+                        <motion.div
+                            animate={{ x: -(proWidth / 20) }}
+                            transition={{ type: "just" }}
+                            className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
+                        ></motion.div>
+                        <h3 className="relative text-6xl font-black text-gray-900">
+                            자유롭게
+                        </h3>
+                    </motion.div>
+                    <motion.div
+                        animate={{
+                            opacity: (creativeWidth - 0) / (600 - 0),
+                        }}
+                        className="relative flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28"
+                    >
+                        <motion.div
+                            animate={{ x: -(proWidth / 20) }}
+                            transition={{ type: "just" }}
+                            className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
+                        ></motion.div>
+                        <h3 className="relative text-6xl font-black text-gray-900">
+                            진지하게
+                        </h3>
+                    </motion.div>
 
                     <motion.div
-                        initial={{ x: 600 }}
-                        animate={{ x: 0, width: creativeWidth }}
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-full"
+                        initial={{ x: 0 }}
+                        animate={{ x }}
                         transition={{
-                            duration: 0.6,
+                            type: "tween",
+                            ease: "backOut",
+                            duration: 1.6,
                         }}
-                        className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_01.webp')]"
-                    ></motion.div>
-                </motion.div>
+                    >
+                        <motion.div
+                            initial={{ x: -600 }}
+                            animate={{ x: 0, width: proWidth }}
+                            transition={{
+                                duration: 0.6,
+                            }}
+                            className="absolute left-0 w-[300px] h-full bg-left-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_02.webp')]"
+                        ></motion.div>
 
-                <Link
-                    href="about-01"
-                    className="absolute left-0 w-1/2 h-full"
-                ></Link>
-                <Link
-                    href="about-02"
-                    className="absolute right-0 w-1/2 h-full"
-                ></Link>
-            </div>
+                        <motion.div
+                            initial={{ x: 600 }}
+                            animate={{ x: 0, width: creativeWidth }}
+                            transition={{
+                                duration: 0.6,
+                            }}
+                            className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_01.webp')]"
+                        ></motion.div>
+                    </motion.div>
+
+                    <Link
+                        href="about-01"
+                        className="absolute left-0 w-1/2 h-full"
+                    ></Link>
+                    <Link
+                        href="about-02"
+                        className="absolute right-0 w-1/2 h-full"
+                    ></Link>
+                </div>
+            </>
         </Visual>
     );
 };
@@ -417,7 +420,7 @@ const Main = () => {
         <div>
             <MainVisual />
             <motion.div
-                className="space-y-24"
+                className="space-y-16 sm:space-y-24"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}

@@ -29,7 +29,7 @@ export default ({ src = "", title, subText }: CardProps) => {
                         />
                     </div>
                     <div className="p-2 pb-0 font-normal">
-                        <h3 className="inline-block max-w-full mb-1 pb-0.5 px-2 text-gray-200 rounded bg-gray-900 truncate">
+                        <h3 className="inline-block max-w-full pb-0.5 px-2 text-gray-200 rounded bg-gray-900 truncate lg:mb-1">
                             {title}
                         </h3>
                         <span className="block text-gray-500">
