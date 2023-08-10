@@ -24,7 +24,7 @@ const SkillList = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
             >
-                <ul className="grid grid-cols-8 gap-8">
+                <ul className="grid gap-4 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 lg:gap-8">
                     {loading ? (
                         <li className="rounded shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                             <button className="block">
@@ -43,13 +43,13 @@ const SkillList = () => {
                                 <motion.li layoutId={skill.id} key={skill.id}>
                                     <div className="rounded shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                                         <button
-                                            className="block"
+                                            className="block w-full"
                                             onClick={() => {
                                                 setSelectedSkill(skill);
                                             }}
                                         >
-                                            <div className="p-2 pb-1 border border-gray-100 bg-white">
-                                                <div className="relative w-24 h-24">
+                                            <div className="flex flex-col items-center p-2 pb-1 border border-gray-100 bg-white">
+                                                <div className="relative w-20 h-20 sm:w-24 sm:h-24">
                                                     <div className="w-full h-full rounded animate-pulse bg-gray-200"></div>
                                                     <Image
                                                         className="absolute inset-0 object-cover rounded"
@@ -133,9 +133,9 @@ export default () => {
         <Layout>
             <>
                 <Visual>
-                    <div className="flex mb-8 pt-12 font-mt">
+                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
                         <motion.div
-                            className="w-1/2 flex flex-col justify-center"
+                            className="flex flex-col justify-center w-full sm:w-1/2"
                             initial={{ x: -500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -143,10 +143,10 @@ export default () => {
                                 ease: "easeInOut",
                             }}
                         >
-                            <strong className="block mb-6 text-4xl text-gray-900">
+                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
                                 Skill
                             </strong>
-                            <p className="text-base text-gray-600">
+                            <p className="hidden text-base text-gray-600 sm:block">
                                 제가 익힌 기술들을 소개합니다.
                                 <br />
                                 업무에 필요한 기술, 재미있어서 익힌 기술, 앞으로
@@ -155,7 +155,7 @@ export default () => {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="flex justify-center w-1/2"
+                            className="hidden w-1/2 sm:flex"
                             initial={{ x: 500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{

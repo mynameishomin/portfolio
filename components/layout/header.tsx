@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "./container";
@@ -11,6 +11,20 @@ interface GnbProps {
 
 const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
     const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            window.innerWidth > 1024 ? setIsOpen(true) : setIsOpen(false);
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1024) {
+                    setIsOpen(true);
+                } else {
+                    setIsOpen(false);
+                }
+            });
+        }
+    }, []);
 
     const menuVariants = {
         open: {
@@ -43,7 +57,7 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                         y: "-100%",
                     },
                 }}
-                className="absolute inset-x-0 top-full flex flex-col items-center pb-6 pt-10 -mt-8 space-y-4 text-white text-lg font-semibold bg-gray-900 lg:space-x-4"
+                className="absolute inset-x-0 top-full flex flex-col items-center pb-6 pt-10 -mt-8 space-y-4 text-white text-lg font-semibold bg-gray-900 lg:static lg:flex-row lg:space-x-4 lg:top-auto lg:space-y-0 lg:pb-0 lg:pt-0 lg:mt-0 lg:bg-transparent lg:text-base"
             >
                 <motion.li
                     variants={menuVariants}
@@ -52,7 +66,9 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                         router.pathname === "/portfolio" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/portfolio">🖥️ PORTFOLIO</Link>
+                    <Link href="/portfolio">
+                        <span className="lg:hidden">🖥️</span> PORTFOLIO
+                    </Link>
                 </motion.li>
                 <motion.li
                     variants={menuVariants}
@@ -61,7 +77,9 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                         router.pathname === "/skill" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/skill">🛠️ SKILL</Link>
+                    <Link href="/skill">
+                        <span className="lg:hidden">🛠️</span> SKILL
+                    </Link>
                 </motion.li>
                 <motion.li
                     variants={menuVariants}
@@ -70,7 +88,9 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                         router.pathname === "/blog" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/blog">📝 BLOG</Link>
+                    <Link href="/blog">
+                        <span className="lg:hidden">📝</span> BLOG
+                    </Link>
                 </motion.li>
                 <motion.li
                     variants={menuVariants}
@@ -79,7 +99,9 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                         router.pathname === "/contact" ? "text-[#E8FFE8]" : ""
                     } hover:underline`}
                 >
-                    <Link href="/contact">✉️ CONTACT</Link>
+                    <Link href="/contact">
+                        <span className="lg:hidden">✉️</span> CONTACT
+                    </Link>
                 </motion.li>
             </motion.ul>
             <motion.button
@@ -104,7 +126,7 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                     <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
                 </svg>
             </motion.button>
-            <div className="absolute inset-0 bg-gray-900"></div>
+            <div className="absolute inset-0 bg-gray-900 lg:hidden"></div>
         </motion.nav>
     );
 };

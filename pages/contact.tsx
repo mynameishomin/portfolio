@@ -59,35 +59,35 @@ const ContactForm = () => {
                 >
                     <LineTitle>✉️ 메시지를 작성해주세요</LineTitle>
                     <div className="flex flex-col">
-                        <div className="flex space-x-6 mb-6">
-                            <div className="flex flex-col space-y-6 w-1/2">
+                        <div className="flex flex-col mb-6 space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0">
+                            <div className="flex flex-col space-y-2 sm:space-y-6 sm:w-1/2">
                                 <label className="flex flex-col">
-                                    <span className="block mb-2 text-xl font-mt font-extrabold">
+                                    <span className="block mb-1 font-mt font-extrabold sm:text-xl">
                                         이름
                                     </span>
                                     <input
                                         name="name"
-                                        className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
+                                        className="p-4 h-5 border-2 border-gray-200 rounded text-lg sm:h-12"
                                         type="text"
                                         value={userName}
                                         onChange={saveState(setUserName)}
                                     />
                                 </label>
                                 <label className="flex flex-col">
-                                    <span className="block mb-2 text-xl font-mt font-extrabold">
+                                    <span className="block mb-1 font-mt font-extrabold sm:text-xl">
                                         이메일
                                     </span>
                                     <input
                                         name="email"
-                                        className="p-4 h-12 border-2 border-gray-200 rounded text-lg"
+                                        className="p-4 h-5 border-2 border-gray-200 rounded text-lg sm:h-12"
                                         type="email"
                                         value={userEmail}
                                         onChange={saveState(setUserEmail)}
                                     />
                                 </label>
                             </div>
-                            <label className="flex flex-col w-1/2">
-                                <span className="block mb-2 text-xl font-mt font-extrabold">
+                            <label className="flex flex-col sm:w-1/2">
+                                <span className="block mb-2 font-mt font-extrabold sm:text-xl">
                                     메시지
                                 </span>
                                 <textarea
@@ -101,7 +101,7 @@ const ContactForm = () => {
                         <div className="flex justify-end">
                             <button
                                 type="button"
-                                className="py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400"
+                                className="w-full py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400 sm:w-auto"
                                 onClick={sendMessage}
                             >
                                 메시지 전송
@@ -120,9 +120,9 @@ export default () => {
         <Layout>
             <>
                 <Visual>
-                    <div className="flex mb-8 pt-12 font-mt">
+                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
                         <motion.div
-                            className="w-1/2 flex flex-col justify-center"
+                            className="flex flex-col justify-center w-full sm:w-1/2"
                             initial={{ x: -500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -130,10 +130,10 @@ export default () => {
                                 ease: "easeInOut",
                             }}
                         >
-                            <strong className="block mb-6 text-4xl text-gray-900">
+                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
                                 Contact
                             </strong>
-                            <p className="text-base text-gray-600">
+                            <p className="hidden text-base text-gray-600 sm:block">
                                 저에게 해주실 말씀이 있다면 언제든지 연락주세요.
                                 <br />
                                 잡담, 농담, 질문, 제안 등 모두 환영합니다.
@@ -142,7 +142,7 @@ export default () => {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="flex justify-center w-1/2"
+                            className="hidden w-1/2 sm:flex"
                             initial={{ x: 500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{

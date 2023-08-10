@@ -2,9 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/skill": "pages/skill.js",
-  "/blog": "pages/blog.js",
-  "/contact": "pages/contact.js",
-  "/portfolio": "pages/portfolio.js",
+  "/about-02": "pages/about-02.js",
+  "/": "pages/index.js",
   "/api/getNotion": "pages/api/getNotion.js"
 }

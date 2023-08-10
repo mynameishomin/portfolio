@@ -316,19 +316,22 @@ const MainVisual = () => {
     const [proWidth, setProWidth] = useState<number>(300);
     const photoWidth = 300;
     const [x, setX] = useState<number>(0);
+
+    const mouseMove = (e: any) => {
+        if (window.innerWidth < 768) return;
+        const centerX = window.innerWidth / 2;
+        const point = (centerX - e.pageX) / 2;
+        setProWidth(() => photoWidth + point);
+        setCreativeWidth(() => photoWidth - point);
+        setX(() => point / 20);
+    };
+
     return (
         <Visual>
             <>
                 <div
-                    className="relative flex h-[438px] overflow-hidden"
-                    onMouseMove={(e) => {
-                        const centerX = window.innerWidth / 2;
-                        const point = (centerX - e.pageX) / 2;
-                        setProWidth(() => photoWidth + point);
-                        setCreativeWidth(() => photoWidth - point);
-                        setX(() => point / 20);
-                        console.log();
-                    }}
+                    className="relative flex justify-center md:overflow-hidden md:h-[438px]"
+                    onMouseMove={mouseMove}
                     onMouseLeave={() => {
                         setCreativeWidth(photoWidth);
                         setProWidth(photoWidth);
@@ -339,35 +342,29 @@ const MainVisual = () => {
                         animate={{
                             opacity: (proWidth - 0) / (600 - 0),
                         }}
-                        className="relative flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28"
+                        className="absolute flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28 md:relative"
                     >
                         <motion.div
                             animate={{ x: -(proWidth / 20) }}
                             transition={{ type: "just" }}
-                            className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/creative_bg.webp')]"
+                            className="absolute inset-0 right-10 w-full h-full bg-cover bg-no-repeat bg-[url('/images/creative_bg.webp')] bg-right-bottom md:bg-contain"
                         ></motion.div>
-                        <h3 className="relative text-6xl font-black text-gray-900">
-                            자유롭게
-                        </h3>
                     </motion.div>
                     <motion.div
                         animate={{
                             opacity: (creativeWidth - 0) / (600 - 0),
                         }}
-                        className="relative flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28"
+                        className="absolute flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28 md:relative"
                     >
                         <motion.div
                             animate={{ x: -(proWidth / 20) }}
                             transition={{ type: "just" }}
-                            className="absolute inset-0 w-full h-full bg-contain bg-no-repeat bg-[url('/images/publisher_bg.webp')]"
+                            className="absolute inset-0 left-10 w-full h-full bg-cover bg-no-repeat bg-[url('/images/publisher_bg.webp')] bg-left-bottom md:bg-contain"
                         ></motion.div>
-                        <h3 className="relative text-6xl font-black text-gray-900">
-                            진지하게
-                        </h3>
                     </motion.div>
 
                     <motion.div
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-full"
+                        className="hidden absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-full md:block"
                         initial={{ x: 0 }}
                         animate={{ x }}
                         transition={{
@@ -394,7 +391,15 @@ const MainVisual = () => {
                             className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_01.webp')]"
                         ></motion.div>
                     </motion.div>
-
+                    <div className="relative flex flex-col justify-end items-center w-full md:hidden">
+                        <Image
+                            src="/images/profile.png"
+                            width={300}
+                            height={300}
+                            alt="프로필 사진"
+                            className="w-full max-w-md"
+                        />
+                    </div>
                     <Link
                         href="about-01"
                         className="absolute left-0 w-1/2 h-full"

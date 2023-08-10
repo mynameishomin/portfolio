@@ -156,9 +156,9 @@ export default () => {
         <Layout>
             <>
                 <Visual>
-                    <div className="flex mb-8 pt-12 font-mt">
+                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
                         <motion.div
-                            className="w-1/2 flex flex-col justify-center"
+                            className="flex flex-col justify-center w-full sm:w-1/2"
                             initial={{ x: -500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
@@ -166,10 +166,10 @@ export default () => {
                                 ease: "easeInOut",
                             }}
                         >
-                            <strong className="block mb-6 text-4xl text-gray-900">
+                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
                                 Portfolio
                             </strong>
-                            <p className="text-base text-gray-600">
+                            <p className="hidden text-base text-gray-600 sm:block">
                                 제가 그동안 작업한 프로젝트들을 소개합니다.
                                 <br />
                                 회사에서 진행한 프로젝트, 개인적으로 진행한
@@ -177,7 +177,7 @@ export default () => {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="flex w-1/2"
+                            className="hidden w-1/2 sm:flex"
                             initial={{ x: 500, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{
