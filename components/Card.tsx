@@ -48,7 +48,7 @@ export const Dummy = () => {
     return (
         <div className="p-2 rounded shadow-md border border-gray-100">
             <div className="h-40 rounded animate-pulse bg-gray-200"></div>
-            <div className="p-2 pb-0 font-mt">
+            <div className="p-2 pb-0">
                 <div className="h-5 mb-0.5 bg-gray-200 rounded animate-pulse"></div>
                 <div className="h-6 bg-gray-200 rounded animate-pulse"></div>
             </div>

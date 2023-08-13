@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { NotionRenderer } from "react-notion";
 import "react-notion/src/styles.css";
 import Layout from "@/components/layout/layout";
-import Visual from "@/components/layout/visual";
+import { SubVisual } from "@/components/layout/visual";
 import Container from "@/components/layout/container";
 import { useState, useEffect, Key } from "react";
 import { getNotionData } from "@/utils/functions";
@@ -67,7 +67,7 @@ const ProjectDetail = ({
                     <NotionRenderer blockMap={notionBlock} fullPage={true} />
                     <div className="mt-10">
                         <button
-                            className="flex items-center mx-auto px-4 py-0.5 bg-gray-900 text-white text-base rounded font-mt hover:bg-gray-500 active:bg-gray-700"
+                            className="flex items-center mx-auto px-4 py-0.5 bg-gray-900 text-white text-base rounded hover:bg-gray-500 active:bg-gray-700"
                             onClick={() => {
                                 setSelectedProject({});
                                 window.history.pushState("", "", "/portfolio");
@@ -155,46 +155,12 @@ export default () => {
     return (
         <Layout>
             <>
-                <Visual>
-                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
-                        <motion.div
-                            className="flex flex-col justify-center w-full sm:w-1/2"
-                            initial={{ x: -500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
-                                Portfolio
-                            </strong>
-                            <p className="hidden text-base text-gray-600 sm:block">
-                                제가 그동안 작업한 프로젝트들을 소개합니다.
-                                <br />
-                                회사에서 진행한 프로젝트, 개인적으로 진행한
-                                프로젝트 등을 기록해놓았습니다.
-                            </p>
-                        </motion.div>
-                        <motion.div
-                            className="hidden w-1/2 sm:flex"
-                            initial={{ x: 500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.6,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <Image
-                                className="mx-auto mt-10"
-                                src="/images/portfolio.png"
-                                alt="웹사이트 이미지"
-                                width="350"
-                                height="200"
-                            />
-                        </motion.div>
-                    </div>
-                </Visual>
+                <SubVisual
+                    title="PORTFOLIO"
+                    text="제가 그동안 작업한 프로젝트들을 소개합니다. 회사에서 진행한 프로젝트, 개인적으로 진행한 프로젝트 등을 기록해놓았습니다."
+                    src="/images/profile.png"
+                    alt="portfolio"
+                />
                 <Container>
                     <motion.div
                         initial={{ opacity: 0 }}

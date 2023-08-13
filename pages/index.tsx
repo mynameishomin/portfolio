@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
-import Visual from "@/components/layout/visual";
+import { Visual } from "@/components/layout/visual";
 import { getNotionData, formatToKRW } from "@/utils/functions";
 import { projectId, budgetId, readingId } from "@/utils/variable";
 import Card from "@/components/Card";
@@ -342,25 +342,31 @@ const MainVisual = () => {
                         animate={{
                             opacity: (proWidth - 0) / (600 - 0),
                         }}
-                        className="absolute flex flex-col items-center justify-center left-0 w-1/2 h-full pr-32 pb-28 md:relative"
+                        className="absolute flex flex-col items-center justify-center left-0 w-1/2 h-full md:pb-28 md:pr-32 md:relative"
                     >
                         <motion.div
                             animate={{ x: -(proWidth / 20) }}
                             transition={{ type: "just" }}
                             className="absolute inset-0 right-10 w-full h-full bg-cover bg-no-repeat bg-[url('/images/creative_bg.webp')] bg-right-bottom md:bg-contain"
                         ></motion.div>
+                        <h2 className="hidden relative font-black whitespace-nowrap md:block md:text-4xl">
+                            HOMIN JUNG
+                        </h2>
                     </motion.div>
                     <motion.div
                         animate={{
                             opacity: (creativeWidth - 0) / (600 - 0),
                         }}
-                        className="absolute flex flex-col items-center justify-center right-0 w-1/2 h-full pl-32 pb-28 md:relative"
+                        className="absolute flex flex-col items-center justify-center right-0 w-1/2 h-full md:pb-28 md:pl-32 md:relative"
                     >
                         <motion.div
                             animate={{ x: -(proWidth / 20) }}
                             transition={{ type: "just" }}
                             className="absolute inset-0 left-10 w-full h-full bg-cover bg-no-repeat bg-[url('/images/publisher_bg.webp')] bg-left-bottom md:bg-contain"
                         ></motion.div>
+                        <h2 className="hidden relative font-black whitespace-nowrap md:block md:text-4xl">
+                            PUBLISHER
+                        </h2>
                     </motion.div>
 
                     <motion.div
@@ -391,7 +397,15 @@ const MainVisual = () => {
                             className="absolute right-0 w-[300px] h-full bg-right-bottom bg-[length:600px_438px] bg-no-repeat bg-[url('/images/profile_01.webp')]"
                         ></motion.div>
                     </motion.div>
-                    <div className="relative flex flex-col justify-end items-center w-full md:hidden">
+                    <motion.div
+                        className="relative flex flex-col justify-end items-center w-full md:hidden"
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                            duration: 0.3,
+                            delay: 1.5,
+                        }}
+                    >
                         <Image
                             src="/images/profile.png"
                             width={300}
@@ -399,13 +413,13 @@ const MainVisual = () => {
                             alt="프로필 사진"
                             className="w-full max-w-md"
                         />
-                    </div>
+                    </motion.div>
                     <Link
-                        href="about-01"
+                        href="about/homin"
                         className="absolute left-0 w-1/2 h-full"
                     ></Link>
                     <Link
-                        href="about-02"
+                        href="about/publisher"
                         className="absolute right-0 w-1/2 h-full"
                     ></Link>
                 </div>

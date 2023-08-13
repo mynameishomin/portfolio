@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Layout from "@/components/layout/layout";
-import Visual from "@/components/layout/visual";
+import { SubVisual } from "@/components/layout/visual";
 import Container from "@/components/layout/container";
 import { getNotionData } from "@/utils/functions";
 import { skillId } from "@/utils/variable";
@@ -30,7 +30,7 @@ const SkillList = () => {
                             <button className="block">
                                 <div className="p-2 pb-1 border border-gray-100 bg-white">
                                     <div className="w-24 h-24 rounded animate-pulse bg-gray-200"></div>
-                                    <div className="h-6 mt-2 pb-0 font-mt text-gray-900 bg-gray-200 animate-pulse rounded font-extrabold"></div>
+                                    <div className="h-6 mt-2 pb-0 text-gray-900 bg-gray-200 animate-pulse rounded font-extrabold"></div>
                                 </div>
                             </button>
                         </li>
@@ -59,7 +59,7 @@ const SkillList = () => {
                                                         alt=""
                                                     />
                                                 </div>
-                                                <h3 className="h-6 mt-2 pb-0 font-mt text-gray-900 font-extrabold">
+                                                <h3 className="h-6 mt-2 pb-0 text-gray-900 font-extrabold">
                                                     {name}
                                                 </h3>
                                             </div>
@@ -75,7 +75,7 @@ const SkillList = () => {
                         <motion.div
                             key={selectedSkill.id + "selected"}
                             layoutId={selectedSkill.id}
-                            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex w-96 p-2 pb-1 rounded shadow-md border border-gray-100 bg-white font-mt"
+                            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex w-96 p-2 pb-1 rounded shadow-md border border-gray-100 bg-white"
                         >
                             <div className="flex flex-col justify-end items-center mr-6">
                                 <div className="relative w-24 h-24">
@@ -91,7 +91,7 @@ const SkillList = () => {
                                         alt=""
                                     />
                                 </div>
-                                <h3 className="mt-2 pb-0 font-mt text-gray-900 font-extrabold">
+                                <h3 className="mt-2 pb-0 text-gray-900 font-extrabold">
                                     {
                                         selectedSkill.properties.Name.title[0]
                                             .plain_text
@@ -132,46 +132,13 @@ export default () => {
     return (
         <Layout>
             <>
-                <Visual>
-                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
-                        <motion.div
-                            className="flex flex-col justify-center w-full sm:w-1/2"
-                            initial={{ x: -500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
-                                Skill
-                            </strong>
-                            <p className="hidden text-base text-gray-600 sm:block">
-                                제가 익힌 기술들을 소개합니다.
-                                <br />
-                                업무에 필요한 기술, 재미있어서 익힌 기술, 앞으로
-                                배우고 싶은 기술 등을 정리해놓았습니다. <br />더
-                                많은 걸 배우고 쌓아나가겠습니다.
-                            </p>
-                        </motion.div>
-                        <motion.div
-                            className="hidden w-1/2 sm:flex"
-                            initial={{ x: 500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.6,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <Image
-                                src="/images/skill.png"
-                                alt="프로필 사진"
-                                width="300"
-                                height="400"
-                            />
-                        </motion.div>
-                    </div>
-                </Visual>
+                <SubVisual
+                    title="SKILL"
+                    text="제가 익힌 기술들을 소개합니다. 업무에 필요한 기술, 재미있어서 익힌 기술, 앞으로 배우고 싶은 기술 등을 정리해놓았습니다. 더 많은 걸 배우고 쌓아나가겠습니다."
+                    src="/images/profile.png"
+                    alt=""
+                />
+
                 <SkillList />
             </>
         </Layout>

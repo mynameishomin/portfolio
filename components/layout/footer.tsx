@@ -3,7 +3,7 @@ import Container from "./container";
 
 const FooterNav = () => {
     return (
-        <nav className="ml-auto text-gray-400 font-semibold text-sm">
+        <nav className="text-gray-400 font-semibold text-sm sm:ml-auto">
             <ul className="flex space-x-4">
                 <li className="hover:underline">
                     <Link href="/professional">ABOUT</Link>
@@ -24,10 +24,12 @@ const FooterNav = () => {
 
 export default () => {
     return (
-        <footer className="h-24 bg-gray-100 shadow-inner font-mt">
-            <Container className="flex items-center h-full text-gray-500">
+        <footer className="h-24 bg-gray-100 shadow-inner">
+            <Container className="flex flex-col-reverse justify-center items-center h-full text-gray-500 sm:flex-row">
                 <>
-                    <strong className="text-base">© 2023 Jung Homin</strong>
+                    <strong className="block mt-4 text-base sm:mt-0">
+                        © 2023 Jung Homin
+                    </strong>
                     <FooterNav />
                 </>
             </Container>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Layout from "@/components/layout/layout";
-import Visual from "@/components/layout/visual";
+import { SubVisual } from "@/components/layout/visual";
 import Container from "@/components/layout/container";
 import LineTitle from "@/components/lineTitle";
 import Alert from "@/components/Alert";
@@ -62,7 +62,7 @@ const ContactForm = () => {
                         <div className="flex flex-col mb-6 space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0">
                             <div className="flex flex-col space-y-2 sm:space-y-6 sm:w-1/2">
                                 <label className="flex flex-col">
-                                    <span className="block mb-1 font-mt font-extrabold sm:text-xl">
+                                    <span className="block mb-1 font-extrabold sm:text-xl">
                                         이름
                                     </span>
                                     <input
@@ -74,7 +74,7 @@ const ContactForm = () => {
                                     />
                                 </label>
                                 <label className="flex flex-col">
-                                    <span className="block mb-1 font-mt font-extrabold sm:text-xl">
+                                    <span className="block mb-1 font-extrabold sm:text-xl">
                                         이메일
                                     </span>
                                     <input
@@ -87,7 +87,7 @@ const ContactForm = () => {
                                 </label>
                             </div>
                             <label className="flex flex-col sm:w-1/2">
-                                <span className="block mb-2 font-mt font-extrabold sm:text-xl">
+                                <span className="block mb-2 font-extrabold sm:text-xl">
                                     메시지
                                 </span>
                                 <textarea
@@ -101,7 +101,7 @@ const ContactForm = () => {
                         <div className="flex justify-end">
                             <button
                                 type="button"
-                                className="w-full py-2 px-4 rounded bg-indigo-600 text-white font-mt font-extrabold hover:bg-indigo-700 active:bg-indigo-400 sm:w-auto"
+                                className="w-full py-2 px-4 rounded bg-indigo-600 text-white font-extrabold hover:bg-indigo-700 active:bg-indigo-400 sm:w-auto"
                                 onClick={sendMessage}
                             >
                                 메시지 전송
@@ -119,46 +119,12 @@ export default () => {
     return (
         <Layout>
             <>
-                <Visual>
-                    <div className="flex mb-8 pb-12 pt-12 font-mt sm:pb-0">
-                        <motion.div
-                            className="flex flex-col justify-center w-full sm:w-1/2"
-                            initial={{ x: -500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <strong className="block text-4xl text-center text-gray-900 sm:mb-6 sm:text-left">
-                                Contact
-                            </strong>
-                            <p className="hidden text-base text-gray-600 sm:block">
-                                저에게 해주실 말씀이 있다면 언제든지 연락주세요.
-                                <br />
-                                잡담, 농담, 질문, 제안 등 모두 환영합니다.
-                                <br />
-                                빠른 시일 내에 답변드리겠습니다.
-                            </p>
-                        </motion.div>
-                        <motion.div
-                            className="hidden w-1/2 sm:flex"
-                            initial={{ x: 500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{
-                                duration: 0.6,
-                                ease: "easeInOut",
-                            }}
-                        >
-                            <Image
-                                src="/images/profile.png"
-                                alt="프로필 사진"
-                                width="400"
-                                height="400"
-                            />
-                        </motion.div>
-                    </div>
-                </Visual>
+                <SubVisual
+                    title="CONTACT"
+                    text="저에게 해주실 말씀이 있다면 언제든지 연락주세요. 잡담, 농담, 질문, 제안 등 모두 환영합니다."
+                    src="/images/profile.png"
+                    alt=""
+                />
                 <ContactForm />
             </>
         </Layout>
