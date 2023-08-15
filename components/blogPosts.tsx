@@ -10,6 +10,7 @@ interface BlogPostsProps {
     title: string;
     feature_image: string;
     created_at: string;
+    url: string;
 }
 
 const api = new GhostContentAPI({
@@ -39,13 +40,15 @@ export default function BlogPosts() {
                     ? posts.map((post: BlogPostsProps) => {
                           return (
                               <li key={post.id}>
-                                  <Card
-                                      title={post.title}
-                                      src={post.feature_image}
-                                      subText={post.created_at
-                                          .split("T")[0]
-                                          .replaceAll("-", ".")}
-                                  />
+                                  <Link href={post.url}>
+                                      <Card
+                                          title={post.title}
+                                          src={post.feature_image}
+                                          subText={post.created_at
+                                              .split("T")[0]
+                                              .replaceAll("-", ".")}
+                                      />
+                                  </Link>
                               </li>
                           );
                       })
