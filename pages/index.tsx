@@ -154,12 +154,12 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
         >
             <>
                 {data.length ? (
-                    <div className="flex flex-col space-y-4 md:flex-row md:space-y-4 md:space-x-4">
-                        <div className="flex flex-col md:w-1/2 border border-gray-100 shadow-md">
+                    <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+                        <div className="flex flex-col border border-gray-100 shadow-md">
                             <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
                                 월별 지출 통계
                             </h3>
-                            <div className="flex mt-auto">
+                            <div className="flex flex-col items-center mt-auto pt-6 md:flex-row md:pt-0">
                                 <Chart
                                     className="flex flex-col justify-center"
                                     options={monthState.options as any}
@@ -168,16 +168,15 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                     width={200}
                                     height={200}
                                 />
-                                <ul className="flex flex-col justify-end grow m-2 p-2 text-right text-gray-500 text-sm">
+                                <ul className="flex flex-col justify-end grow w-full m-2 p-2 text-right text-gray-500 text-sm">
                                     <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
                                         <h3 className="font-black mb-1">
                                             가장 큰 지출 분야
                                         </h3>
-                                        <div className="flex ">
-                                            <span className="w-1/2">
-                                                * {topCategory.name} :
-                                            </span>
-                                            <span className="w-1/2 text-right whitespace-nowrap">
+                                        <div className="flex justify-end">
+                                            <span>{topCategory.name}</span>
+                                            <span className="mr-2">:</span>
+                                            <span>
                                                 {formatToKRW(
                                                     topCategory.amount
                                                 )}
@@ -188,11 +187,10 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                         <h3 className="font-black mb-1">
                                             가장 큰 지출 항목
                                         </h3>
-                                        <div className="flex ">
-                                            <span className="w-1/2">
-                                                * {topItem.name} :
-                                            </span>
-                                            <span className="w-1/2 text-right whitespace-nowrap">
+                                        <div className="flex justify-end whitespace-nowrap">
+                                            <span>{topItem.name}</span>
+                                            <span className="mr-2">:</span>
+                                            <span>
                                                 {formatToKRW(topItem.amount)}
                                             </span>
                                         </div>
@@ -216,7 +214,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-end md:w-1/2 border border-gray-100 shadow-md">
+                        <div className="flex flex-col justify-end grow border border-gray-100 shadow-md">
                             <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
                                 월별 지출 추이
                             </h3>
