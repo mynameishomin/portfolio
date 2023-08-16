@@ -1,7 +1,6 @@
 export const notionApiKey =
     "secret_cmuZifHPNQRnF7Jb6w4rjI9iwtDnxSMh4LemqzatItb";
-export const baseUrl = "https://portfolio.mynameishomin.com";
-// export const baseUrl = "http://localhost:3000";
+export const baseUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://portfolio.mynameishomin.com";
 export const ghostUrl = "https://mynameishomin.com";
 export const ghostApiKey = "c816dde08851bb1887f22f14a8";
 

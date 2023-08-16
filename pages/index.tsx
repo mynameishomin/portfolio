@@ -15,6 +15,7 @@ import { PortfolioUl } from "./portfolio";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const BudgetSection = ({ data }: { data: Object[] }) => {
+    console.log(process.env.NODE_ENV);
     const monthData = {} as any;
     const monthlyData = {} as any;
     data.length
