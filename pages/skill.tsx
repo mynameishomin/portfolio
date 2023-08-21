@@ -39,17 +39,25 @@ const SkillList = () => {
                             const src = skill.properties.Icon.files[0].file.url;
                             const name =
                                 skill.properties.Name.title[0].plain_text;
+                            const possible = skill.properties.Possible.checkbox;
                             return (
-                                <motion.li layoutId={skill.id} key={skill.id}>
-                                    <div className="rounded shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                                <li key={skill.id}>
+                                    <div className="relative rounded shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                                         <button
                                             className="block w-full"
                                             onClick={() => {
                                                 setSelectedSkill(skill);
                                             }}
                                         >
-                                            <div className="flex flex-col items-center p-2 pb-1 border border-gray-100 bg-white">
-                                                <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+                                            <div
+                                                className={`flex flex-col items-center p-2 pb-1 border border-gray-100 bg-white ${
+                                                    possible ? "" : "opacity-25"
+                                                }`}
+                                            >
+                                                <motion.div
+                                                    layoutId={skill.id}
+                                                    className="relative w-20 h-20 sm:w-24 sm:h-24"
+                                                >
                                                     <div className="w-full h-full rounded animate-pulse bg-gray-200"></div>
                                                     <Image
                                                         className="absolute inset-0 object-cover rounded"
@@ -58,14 +66,33 @@ const SkillList = () => {
                                                         height={100}
                                                         alt=""
                                                     />
-                                                </div>
+                                                </motion.div>
                                                 <h3 className="h-6 mt-2 pb-0 text-gray-900 font-extrabold">
                                                     {name}
                                                 </h3>
                                             </div>
+                                            {possible ? null : (
+                                                <div className="absolute inset-0 flex justify-center">
+                                                    <svg
+                                                        aria-hidden="true"
+                                                        focusable="false"
+                                                        data-prefix="fas"
+                                                        data-icon="lock"
+                                                        className="block w-8 h-8 -translate-y-2"
+                                                        role="img"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 448 512"
+                                                    >
+                                                        <path
+                                                            fill="currentColor"
+                                                            d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"
+                                                        ></path>
+                                                    </svg>
+                                                </div>
+                                            )}
                                         </button>
                                     </div>
-                                </motion.li>
+                                </li>
                             );
                         })
                     )}
@@ -74,11 +101,16 @@ const SkillList = () => {
                     {selectedSkill.id ? (
                         <motion.div
                             key={selectedSkill.id + "selected"}
-                            layoutId={selectedSkill.id}
                             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex w-96 p-2 pb-1 rounded shadow-md border border-gray-100 bg-white"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                         >
                             <div className="flex flex-col justify-end items-center mr-6">
-                                <div className="relative w-24 h-24">
+                                <motion.div
+                                    layoutId={selectedSkill.id}
+                                    className="relative w-24 h-24"
+                                >
                                     <div className="w-full h-full rounded animate-pulse bg-gray-200"></div>
                                     <Image
                                         className="absolute inset-0 object-cover rounded"
@@ -90,7 +122,7 @@ const SkillList = () => {
                                         height={100}
                                         alt=""
                                     />
-                                </div>
+                                </motion.div>
                                 <h3 className="mt-2 pb-0 text-gray-900 font-extrabold">
                                     {
                                         selectedSkill.properties.Name.title[0]

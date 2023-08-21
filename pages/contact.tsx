@@ -70,6 +70,8 @@ const ContactForm = () => {
                                         className="p-4 h-5 border-2 border-gray-200 rounded text-lg sm:h-12"
                                         type="text"
                                         value={userName}
+                                        placeholder="홍길동"
+                                        title="이름을 입력해주세요"
                                         onChange={saveState(setUserName)}
                                     />
                                 </label>
@@ -81,6 +83,8 @@ const ContactForm = () => {
                                         name="email"
                                         className="p-4 h-5 border-2 border-gray-200 rounded text-lg sm:h-12"
                                         type="email"
+                                        placeholder="example@gmail.com"
+                                        title="이메일을 입력해주세요"
                                         value={userEmail}
                                         onChange={saveState(setUserEmail)}
                                     />
@@ -93,6 +97,8 @@ const ContactForm = () => {
                                 <textarea
                                     name="comment"
                                     className="grow p-4 border-2 border-gray-200 rounded text-lg"
+                                    placeholder="메시지를 입력해주세요"
+                                    title="메시지를 입력해주세요"
                                     value={userComment}
                                     onChange={saveState(setUserComment)}
                                 />
