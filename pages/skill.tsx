@@ -72,13 +72,13 @@ const SkillList = () => {
                                                 </h3>
                                             </div>
                                             {possible ? null : (
-                                                <div className="absolute inset-0 flex justify-center">
+                                                <div className="absolute inset-0 flex justify-center items-center">
                                                     <svg
                                                         aria-hidden="true"
                                                         focusable="false"
                                                         data-prefix="fas"
                                                         data-icon="lock"
-                                                        className="block w-8 h-8 -translate-y-2"
+                                                        className="block w-8 h-8"
                                                         role="img"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 448 512"

@@ -62,7 +62,7 @@ const AboutHomin = () => {
             <SubVisual
                 title="HOMIN JUNG"
                 text="호기심 넘치고 배움에 욕심이 많은 저는 업무에 필요한 기술뿐 아니라 새로운 기술, 새로운 스포츠, 새로운 취미를 다양하게 습득합니다. 저에게 새로운 것을 알려주실래요?"
-                src="/images/profile_01.png"
+                src="/images/profile_02.png"
                 alt="프로필 사진"
             />
             <Container>

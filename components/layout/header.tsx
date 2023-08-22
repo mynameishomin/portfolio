@@ -1,13 +1,40 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Container from "./container";
 
 interface GnbProps {
     isOpen: boolean;
     setIsOpen: Function;
 }
+
+const myMenu = [
+    {
+        id: 1,
+        name: "PORTFOLIO",
+        link: "/portfolio",
+        icon: "🖥️",
+    },
+    {
+        id: 2,
+        name: "SKILL",
+        link: "/skill",
+        icon: "🛠️",
+    },
+    {
+        id: 3,
+        name: "BLOG",
+        link: "/blog",
+        icon: "📝",
+    },
+    {
+        id: 4,
+        name: "CONTACT",
+        link: "/contact",
+        icon: "✉️",
+    },
+];
 
 const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
     const router = useRouter();
@@ -59,50 +86,25 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                 }}
                 className="absolute inset-x-0 top-full flex flex-col items-center pb-6 pt-10 -mt-8 space-y-4 text-white text-lg font-semibold bg-gray-900 lg:static lg:flex-row lg:space-x-4 lg:top-auto lg:space-y-0 lg:pb-0 lg:pt-0 lg:mt-0 lg:bg-transparent lg:text-base"
             >
-                <motion.li
-                    variants={menuVariants}
-                    key="2"
-                    className={`${
-                        router.pathname === "/portfolio" ? "text-[#E8FFE8]" : ""
-                    } hover:underline`}
-                >
-                    <Link href="/portfolio">
-                        <span className="lg:hidden">🖥️</span> PORTFOLIO
-                    </Link>
-                </motion.li>
-                <motion.li
-                    variants={menuVariants}
-                    key="3"
-                    className={`${
-                        router.pathname === "/skill" ? "text-[#E8FFE8]" : ""
-                    } hover:underline`}
-                >
-                    <Link href="/skill">
-                        <span className="lg:hidden">🛠️</span> SKILL
-                    </Link>
-                </motion.li>
-                <motion.li
-                    variants={menuVariants}
-                    key="4"
-                    className={`${
-                        router.pathname === "/blog" ? "text-[#E8FFE8]" : ""
-                    } hover:underline`}
-                >
-                    <Link href="/blog">
-                        <span className="lg:hidden">📝</span> BLOG
-                    </Link>
-                </motion.li>
-                <motion.li
-                    variants={menuVariants}
-                    key="5"
-                    className={`${
-                        router.pathname === "/contact" ? "text-[#E8FFE8]" : ""
-                    } hover:underline`}
-                >
-                    <Link href="/contact">
-                        <span className="lg:hidden">✉️</span> CONTACT
-                    </Link>
-                </motion.li>
+                {myMenu.map((menu) => {
+                    return (
+                        <motion.li key={menu.id} variants={menuVariants}>
+                            <Link
+                                href={menu.link}
+                                className={
+                                    router.pathname === menu.link
+                                        ? "underline"
+                                        : "hover:underline"
+                                }
+                            >
+                                <span className="inline-block mr-2 lg:hidden">
+                                    {menu.icon}
+                                </span>
+                                <span>{menu.name}</span>
+                            </Link>
+                        </motion.li>
+                    );
+                })}
             </motion.ul>
             <motion.button
                 type="button"
@@ -135,7 +137,7 @@ export default () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <AnimatePresence>
+        <div className="bg-white">
             <motion.div
                 layoutId={router.pathname}
                 initial={{ y: -100 }}
@@ -156,6 +158,6 @@ export default () => {
                     </div>
                 </header>
             </motion.div>
-        </AnimatePresence>
+        </div>
     );
 };
