@@ -207,7 +207,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                     <li className="pb-0.5 text-sm border-b border-gray-400 border-dashed">
                                         <div className="flex justify-between  border-b border-gray-400 border-dashed">
                                             <h3 className="mb-1">총 지출</h3>
-                                            <span className="w-1/3">
+                                            <span>
                                                 {formatToKRW(totalAmout)}
                                             </span>
                                         </div>
