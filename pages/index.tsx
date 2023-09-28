@@ -15,7 +15,6 @@ import { PortfolioUl } from "./portfolio";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const BudgetSection = ({ data }: { data: Object[] }) => {
-    console.log(process.env.NODE_ENV);
     const monthData = {} as any;
     const monthlyData = {} as any;
     data.length
@@ -116,7 +115,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                     show: false,
                 },
             },
-            labels: monthLebel,
+            labels: monthLebel.slice(0, 3),
             tooltip: {
                 y: {
                     formatter: (value: number) => formatToKRW(value),
@@ -142,6 +141,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                             y: item,
                         };
                     })
+                    .slice(0, 3)
                     .reverse(),
             },
         ],
