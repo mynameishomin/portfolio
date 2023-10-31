@@ -15,24 +15,28 @@ const myMenu = [
         name: "PORTFOLIO",
         link: "/portfolio",
         icon: "🖥️",
+        isBlank: false,
     },
     {
         id: 2,
         name: "SKILL",
         link: "/skill",
         icon: "🛠️",
+        isBlank: false,
     },
     {
         id: 3,
         name: "BLOG",
-        link: "/blog",
+        link: "https://blog.mynameishomin.com/",
         icon: "📝",
+        isBlank: true,
     },
     {
         id: 4,
         name: "CONTACT",
         link: "/contact",
         icon: "✉️",
+        isBlank: false,
     },
 ];
 
@@ -96,6 +100,7 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                                         ? "underline"
                                         : "hover:underline"
                                 }
+                                target={menu.isBlank ? "_blank" : "_self"}
                             >
                                 <span className="inline-block mr-2 lg:hidden">
                                     {menu.icon}
