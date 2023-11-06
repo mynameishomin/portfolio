@@ -1,4 +1,3 @@
-import Gnb from "./gnb";
 import Profile from "../profile";
 import BlogPosts from "../blogPosts";
 
