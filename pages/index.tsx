@@ -12,7 +12,10 @@ import Section from "@/components/section";
 import { getPortfolioData, getBookoData } from "@/function/notion";
 import { NotionBookProps } from "@/types/notion";
 import { PortfolioUl } from "./portfolio";
+import { getNowMonth } from "@/utils/functions";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
+const nowMonth = getNowMonth();
 
 const BudgetSection = ({ data }: { data: Object[] }) => {
     const monthData = {} as any;
@@ -148,11 +151,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
     };
 
     return (
-        <Section
-            title={`💳 저는 ${
-                new Date().getMonth() + 1
-            }월, 이런 곳에 소비했어요`}
-        >
+        <Section title={`💳 저는 ${nowMonth}월, 이런 곳에 소비했어요`}>
             <>
                 {data.length ? (
                     <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
@@ -237,6 +236,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
 
 const BookSection = () => {
     const [bookList, setBookList] = useState<any>([]);
+    console.log(bookList);
 
     useEffect(() => {
         getNotionData(readingId).then((data) => {
@@ -244,9 +244,7 @@ const BookSection = () => {
         });
     }, []);
     return (
-        <Section
-            title={`📕 저는 ${new Date().getMonth() + 1}월, 이런 책을 읽었어요`}
-        >
+        <Section title={`📕 저는 ${nowMonth}월, 이런 책을 읽었어요`}>
             <>
                 {bookList.length ? (
                     <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -270,17 +268,17 @@ const BookSection = () => {
 };
 
 const PortfolioSection = () => {
-    const [portfolioList, setPortfolioList] = useState<any>([]);
+    const [recentPortfolioList, setRecentPortfolioList] = useState<any>([]);
     useEffect(() => {
         getNotionData(projectId).then((data) => {
-            setPortfolioList(data);
+            setRecentPortfolioList(data.slice(0, 3));
         });
     }, []);
     return (
         <Section title="🧑🏻‍💻 저는 최근에 이런 작업을 했어요">
             <PortfolioUl>
-                {portfolioList.length
-                    ? portfolioList.slice(0, 3).map((portfolio: any) => {
+                {recentPortfolioList.length
+                    ? recentPortfolioList.map((portfolio: any) => {
                           const { title, type, src } =
                               getPortfolioData(portfolio);
                           return (
@@ -365,7 +363,9 @@ const MainVisual = () => {
                         className="absolute inset-0 left-10 w-full h-full bg-cover bg-no-repeat bg-[url('/images/publisher_bg.webp')] bg-left-bottom md:bg-contain"
                     ></motion.div>
                     <h2 className="hidden relative font-black whitespace-nowrap md:block md:text-4xl">
-                        PUBLISHER
+                        Front-End
+                        <br />
+                        Developer
                     </h2>
                 </motion.div>
 

@@ -33,3 +33,7 @@ export const numberWithComma = (number: Number) => {
 export const formatToKRW = (number: number) => {
     return numberWithComma(number) + "원";
 };
+
+export const getNowMonth = () => {
+    return new Date().getMonth() + 1;
+};
