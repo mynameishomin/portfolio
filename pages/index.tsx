@@ -236,7 +236,6 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
 
 const BookSection = () => {
     const [bookList, setBookList] = useState<any>([]);
-    console.log(bookList);
 
     useEffect(() => {
         getNotionData(readingId).then((data) => {
