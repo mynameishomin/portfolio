@@ -1,7 +1,7 @@
 import { baseUrl } from "./variable";
 import { notionStore, addNotion } from "./store/notion";
 
-export const getNotionData = async (id: string, filter?: object) => {
+export const getNotionData = async (id: string) => {
     const notionState = notionStore.getState();
     const notionData = notionState.notion[id];
     if (notionData) {
@@ -26,12 +26,19 @@ export const getNowDateString = (date: Date) => {
     }`;
 };
 
-export const numberWithComma = (number: Number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const numberLocalString = (number: number) => {
+    return number.toLocaleString();
 };
 
-export const formatToKRW = (number: number) => {
-    return numberWithComma(number) + "원";
+export const moneyFormat = (number: number, locale?: LocaleCodes) => {
+    let unit = "원";
+
+    switch (locale) {
+        case "ko-KR":
+            unit = "원";
+            break;
+    }
+    return numberLocalString(number) + unit;
 };
 
 export const getNowMonth = () => {

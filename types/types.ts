@@ -1,0 +1,1 @@
+type LocaleCodes = "ko-KR";

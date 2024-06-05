@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/layout";
 import { Visual } from "@/components/layout/visual";
-import { getNotionData, formatToKRW } from "@/utils/functions";
+import { getNotionData, moneyFormat } from "@/utils/functions";
 import { projectId, budgetId, readingId } from "@/utils/variable";
 import Card from "@/components/Card";
 import Section from "@/components/section";
@@ -100,7 +100,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
             labels: Object.keys(monthData),
             tooltip: {
                 y: {
-                    formatter: (value: number) => formatToKRW(value),
+                    formatter: (value: number) => moneyFormat(value),
                 },
             },
             legend: {
@@ -121,7 +121,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
             labels: monthLebel.slice(0, 3),
             tooltip: {
                 y: {
-                    formatter: (value: number) => formatToKRW(value),
+                    formatter: (value: number) => moneyFormat(value),
                 },
             },
             legend: {
@@ -129,7 +129,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
             },
             yaxis: {
                 labels: {
-                    formatter: (value: number) => formatToKRW(value),
+                    formatter: (value: number) => moneyFormat(value),
                 },
             },
         },
@@ -177,7 +177,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                             <span>{topCategory.name}</span>
                                             <span className="mr-2">:</span>
                                             <span>
-                                                {formatToKRW(
+                                                {moneyFormat(
                                                     topCategory.amount
                                                 )}
                                             </span>
@@ -191,7 +191,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                             <span>{topItem.name}</span>
                                             <span className="mr-2">:</span>
                                             <span>
-                                                {formatToKRW(topItem.amount)}
+                                                {moneyFormat(topItem.amount)}
                                             </span>
                                         </div>
                                     </li>
@@ -207,7 +207,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                                         <div className="flex justify-between  border-b border-gray-400 border-dashed">
                                             <h3 className="mb-1">총 지출</h3>
                                             <span>
-                                                {formatToKRW(totalAmout)}
+                                                {moneyFormat(totalAmout)}
                                             </span>
                                         </div>
                                     </li>
