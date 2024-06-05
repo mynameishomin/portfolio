@@ -1,3 +1,27 @@
+export interface NotionDatabase {
+    id: string;
+    properties: {};
+}
+
+export interface BudgetProps {
+    Date: {
+        date: {
+            start: string;
+        };
+    };
+    Amount: {
+        number: number;
+    };
+
+    Expense: {
+        title: { plain_text: string }[];
+    };
+}
+
+export interface NotionBudgetProps extends NotionDatabase {
+    properties: BudgetProps;
+}
+
 export interface NotionPortfolioProps {
     id: string;
     properties: {

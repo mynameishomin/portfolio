@@ -10,94 +10,95 @@ import { projectId, budgetId, readingId } from "@/utils/variable";
 import Card from "@/components/Card";
 import Section from "@/components/section";
 import { getPortfolioData, getBookoData } from "@/function/notion";
-import { NotionBookProps } from "@/types/notion";
+import { NotionBookProps, NotionBudgetProps } from "@/types/notion";
 import { PortfolioUl } from "./portfolio";
 import { getNowMonth } from "@/utils/functions";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const nowMonth = getNowMonth();
 
-const BudgetSection = ({ data }: { data: Object[] }) => {
-    const monthData = {} as any;
-    const monthlyData = {} as any;
-    data.length
-        ? data.forEach((item: any) => {
-              const year = new Date(
-                  item.properties.Date.date.start
-              ).getFullYear();
-              let month =
-                  new Date(item.properties.Date.date.start).getMonth() + 1;
-              const monthFormat = month < 10 ? "0" + month : String(month);
+interface TotalThisMonthProps {
+    [index: string]: number;
+}
 
-              monthlyData[year + "-" + monthFormat]
-                  ? monthlyData[year + "-" + monthFormat].push(item)
-                  : (monthlyData[year + "-" + monthFormat] = [item]);
-          })
-        : null;
+interface TotalMonthlyProps {
+    [index: string]: NotionBudgetProps[];
+}
 
-    const monthLebel = Object.keys(monthlyData);
-    const monthSeries = Object.values(monthlyData).map((item: any) => {
+const BudgetSection = () => {
+    const [data, setData] = useState<NotionBudgetProps[] | null>(null);
+    useEffect(() => {
+        getNotionData(budgetId).then((data) => setData(data));
+    }, []);
+
+    if (!data) return null;
+
+    const totalThisMonth: TotalThisMonthProps = {};
+    const totalMonthly: TotalMonthlyProps = {};
+
+    data.forEach((item: NotionBudgetProps) => {
+        const dateString = item.properties.Date.date.start.slice(0, 7);
+
+        totalMonthly[dateString]
+            ? totalMonthly[dateString].push(item)
+            : (totalMonthly[dateString] = [item]);
+    });
+
+    const monthLebel = Object.keys(totalMonthly);
+    const monthSeries = Object.values(totalMonthly).map((item: any) => {
         return item.reduce(
             (acc: any, cur: any) => acc + cur.properties.Amount.number,
             0
         );
     });
 
-    const nowMonthData = monthlyData[Object.keys(monthlyData)[0]];
+    const nowMonthData = totalMonthly[Object.keys(totalMonthly)[0]];
 
-    nowMonthData
-        ? nowMonthData.forEach((item: any) => {
-              const category = item.properties.Category.select.name;
-              monthData[category] = monthData[category]
-                  ? monthData[category] + item.properties.Amount.number
-                  : item.properties.Amount.number;
-          })
-        : null;
+    nowMonthData.forEach((item: any) => {
+        const category = item.properties.Category.select.name;
+        totalThisMonth[category] = totalThisMonth[category]
+            ? totalThisMonth[category] + item.properties.Amount.number
+            : item.properties.Amount.number;
+    });
 
-    const totalAmout = nowMonthData
-        ? nowMonthData.reduce(
-              (acc: any, cur: any) => acc + cur.properties.Amount.number,
-              0
-          )
-        : null;
+    const totalAmout = nowMonthData.reduce(
+        (acc: any, cur: any) => acc + cur.properties.Amount.number,
+        0
+    );
 
-    const engelCoefficient = totalAmout
-        ? Math.round((monthData["음식"] / totalAmout) * 100)
-        : null;
+    const engelCoefficient = Math.round(
+        (totalThisMonth["음식"] / totalAmout) * 100
+    );
 
     let topCategory = { name: "", amount: 0 };
-    monthData
-        ? Object.keys(monthData).forEach((key) => {
-              if (topCategory === null || monthData[key] > topCategory.amount) {
-                  topCategory = {
-                      name: key,
-                      amount: monthData[key],
-                  };
-              }
-          })
-        : null;
+    Object.keys(totalThisMonth).forEach((key) => {
+        if (topCategory === null || totalThisMonth[key] > topCategory.amount) {
+            topCategory = {
+                name: key,
+                amount: totalThisMonth[key],
+            };
+        }
+    });
 
     let topItem = { name: "", amount: 0 };
-    nowMonthData
-        ? nowMonthData.forEach((item: any) => {
-              if (
-                  topItem === null ||
-                  item.properties.Amount.number > topItem.amount
-              ) {
-                  topItem = {
-                      name: item.properties.Expense.title[0].plain_text,
-                      amount: item.properties.Amount.number,
-                  };
-              }
-          })
-        : null;
+    nowMonthData.forEach((item: any) => {
+        if (
+            topItem === null ||
+            item.properties.Amount.number > topItem.amount
+        ) {
+            topItem = {
+                name: item.properties.Expense.title[0].plain_text,
+                amount: item.properties.Amount.number,
+            };
+        }
+    });
 
     const monthState = {
         options: {
             chart: {
                 id: "budgetChart",
             },
-            labels: Object.keys(monthData),
+            labels: Object.keys(totalThisMonth),
             tooltip: {
                 y: {
                     formatter: (value: number) => moneyFormat(value),
@@ -107,7 +108,7 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
                 show: false,
             },
         },
-        series: Object.values(monthData),
+        series: Object.values(totalThisMonth),
     };
 
     const monthlyState = {
@@ -152,84 +153,74 @@ const BudgetSection = ({ data }: { data: Object[] }) => {
 
     return (
         <Section title={`💳 저는 ${nowMonth}월, 이런 곳에 소비했어요`}>
-            <>
-                {data.length ? (
-                    <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                        <div className="flex flex-col border border-gray-100 shadow-md">
-                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
-                                월별 지출 통계
-                            </h3>
-                            <div className="flex flex-col items-center mt-auto pt-6 md:flex-row md:pt-0">
-                                <Chart
-                                    className="flex flex-col justify-center"
-                                    options={monthState.options as any}
-                                    series={monthState.series as any}
-                                    type="pie"
-                                    width={200}
-                                    height={200}
-                                />
-                                <ul className="flex flex-col justify-end grow w-full m-2 p-2 text-right text-gray-500 text-sm">
-                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
-                                        <h3 className="font-black mb-1">
-                                            가장 큰 지출 분야
-                                        </h3>
-                                        <div className="flex justify-end">
-                                            <span>{topCategory.name}</span>
-                                            <span className="mr-2">:</span>
-                                            <span>
-                                                {moneyFormat(
-                                                    topCategory.amount
-                                                )}
-                                            </span>
-                                        </div>
-                                    </li>
-                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
-                                        <h3 className="font-black mb-1">
-                                            가장 큰 지출 항목
-                                        </h3>
-                                        <div className="flex justify-end whitespace-nowrap">
-                                            <span>{topItem.name}</span>
-                                            <span className="mr-2">:</span>
-                                            <span>
-                                                {moneyFormat(topItem.amount)}
-                                            </span>
-                                        </div>
-                                    </li>
-                                    <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
-                                        <div className="flex justify-between">
-                                            <h3 className="mb-1">엥겔지수</h3>
-                                            <span className="w-1/3">
-                                                {engelCoefficient}%
-                                            </span>
-                                        </div>
-                                    </li>
-                                    <li className="pb-0.5 text-sm border-b border-gray-400 border-dashed">
-                                        <div className="flex justify-between  border-b border-gray-400 border-dashed">
-                                            <h3 className="mb-1">총 지출</h3>
-                                            <span>
-                                                {moneyFormat(totalAmout)}
-                                            </span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-end grow border border-gray-100 shadow-md">
-                            <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
-                                월별 지출 추이
-                            </h3>
-                            <Chart
-                                options={monthlyState.options as any}
-                                series={monthlyState.series as any}
-                                type="line"
-                                width="100%"
-                                height={200}
-                                className="flex flex-col justify-end w-full "
-                            />
-                        </div>
+            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+                <div className="flex flex-col border border-gray-100 shadow-md">
+                    <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
+                        월별 지출 통계
+                    </h3>
+                    <div className="flex flex-col items-center mt-auto pt-6 md:flex-row md:pt-0">
+                        <Chart
+                            className="flex flex-col justify-center"
+                            options={monthState.options as any}
+                            series={monthState.series as any}
+                            type="pie"
+                            width={200}
+                            height={200}
+                        />
+                        <ul className="flex flex-col justify-end grow w-full m-2 p-2 text-right text-gray-500 text-sm">
+                            <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                <h3 className="font-black mb-1">
+                                    가장 큰 지출 분야
+                                </h3>
+                                <div className="flex justify-end">
+                                    <span>{topCategory.name}</span>
+                                    <span className="mr-2">:</span>
+                                    <span>
+                                        {moneyFormat(topCategory.amount)}
+                                    </span>
+                                </div>
+                            </li>
+                            <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                <h3 className="font-black mb-1">
+                                    가장 큰 지출 항목
+                                </h3>
+                                <div className="flex justify-end whitespace-nowrap">
+                                    <span>{topItem.name}</span>
+                                    <span className="mr-2">:</span>
+                                    <span>{moneyFormat(topItem.amount)}</span>
+                                </div>
+                            </li>
+                            <li className="mb-1 pb-1 border-b border-gray-400 border-dashed">
+                                <div className="flex justify-between">
+                                    <h3 className="mb-1">엥겔지수</h3>
+                                    <span className="w-1/3">
+                                        {engelCoefficient}%
+                                    </span>
+                                </div>
+                            </li>
+                            <li className="pb-0.5 text-sm border-b border-gray-400 border-dashed">
+                                <div className="flex justify-between  border-b border-gray-400 border-dashed">
+                                    <h3 className="mb-1">총 지출</h3>
+                                    <span>{moneyFormat(totalAmout)}</span>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                ) : null}
-            </>
+                </div>
+                <div className="flex flex-col justify-end grow border border-gray-100 shadow-md">
+                    <h3 className="mx-4 mt-4 pb-2 border-b border-gray-300 text-sm text-gray-500 text-right">
+                        월별 지출 추이
+                    </h3>
+                    <Chart
+                        options={monthlyState.options as any}
+                        series={monthlyState.series as any}
+                        type="line"
+                        width="100%"
+                        height={200}
+                        className="flex flex-col justify-end w-full "
+                    />
+                </div>
+            </div>
         </Section>
     );
 };
@@ -435,12 +426,6 @@ const MainVisual = () => {
 };
 
 const Main = () => {
-    const [budgetList, setBudgetList] = useState<any>({});
-    useEffect(() => {
-        getNotionData(budgetId).then((data) => {
-            setBudgetList(data);
-        });
-    }, []);
     return (
         <div>
             <MainVisual />
@@ -451,8 +436,7 @@ const Main = () => {
                 transition={{ delay: 1 }}
             >
                 <PortfolioSection />
-                {/* TODO: BudgetList state까지 통합 필요 */}
-                <BudgetSection data={budgetList} />
+                <BudgetSection />
                 <BookSection />
             </motion.div>
         </div>
