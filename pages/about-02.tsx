@@ -9,8 +9,8 @@ export default () => {
         <Layout>
             <>
                 <SubVisual
-                    title="WEB PUBLISHER"
-                    text="시키는 일만 하기보다 해야할 일을 찾아내고 기계적으로 일을 하기보다 더 효율적인 방법을 찾아 일하는 것을 좋아합니다. 저와 함께 일 하실래요?"
+                    title="FRONT END"
+                    text="시키는 일만 하기보다 해야할 일을 찾아내고 기계적으로 일을 하기보다 더 효율적인 방법을 찾아 일하는 것을 좋아합니다."
                     src="/images/profile_01.png"
                     alt="프로필 사진"
                 />
