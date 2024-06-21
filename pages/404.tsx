@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Roboto_Mono } from "next/font/google";
 import { AnimatePresence, motion } from "framer-motion";
-import Header from "@/components/layout/header";
 import Container from "@/components/layout/container";
 import Layout from "@/components/layout/layout";
 
@@ -65,20 +64,18 @@ export default function Error404() {
     }, []);
     return (
         <Layout>
-            <div className="absolute inset-0 h-full bg-gray-900">
+            <div className="absolute inset-0">
                 <Container className="h-full">
                     <div
-                        className={`${roboto.className} relative flex flex-col h-full text-white`}
+                        className={`${roboto.className} relative h-full text-white`}
                     >
                         <div className="absolute inset-0 flex justify-end items-end pb-5 text-9xl">
                             404
                         </div>
 
                         {httpMessage && (
-                            <motion.div
+                            <div
                                 className="h-full backdrop-blur-sm"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
                             >
                                 <AnimatePresence>
                                     <motion.ul
@@ -113,7 +110,7 @@ export default function Error404() {
                                         )}
                                     </motion.ul>
                                 </AnimatePresence>
-                            </motion.div>
+                            </div>
                         )}
                     </div>
                 </Container>

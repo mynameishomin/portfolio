@@ -1,6 +1,6 @@
 import Footer from "./footer";
 import Header from "./header";
-dsa
+
 export default ({ children }: { children: React.ReactElement }) => {
     return (
         <div className="flex flex-col w-screen min-h-screen bg-gray-900 overflow-hidden">

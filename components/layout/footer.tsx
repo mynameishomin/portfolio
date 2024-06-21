@@ -2,11 +2,11 @@ import Container from "./container";
 
 export default () => {
     return (
-        <footer className="h-24 shadow-inner">
-            <Container className="flex flex-col-reverse justify-center items-center h-full text-gray-400 sm:flex-row">
-                <strong className="block text-base sm:mt-0">
+        <footer className="h-10 shadow-inner hidden">
+            <Container className="flex items-center h-full">
+                <span className="block text-sm text-gray-400">
                     © 2024. Jung Homin. All rights reserved.
-                </strong>
+                </span>
             </Container>
         </footer>
     );
