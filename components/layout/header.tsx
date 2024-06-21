@@ -145,10 +145,10 @@ export default () => {
         <div className="bg-white">
             <motion.div
                 layoutId={router.pathname}
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                exit={{ y: -100 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                // initial={{ y: -100 }}
+                // animate={{ y: 0 }}
+                // exit={{ y: -100 }}
+                // transition={{ duration: 0.5, delay: 0.5 }}
             >
                 <header className="relative h-16 bg-gray-900 font-black z-50 lg:h-20">
                     <div className="fixed inset-x-0 h-16 bg-gray-900 lg:h-20">

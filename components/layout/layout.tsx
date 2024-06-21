@@ -1,11 +1,11 @@
 import Footer from "./footer";
 import Header from "./header";
-
+dsa
 export default ({ children }: { children: React.ReactElement }) => {
     return (
-        <div className="flex flex-col w-screen min-h-screen bg-gray-50 overflow-hidden">
+        <div className="flex flex-col w-screen min-h-screen bg-gray-900 overflow-hidden">
             <Header />
-            <main className="grow pb-14 shadow-md">{children}</main>
+            <main className="relative grow pb-14 shadow-md">{children}</main>
             <Footer />
         </div>
     );
