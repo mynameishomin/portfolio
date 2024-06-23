@@ -152,14 +152,12 @@ export default () => {
             >
                 <header className="relative h-16 bg-gray-900 font-black z-50 lg:h-20">
                     <div className="fixed inset-x-0 h-16 bg-gray-900 lg:h-20">
-                        <Container className="flex items-center h-full">
-                            <>
-                                <h1 className="relative text-xl text-white z-50 lg:text-2xl">
-                                    <Link href="/">MY NAME IS HOMIN</Link>
-                                </h1>
-                                <Gnb isOpen={isOpen} setIsOpen={setIsOpen} />
-                            </>
-                        </Container>
+                        <>
+                            <h1 className="relative text-xl text-white z-50 lg:text-2xl">
+                                <Link href="/">MY NAME IS HOMIN</Link>
+                            </h1>
+                            <Gnb isOpen={isOpen} setIsOpen={setIsOpen} />
+                        </>
                     </div>
                 </header>
             </motion.div>
