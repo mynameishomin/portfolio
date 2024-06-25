@@ -8,7 +8,7 @@ export const getNotionData = async (id: string) => {
         return notionData.results;
     } else {
         const data = await (
-            await fetch(`${baseUrl}/api/getNotion?id=${id}`)
+            await fetch(`${baseUrl}/api/notion?id=${id}`)
         ).json();
         notionStore.dispatch(addNotion({ id, data }));
 

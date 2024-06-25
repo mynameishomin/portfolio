@@ -3,15 +3,12 @@ import { useState, useEffect } from "react";
 import { Section, SectionTitle } from "@/components/layout/section";
 import { getNotionData } from "@/functions";
 import { projectId } from "@/variable";
+import { useContext } from "react";
+import { NotionContext } from "@/context/notion";
 
 export default () => {
-    const [recentPortfolioList, setRecentPortfolioList] = useState<any>([]);
-    console.log(recentPortfolioList);
-    useEffect(() => {
-        getNotionData(projectId).then((data) =>
-            setRecentPortfolioList(data.slice(0, 3))
-        );
-    }, []);
+    const notion = useContext(NotionContext);
+    console.log(notion);
     return (
         <div>
             <Section>
@@ -32,6 +29,7 @@ export default () => {
                     <SectionTitle title="블라블라 텍스트" />
                 </>
             </Section>
+            <div className="h-[10000px]"></div>
         </div>
     );
 };

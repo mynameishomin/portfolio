@@ -1,8 +1,10 @@
+"use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { motion } from "framer-motion";
 import Container from "./container";
+import Aside from "@/components/layout/aside";
 
 interface GnbProps {
     isOpen: boolean;
@@ -138,29 +140,64 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
     );
 };
 
-export default () => {
-    const router = useRouter();
-    const [isOpen, setIsOpen] = useState(false);
+// export default () => {
+//     const router = useRouter();
+//     const [isOpen, setIsOpen] = useState(false);
+//     return (
+//         <div className="bg-white">
+//             <motion.div
+//                 layoutId={router.pathname}
+//             >
+//                 <header className="relative h-16 bg-gray-900 font-black z-50 lg:h-20">
+//                     <div className="fixed inset-x-0 h-16 bg-gray-900 lg:h-20">
+//                         <>
+//                             <h1 className="relative text-xl text-white z-50 lg:text-2xl">
+//                                 <Link href="/">MY NAME IS HOMIN</Link>
+//                             </h1>
+//                             <Gnb isOpen={isOpen} setIsOpen={setIsOpen} />
+//                         </>
+//                     </div>
+//                 </header>
+//             </motion.div>
+//         </div>
+//     );
+// };
+
+const MenuButton = () => {
     return (
-        <div className="bg-white">
+        <button className="flex justify-center items-center backdrop-blur-sm">
+            Menu
+        </button>
+    );
+};
+
+export default () => {
+    return (
+        <motion.header
+            className="fixed inset-0 grid grid-rows-layout grid-cols-layout h-screen z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+        >
+            <MenuButton />
+            <div className="flex items-center pl-[1rem] backdrop-blur-sm">
+                <h1 className="text-xl font-bold">MY NAME IS HOMIN</h1>
+            </div>
+
+            <Aside />
+
             <motion.div
-                layoutId={router.pathname}
-                // initial={{ y: -100 }}
-                // animate={{ y: 0 }}
-                // exit={{ y: -100 }}
-                // transition={{ duration: 0.5, delay: 0.5 }}
-            >
-                <header className="relative h-16 bg-gray-900 font-black z-50 lg:h-20">
-                    <div className="fixed inset-x-0 h-16 bg-gray-900 lg:h-20">
-                        <>
-                            <h1 className="relative text-xl text-white z-50 lg:text-2xl">
-                                <Link href="/">MY NAME IS HOMIN</Link>
-                            </h1>
-                            <Gnb isOpen={isOpen} setIsOpen={setIsOpen} />
-                        </>
-                    </div>
-                </header>
-            </motion.div>
-        </div>
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ ease: "easeOut", duration: 1.2 }}
+                className="fixed left-0 top-[3.5rem] h-px bg-gray-400"
+            ></motion.div>
+            <motion.div
+                initial={{ height: "0%" }}
+                animate={{ height: "100%" }}
+                transition={{ ease: "easeOut", duration: 1.2 }}
+                className="hidden fixed top-0 left-[3.5rem] w-px bg-gray-400 lg:block"
+            ></motion.div>
+        </motion.header>
     );
 };

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Container from "@/components/layout/container";
-import { Section } from "@/components/layout/section";
+import Footer from "@/components/layout/footer";
+import layout from "@/components/layout/layout";
+import Layout from "@/components/layout/layout";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -19,33 +21,9 @@ export default function RootLayout({
             className="text-[4.666vw] break-keep bg-blue-50 sm:text-[2.666vw] lg:text-[1.333vw]"
         >
             <body>
-                <div>
-                    <header className="fixed inset-0 grid grid-rows-layout grid-cols-layout h-screen">
-                        <button className="flex justify-center items-center border-gray-500 border-r">
-                            MENU
-                        </button>
-                        <div className="flex items-center pl-[1rem]">
-                            <h1 className="text-xl font-bold">
-                                MY NAME IS HOMIN
-                            </h1>
-                        </div>
-                        <div className="fixed inset-x-0 top-[3.5rem] border-gray-500 border-b"></div>
-
-                        <aside className="hidden border-gray-500 border-r lg:block">
-                            Left
-                        </aside>
-                    </header>
-                    <div className="relative mt-[6rem] lg:mt-[6rem] lg:ml-[3.5rem]">
-                        {children}
-                        <footer className="flex items-center mt-[3.5rem] h-[3.5rem] shadow-inner">
-                            <Container>
-                                <span className="text-sm text-gray-500">
-                                    © 2024 JUNG HOMIN
-                                </span>
-                            </Container>
-                        </footer>
-                    </div>
-                </div>
+                <Layout>
+                    <>{children}</>
+                </Layout>
             </body>
         </html>
     );
