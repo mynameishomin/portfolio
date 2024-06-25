@@ -8,14 +8,13 @@ import { NotionContext } from "@/context/notion";
 
 export default () => {
     const notion = useContext(NotionContext);
-    console.log(notion);
     return (
         <div>
             <Section>
                 <>
-                    <h2 className="mb-[1rem] text-4xl font-bold leading-9">
+                    <h2 className="pt-[2rem] mb-[1rem] text-8xl font-bold leading-8">
                         Front End <br />
-                        <span className="text-blue-600">Developer</span>
+                        <span className="pl-8 text-blue-600">Developer</span>
                     </h2>
                     <p className="text-sm leading-5">
                         시키는 일만 하기보다 해야할 일을 찾아내고 기계적으로
