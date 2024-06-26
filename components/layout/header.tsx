@@ -1,7 +1,6 @@
-"use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/dist/client/router";
 import { motion } from "framer-motion";
 import Container from "./container";
 
@@ -42,7 +41,7 @@ const myMenu = [
 ];
 
 const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
-    const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -97,7 +96,7 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
                             <Link
                                 href={menu.link}
                                 className={
-                                    pathname === menu.link
+                                    router.pathname === menu.link
                                         ? "underline"
                                         : "hover:underline"
                                 }
@@ -140,12 +139,12 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
 };
 
 export default () => {
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
-    const pathname = usePathname();
     return (
         <div className="bg-white">
             <motion.div
-                layoutId={pathname + ""}
+                layoutId={router.pathname}
                 // initial={{ y: -100 }}
                 // animate={{ y: 0 }}
                 // exit={{ y: -100 }}

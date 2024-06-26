@@ -1,5 +1,5 @@
-import { baseUrl } from "@/variable";
-import { notionStore, addNotion } from "@/notion";
+import { baseUrl } from "./variable";
+import { notionStore, addNotion } from "./store/notion";
 
 export const getNotionData = async (id: string) => {
     const notionState = notionStore.getState();

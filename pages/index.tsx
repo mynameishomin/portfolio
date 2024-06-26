@@ -229,7 +229,9 @@ const BookSection = () => {
     const [bookList, setBookList] = useState<any>([]);
 
     useEffect(() => {
-        getNotionData(readingId).then((data) => setBookList(data));
+        getNotionData(readingId).then((data) => {
+            setBookList(data);
+        });
     }, []);
     return (
         <Section title={`📕 저는 ${nowMonth}월, 이런 책을 읽었어요`}>
@@ -258,9 +260,9 @@ const BookSection = () => {
 const PortfolioSection = () => {
     const [recentPortfolioList, setRecentPortfolioList] = useState<any>([]);
     useEffect(() => {
-        getNotionData(projectId).then((data) =>
-            setRecentPortfolioList(data.slice(0, 3))
-        );
+        getNotionData(projectId).then((data) => {
+            setRecentPortfolioList(data.slice(0, 3));
+        });
     }, []);
     return (
         <Section title="🧑🏻‍💻 저는 최근에 이런 작업을 했어요">
