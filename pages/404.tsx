@@ -74,9 +74,7 @@ export default function Error404() {
                         </div>
 
                         {httpMessage && (
-                            <div
-                                className="h-full backdrop-blur-sm"
-                            >
+                            <div className="h-full backdrop-blur-sm">
                                 <AnimatePresence>
                                     <motion.ul
                                         className="flex flex-col gap-2"
