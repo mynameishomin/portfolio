@@ -10,7 +10,7 @@ export default ({ children }: { children: React.ReactElement }) => {
             <>
                 <Header />
                 <motion.div
-                    className="relative mt-[6rem] lg:mt-[6rem] lg:ml-[3.5rem]"
+                    className="pt-16 pl-16"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9, duration: 1.8 }}

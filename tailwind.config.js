@@ -11,6 +11,7 @@ module.exports = {
                 sans: ["Noto Sans KR", "sans-serif"],
             },
             colors: {
+                background: "#eff6ff",
                 main: "#6E07F3",
                 point: "#141c3a",
                 sub: "#f9ff21",

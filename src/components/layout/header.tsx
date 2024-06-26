@@ -163,41 +163,115 @@ const Gnb = ({ isOpen, setIsOpen }: GnbProps) => {
 //     );
 // };
 
-const MenuButton = () => {
+const MenuButton = ({
+    isMenuOpen,
+    setIsMenuOpen,
+}: {
+    isMenuOpen: boolean;
+    setIsMenuOpen: () => void;
+}) => {
+    const menuCloseButtonVariants = {
+        initial: { width: 12, height: 12, rotate: 45 },
+        hover: {
+            width: "80%",
+            height: "80%",
+            rotate: 180,
+        },
+        openHoer: {
+            width: "60%",
+            height: "60%",
+            rotate: 45,
+        },
+        transition: {
+            type: "spring",
+            duration: 0.6,
+        },
+    };
+
+    const buttonTextVariants = {
+        initial: { opacity: 0, scale: 0, rotate: 0 },
+        hover: { opacity: 1, scale: 1 },
+        openHoer: { opacity: 1, scale: 1, rotate: 45 },
+    };
+
+    const buttonBulletVariants = {
+        hover: { width: 4, height: 4 },
+        openHoer: { width: 4, height: 4 },
+    };
+
     return (
-        <button className="flex justify-center items-center backdrop-blur-sm">
-            Menu
-        </button>
+        <div className="relative w-16 h-16">
+            <motion.button
+                className="absolute inset-0 flex justify-center items-center"
+                initial="initial"
+                whileHover={isMenuOpen ? "openHoer" : "hover"}
+                animate={isMenuOpen ? "openHoer" : "initial"}
+                onClick={() => setIsMenuOpen()}
+            >
+                <motion.div className="absolute inset-0">
+                    <motion.div
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        variants={menuCloseButtonVariants}
+                    >
+                        <motion.div
+                            className="absolute left-0 top-0 w-3 h-3 rounded-full bg-black"
+                            variants={buttonBulletVariants}
+                        ></motion.div>
+                        <motion.div
+                            className="absolute top-0 right-0 w-3 h-3 rounded-full bg-black"
+                            variants={buttonBulletVariants}
+                        ></motion.div>
+                        <motion.div
+                            className="absolute right-0 bottom-0 w-3 h-3 rounded-full bg-black"
+                            variants={buttonBulletVariants}
+                        ></motion.div>
+                        <motion.div
+                            className="absolute bottom-0 left-0 w-3 h-3 rounded-full bg-black"
+                            variants={buttonBulletVariants}
+                        ></motion.div>
+                    </motion.div>
+                </motion.div>
+                <motion.span
+                    className="text-xs font-bold text-center"
+                    variants={buttonTextVariants}
+                >
+                    {isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+                </motion.span>
+            </motion.button>
+            <motion.div
+                initial={{ height: "0%" }}
+                animate={{ height: "100%" }}
+                transition={{ ease: "easeOut", duration: 1.2 }}
+                className="absolute left-full top-0 w-px bg-gray-400"
+            ></motion.div>
+        </div>
     );
 };
 
 export default () => {
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+    };
     return (
         <motion.header
-            className="fixed inset-0 grid grid-rows-layout grid-cols-layout h-screen z-10"
+            className="fixed inset-0 bottom-auto flex items-center h-16"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
         >
-            <MenuButton />
-            <div className="flex items-center pl-[1rem] backdrop-blur-sm">
-                <h1 className="text-xl font-bold">MY NAME IS HOMIN</h1>
-            </div>
-
-            <Aside />
+            <MenuButton isMenuOpen={isMenuOpen} setIsMenuOpen={toggleMenu} />
+            <h1 className="px-4 text-xl font-bold">MY NAME IS HOMIN</h1>
 
             <motion.div
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ ease: "easeOut", duration: 1.2 }}
-                className="fixed left-0 top-[3.5rem] h-px bg-gray-400"
+                className="absolute left-0 top-full h-px bg-gray-400"
             ></motion.div>
-            <motion.div
-                initial={{ height: "0%" }}
-                animate={{ height: "100%" }}
-                transition={{ ease: "easeOut", duration: 1.2 }}
-                className="hidden fixed top-0 left-[3.5rem] w-px bg-gray-400 lg:block"
-            ></motion.div>
+
+            <Aside />
         </motion.header>
     );
 };

@@ -16,7 +16,7 @@ export default () => {
     const y = useTransform(scrollYProgress, [0, 1], [0, containerHeight]);
 
     return (
-        <aside className="hidden flex-col justify-center items-center lg:flex">
+        <aside className="hidden left-0 top-16 bottom-0 flex-col justify-center items-center w-16 lg:flex lg:fixed">
             <div
                 ref={containerRef}
                 className="relative flex flex-col items-center w-px h-[10rem] bg-gray-300"
@@ -28,6 +28,13 @@ export default () => {
                     <div className="w-[0.2rem] h-[0.2rem] rounded-full bg-black" />
                 </motion.div>
             </div>
+
+            <motion.div
+                initial={{ height: "0%" }}
+                animate={{ height: "100%" }}
+                transition={{ ease: "easeOut", duration: 1.2 }}
+                className="fixed left-16 top-0 w-px bg-gray-400"
+            ></motion.div>
         </aside>
     );
 };

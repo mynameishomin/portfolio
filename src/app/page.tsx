@@ -11,17 +11,12 @@ export default () => {
     return (
         <div>
             <Section>
-                <>
-                    <h2 className="pt-[2rem] mb-[1rem] text-8xl font-bold leading-8">
-                        Front End <br />
+                <div className="py-[10rem]">
+                    <h2 className="text-8xl font-bold leading-8">
+                        Frontend <br />
                         <span className="pl-8 text-blue-600">Developer</span>
                     </h2>
-                    <p className="text-sm leading-5">
-                        시키는 일만 하기보다 해야할 일을 찾아내고 기계적으로
-                        일을 하기보다 더 효율적인 방법을 찾아 일하는 것을
-                        좋아합니다.
-                    </p>
-                </>
+                </div>
             </Section>
             <Section>
                 <>

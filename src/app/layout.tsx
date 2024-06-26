@@ -16,10 +16,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html
-            lang="ko"
-            className="text-[4.666vw] break-keep bg-blue-50 sm:text-[2.666vw] lg:text-[1.333vw]"
-        >
+        <html lang="ko" className="bg-background">
             <body>
                 <Layout>
                     <>{children}</>
