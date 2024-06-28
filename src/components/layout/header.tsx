@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Container from "./container";
 import Aside from "@/components/layout/aside";
 
@@ -248,6 +248,55 @@ const MenuButton = ({
     );
 };
 
+const Menu = () => {
+    return (
+        <AnimatePresence>
+            <motion.div
+                layout
+                key="dasdas"
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.3 }}
+                className="fixed inset-0 top-16 grid grid-rows-3 grid-flow-col gap-3 p-3 lg:left-16"
+            >
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 translate-y-px bg-blue-50 -z-10"
+                ></motion.div>
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0, transformOrigin: "left bottom" }}
+                    transition={{ type: "just" }}
+                    className="origin-top-left row-span-2 bg-gray-800"
+                ></motion.div>
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0, transformOrigin: "left bottom" }}
+                    transition={{ type: "just" }}
+                    className="origin-top-left col-span-2 bg-gray-800"
+                ></motion.div>
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0, transformOrigin: "left bottom" }}
+                    transition={{ type: "just" }}
+                    className="origin-top-left bg-gray-800"
+                ></motion.div>
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0, transformOrigin: "left bottom" }}
+                    transition={{ type: "just" }}
+                    className="origin-top-left bg-gray-800"
+                ></motion.div>
+            </motion.div>
+        </AnimatePresence>
+    );
+};
+
 export default () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -272,6 +321,8 @@ export default () => {
             ></motion.div>
 
             <Aside />
+
+            {isMenuOpen && <Menu />}
         </motion.header>
     );
 };

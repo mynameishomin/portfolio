@@ -2,11 +2,9 @@ import Container from "@/components/layout/container";
 
 export const Section = ({ children }: { children: React.ReactNode }) => {
     return (
-        <Container>
-            <div className="mb-[3rem] pb-[2rem] border-b border-gray-500">
-                {children}
-            </div>
-        </Container>
+        <div className="mb-[3rem] pb-[2rem] border-b border-gray-500">
+            {children}
+        </div>
     );
 };
 
