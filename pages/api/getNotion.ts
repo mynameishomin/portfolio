@@ -22,7 +22,13 @@ export default async function handler(
                         },
                     },
                 });
-                res.status(200).setHeader("origin", "*").json(notionData);
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.setHeader(
+                    "Access-Control-Allow-Methods",
+                    "GET, POST, PUT, DELETE"
+                );
+                res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+                res.status(200).json(notionData);
                 return;
             }
             const notionData = await notion.databases.query({
