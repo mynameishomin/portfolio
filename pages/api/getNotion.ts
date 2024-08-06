@@ -9,6 +9,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     if (req.method === "GET") {
         try {
             if (req.query.id === budgetId || req.query.id === readingId) {
@@ -22,12 +25,6 @@ export default async function handler(
                         },
                     },
                 });
-                res.setHeader("Access-Control-Allow-Origin", "*");
-                res.setHeader(
-                    "Access-Control-Allow-Methods",
-                    "GET, POST, PUT, DELETE"
-                );
-                res.setHeader("Access-Control-Allow-Headers", "Content-Type");
                 res.status(200).json(notionData);
                 return;
             }
