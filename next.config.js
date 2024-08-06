@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    crossOrigin: 'anonymous',
+    crossOrigin: "use-credentials",
     images: {
         domains: [
             "images.unsplash.com",

@@ -22,7 +22,7 @@ export default async function handler(
                         },
                     },
                 });
-                res.status(200).json(notionData);
+                res.status(200).setHeader("origin", "*").json(notionData);
                 return;
             }
             const notionData = await notion.databases.query({
