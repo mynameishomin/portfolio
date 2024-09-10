@@ -24,13 +24,13 @@ const myMenu = [
         icon: "🛠️",
         isBlank: false,
     },
-    {
-        id: 3,
-        name: "BLOG",
-        link: "https://blog.mynameishomin.com/",
-        icon: "📝",
-        isBlank: true,
-    },
+    // {
+    //     id: 3,
+    //     name: "BLOG",
+    //     link: "https://blog.mynameishomin.com/",
+    //     icon: "📝",
+    //     isBlank: true,
+    // },
     {
         id: 4,
         name: "CONTACT",
